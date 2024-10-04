@@ -16,8 +16,8 @@ To enable this, you have to do the following:</br>
 
 ## Login
  http://imsdcs.free.nf 
-- **Username:** 2020g8
-- **Password:** !2qwasZX
+- **Username:** masteradmin
+- **Password:** 123456789
 
 ## Home Page
 In the home page navbar, there are 3 links:
