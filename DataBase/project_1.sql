@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2023 at 09:27 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.0.23
+-- Generation Time: Oct 04, 2024 at 10:45 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,15 +35,15 @@ CREATE TABLE `admin` (
   `tp` int(12) NOT NULL,
   `role` varchar(15) NOT NULL,
   `password` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `username`, `email`, `tp`, `role`, `password`) VALUES
-(2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$5P6qDcZmUGrDP3v8jc9EIu/R9TuwmqVzmsJgvFGO9GygDTARzJQTK'),
-(11, 'Chamindu Lakshan', 'admin', '123@gmail', 123456789, 'admin', '$2y$10$N3AKeDaNEVneb4fIN/YZAeFc62j0VOWNO2epfBX6AtlchVrbICuQq');
+(2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$gQ5sWqLrTWB4aUcSVdV7fujgmjv/IjJ9lgMbORxuqG/QvbAV7g4E.'),
+(14, 'fazil', 'fazil', 'fazilfrd@gmail.com', 789456123, 'admin', '$2y$10$KmFxn3wWAR/BAKX24rVVS.dDuTx38q410Xh7v2P8MWOhfTLllzLLq');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE `f_invoice` (
   `f_srn` int(11) NOT NULL,
   `f_type` varchar(15) NOT NULL,
   `location` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `f_invoice`
@@ -87,7 +87,7 @@ CREATE TABLE `f_items` (
   `f_set_id` int(11) NOT NULL,
   `location` varchar(100) NOT NULL,
   `working` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `f_items`
@@ -118,7 +118,7 @@ CREATE TABLE `invoice` (
   `srn` int(11) NOT NULL,
   `type` varchar(15) NOT NULL,
   `location` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `invoice`
@@ -156,7 +156,7 @@ CREATE TABLE `items` (
   `serial_number` varchar(30) NOT NULL,
   `location` varchar(100) NOT NULL,
   `working` varchar(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items`
@@ -207,7 +207,7 @@ CREATE TABLE `o_invoice` (
   `supplier_tt` int(15) NOT NULL,
   `srn` int(11) NOT NULL,
   `location` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `o_invoice`
@@ -229,7 +229,7 @@ CREATE TABLE `o_items` (
   `serial_number` varchar(50) NOT NULL,
   `location` varchar(100) NOT NULL,
   `working` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `o_items`
@@ -295,7 +295,7 @@ ALTER TABLE `o_items`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `f_invoice`
