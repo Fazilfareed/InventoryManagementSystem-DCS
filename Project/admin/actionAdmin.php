@@ -22,7 +22,7 @@
             $result = mysqli_query($con,$query);
             if(mysqli_num_rows($result) == 1){
                 echo "<script>alert('UserName or email alredy taken')</script>";
-                
+                header("location: ../login/register.php");
             }
             else{
                 $query = "INSERT INTO admin(name,username,email,tp,role,password) VALUES ('$name','$uname', '$email','$tpnumber','$role','$password' )";
@@ -53,6 +53,7 @@
             
             if(mysqli_num_rows($result) > 1){
                 echo "<script>alert('UserName or email alredy taken')</script>";
+                header("location: ../login/login.php");
             }
             else{
                 $query = "UPDATE admin SET name='$name',username='$uname',email='$email',tp='$tpnumber',password='$password' where id='$id'";
@@ -101,12 +102,12 @@
             $result = mysqli_query($con,$query);
             if(mysqli_num_rows($result) == 1){
                 echo "<script>alert('UserName or email alredy taken')</script>";
-                
+                header("location: ../login/login.php");
             }
             else{
                 $query = "INSERT INTO admin(name,username,email,tp,role,password) VALUES ('$name','$uname', '$email','$tpnumber','$role','$password' )";
                 $result = mysqli_query($con,$query);
-                header("location: ../login/login.php");
+                header("location: ../login/register.php");
             }
         }
         else{
@@ -132,6 +133,7 @@
             
             if(mysqli_num_rows($result) > 1){
                 echo "<script>alert('UserName or email alredy taken')</script>";
+                header("location: ../admin/index.php");
             }
             else{
                 $query = "UPDATE admin SET name='$name',username='$uname',email='$email',tp='$tpnumber',password='$password' where id='$id'";
