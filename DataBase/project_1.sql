@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2024 at 10:45 AM
+-- Generation Time: Oct 10, 2024 at 03:45 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,8 +42,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `username`, `email`, `tp`, `role`, `password`) VALUES
-(2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$gQ5sWqLrTWB4aUcSVdV7fujgmjv/IjJ9lgMbORxuqG/QvbAV7g4E.'),
-(14, 'fazil', 'fazil', 'fazilfrd@gmail.com', 789456123, 'admin', '$2y$10$KmFxn3wWAR/BAKX24rVVS.dDuTx38q410Xh7v2P8MWOhfTLllzLLq');
+(2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$mqZzmKv5SXtLEP/8P2/XHecPODD5iogI1zxvYFwC4c61AOGYiCfQ6'),
+(16, 'fazil', 'fazil', 'fzlfareed@gmail.com', 789456123, 'admin', '$2y$10$cCsODK4la/kjtQTaygg3muoBjZnsVi6LHTTxP9.RNoagjrdpINW8i');
 
 -- --------------------------------------------------------
 
@@ -139,8 +139,8 @@ INSERT INTO `invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio
 (120, 'Test_211', '2026-10-31', 123, 2, 'UOJ/CSC/123/1-3222', 'aaaaaaa', '123', 123, 123, 'laptop', '123'),
 (121, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4'),
 (122, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4'),
-(123, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4'),
-(124, 'Test_22', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'electronic', '');
+(123, 'Test_1', '2023-08-26', 123, 2, 'UOJ/CSC/123/1-3', '', 'ytg', 0, 0, 'laptop', 'CSL 3&4'),
+(125, 'laptop', '2024-02-05', 18000, 10, 'uoj/compsc/425/le/10', 'jdfdljf ldkjfld ldf', 'fazil', 789456123, 786, 'desktop', 'csl 3 and 4');
 
 -- --------------------------------------------------------
 
@@ -187,7 +187,47 @@ INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`
 (120, 1, 'laptop', 'Model_number', 'qweeeeeeee', '123', 'Noo'),
 (120, 1, 'laptop', 'Serial_number', '-', '1235676868', 'No'),
 (120, 2, 'laptop', 'Model_number', '2', '123', 'yes'),
-(120, 2, 'laptop', 'Serial_number', 'asd', '123', 'yes');
+(120, 2, 'laptop', 'Serial_number', 'asd', '123', 'yes'),
+(125, 1, 'desktop', 'CPU', 'a', 'csl 3 and 4', 'yes'),
+(125, 1, 'desktop', 'Monitor', 'b', 'csl 3 and 4', 'yes'),
+(125, 1, 'desktop', 'Keyboard', 'c', 'csl 3 and 4', 'yes'),
+(125, 1, 'desktop', 'Mouse', 'd', 'csl 3 and 4', 'yes'),
+(125, 2, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 2, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 2, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 2, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 3, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 3, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 3, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 3, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 4, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 4, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 4, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 4, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 5, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 5, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 5, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 5, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 6, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 6, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 6, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 6, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 7, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 7, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 7, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 7, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 8, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 8, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 8, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 8, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 9, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 9, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 9, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 9, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(125, 10, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
+(125, 10, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
+(125, 10, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
+(125, 10, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes');
 
 -- --------------------------------------------------------
 
@@ -295,7 +335,7 @@ ALTER TABLE `o_items`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `f_invoice`
@@ -307,7 +347,7 @@ ALTER TABLE `f_invoice`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT for table `o_invoice`
