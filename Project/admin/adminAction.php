@@ -53,7 +53,7 @@
                 <td><?php echo $row['tp']?></td>
                 <td><?php echo $row['role']?></td>
                 <?php if($row['username'] == $_SESSION['uname']){ ?>
-                    <td><a href="../login/register.php?id=<?php $row['id']?>">Update</a></td>
+                    <td><a href="../login/register.php?id=<?php echo $row['id']?>">Update</a></td>
                 <?php    
                 }   ?>
             
