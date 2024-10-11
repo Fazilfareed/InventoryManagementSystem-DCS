@@ -18,8 +18,9 @@
         $s_tp = $_POST['s_tp'];
         $srn = $_POST['srn'];
         $location = $_POST['location'];
+        $warranty= $_POST['warranty'];
 
-        $query1 = "INSERT INTO o_invoice(name,date,price,quantity,folio_number,description,supplier_name,supplier_tt,srn,location) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$location') ";
+        $query1 = "INSERT INTO o_invoice(name,date,price,quantity,folio_number,description,supplier_name,supplier_tt,srn,location,warranty) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$location','$warranty') ";
         $result1 = mysqli_query($con,$query1);
 
         $query2 ="SELECT invoice_id FROM o_invoice WHERE folio_number ='$folio'";
@@ -71,8 +72,9 @@
         $srn = $_POST['srn'];
         $type = $_POST['type'];
         $location = $_POST['location'];
+        $warranty=$_POST['warranty'];
 
-        $query = "UPDATE o_invoice SET name='$name',date='$date',price='$price',quantity='$quantity',folio_number='$folio',description='$description',supplier_name='$sName',supplier_tt='$s_tp',srn='$srn',location='$location' where invoice_id='$id'";
+        $query = "UPDATE o_invoice SET name='$name',date='$date',price='$price',quantity='$quantity',folio_number='$folio',description='$description',supplier_name='$sName',supplier_tt='$s_tp',srn='$srn',location='$location',warranty='$warranty' where invoice_id='$id'";
 
         $result = mysqli_query($con,$query);
         if($result){
