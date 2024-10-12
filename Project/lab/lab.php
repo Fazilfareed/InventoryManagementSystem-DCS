@@ -230,8 +230,8 @@
                     <tr>
                         <th>Article Name</th>
                         <th>Purchase Date</th>
-                        <th>Purchase Price</th>
-                        <!-- <th>Quantity</th> -->
+                        <th>unit Price</th>
+                        <th>Quantity</th>
                         <th>Inventory Number</th>
                         <th>Description</th>
                         <th>Supplier Name</th>
@@ -254,6 +254,7 @@
                                 <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
                                 <td><?php echo $rowinvoice['date']?></td>
                                 <td><?php echo $rowinvoice['price']?></td>
+                                <td><?php echo $rowinvoice['quantity']?></td>
                                 <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
                                 <td class="description"><?php echo $rowinvoice['description']?></td>
                                 <td class="sname"><?php echo $rowinvoice['supplier_name']?></td>
