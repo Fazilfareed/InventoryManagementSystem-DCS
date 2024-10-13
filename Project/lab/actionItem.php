@@ -49,9 +49,7 @@
     
                     // Inside the loop where you're inserting item data
                     foreach ($items as $item) {
-                        $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id'
-                        
-                        , '$i', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
+                        $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id', '$i', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
                         $result3 = mysqli_query($con, $query3);
                     }
                 }  
