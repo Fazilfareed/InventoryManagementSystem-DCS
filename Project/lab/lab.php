@@ -22,21 +22,28 @@
         $folio = $_POST['folio'];
         $SN = $_POST['SN'];
 
+        //testing folio number
+        $search_parts = explode('/', $folio);
+        $search_number = (int)end($search_parts);  // The number we're looking for (e.g., "10")
+        if (count($search_parts) === 5) {
+            $folio = implode('/', array_slice($search_parts, 0, -1)) . '/';
+        }
+
         if(!(empty($year)) AND  !(empty($folio)) AND !(empty($SN)) AND !(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number='$folio' AND invoice.type = '$type' ";
+            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number Like '$folio%' AND invoice.type = '$type' ";
         }
 
         else if(!(empty($year)) AND  !(empty($folio)) AND !(empty($SN))){
-            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number Like '$folio%' ";
         }
         else if(!(empty($type)) AND  !(empty($folio)) AND !(empty($SN))){
-            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.type = '$type' AND invoice.folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.type = '$type' AND invoice.folio_number='$folio%' ";
         }
         else if(!(empty($year)) AND  !(empty($type)) AND !(empty($SN))){
             $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.type = '$type' ";
         }
         else if(!(empty($year)) AND  !(empty($type)) AND !(empty($folio))){
-            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE invoice.folio_number='$folio' AND EXTRACT(YEAR FROM date)=$year AND invoice.type = '$type' ";
+            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE invoice.folio_number Like '$folio%' AND EXTRACT(YEAR FROM date)=$year AND invoice.type = '$type' ";
         }
 
         else if(!(empty($year)) AND  !(empty($type))){
@@ -45,7 +52,7 @@
         }  
         else if(!(empty($type)) AND  !(empty($folio))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND folio_number Like '$folio%' ";
         } 
         else if(!(empty($type)) AND  !(empty($SN))) {
             $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.type='$type'  ";
@@ -53,19 +60,19 @@
 
         else if(!(empty($year)) AND  !(empty($folio))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND folio_number Like '$folio%' ";
         }
         elseif (!(empty($year)) AND  !(empty($SN))) {
             $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year  ";
         }
         elseif (!(empty($folio)) AND  !(empty($SN))) {
-            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.folio_number Like '$folio%' ";
         }
         elseif (!(empty($year))) {
             $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
         }
         elseif (!(empty($folio))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE folio_number='$folio' ";
+            $queryinvoice = "SELECT * FROM invoice WHERE folio_number Like '$folio%' ";
         }
         elseif(!(empty($SN))){
             $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN'  ";
