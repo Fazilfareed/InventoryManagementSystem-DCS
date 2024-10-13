@@ -1,6 +1,8 @@
 <?php
 
 require('fpdf/fpdf.php');
+include("../config/connection.php");
+session_start();
 
 class PDF extends FPDF {
 
@@ -127,22 +129,18 @@ class PDF extends FPDF {
         }
     }
 
-    // Table generation inside class method
+
+    
+
     function GenerateTable() {
-        $this->SetFont('Arial', '', 10);
-        for ($i = 1; $i <= 100; $i++) {
-            // Now $this->CheckPageBreak(4) works because it's inside a class method
-            $this->CheckPageBreak(4);
-            $this->Cell(10, 4, $i, 1);
-            $this->Cell(40, 4, 'Article ' . $i, 1);
-            $this->Cell(20, 4, rand(1, 10), 1);
-            $this->Cell(20, 4, 'S', 1);
-            $this->Cell(50, 4, 'Folio No ' . $i, 1);
-            $this->Cell(50, 4, 'Dept Inv No ' . $i, 1);
-            $this->Cell(50, 4, 'Fixed No ' . $i, 1);
-            $this->Cell(30, 4, 'Remarks ' . $i, 1);
-            $this->Ln();
-        }
+
+        
+        
+        // while($data=mysqli_fetch_array($result)){
+        //     $this->CheckPageBreak(4);
+        //     $this->Cell(10, 4, $data['invoice_id'], 1);
+        //     $this->Cell(40, 4, $data['name'], 1);
+        // }    
     }
 }
 
@@ -152,8 +150,29 @@ class PDF extends FPDF {
 $pdf = new PDF("L", "mm", "A4");
 $pdf->AddPage();
 
-$pdf->GenerateTable();
 
+
+//$pdf->GenerateTable();
+$query = "SELECT * FROM invoice";
+$result = mysqli_query($con,$query);
+$totalRows = mysqli_num_rows($result);
+
+$pdf->SetFont('Arial', '', 10);
+$i = 1;       
+    
+while($row=mysqli_fetch_assoc($result)){
+    $pdf->CheckPageBreak(4);
+    $pdf->Cell(10, 4, $i, 1);
+    $pdf->Cell(40, 4, $row['name'], 1);
+    $pdf->Cell(20, 4, $row['quantity'], 1);
+    $pdf->Cell(20, 4, '', 1);
+    $pdf->Cell(50, 4, $row['folio_number'], 1);
+    $pdf->Cell(50, 4, '', 1);
+    $pdf->Cell(50, 4, '' , 1);
+    $pdf->Cell(30, 4, '' , 1);
+    $pdf->Ln();
+    $i++;
+}
 
 // Output the PDF
 $pdf->Output('Board_of_Survey_2023.pdf', 'I');
