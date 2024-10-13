@@ -33,6 +33,12 @@
                         <li><a href="../furniture/addData.php">Add Furniture</a></li>
                     </ul>
                 </li>
+                <li class="form"><a href="#">Form</a>
+                    <ul class="dropdown">
+                        <li><a href="../form/form_A.php">Form A</a></li>
+                        <li><a href="../form/form_B.php">Form B</a></li>
+                    </ul>
+                </li>
             </ul>
 
         </div>

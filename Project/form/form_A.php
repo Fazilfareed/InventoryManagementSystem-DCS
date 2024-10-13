@@ -1,5 +1,7 @@
 <?php
 require('fpdf/fpdf.php');
+include("../config/connection.php");
+session_start();
 
 // Extend the FPDF class to add header and footer
 class PDF extends FPDF
@@ -27,7 +29,7 @@ class PDF extends FPDF
         $this->MultiCell(20, 5, 'Purchase' . "\n" . ' Year', 1, 'C');
         $this->SetXY(70, $this->GetY()-10); // Adjust cursor position after MultiCell
         $this->Cell(25, 10, 'Purchase Value', 1, 0, 'C');
-        $this->Cell(30, 10, 'Dept. Inventory No', 1, 0, 'C');
+        $this->Cell(40, 10, 'Dept. Inventory No', 1, 0, 'C');
         $this->Cell(15, 10, 'Page No.', 1, 0, 'C');
         $this->MultiCell(40, 5, 'Fixed Assets No' . "\n" . '()', 1, 'C');
         $this->SetXY(180, $this->GetY()-10); // Adjust cursor position after MultiCell
@@ -93,21 +95,42 @@ $pdf->AddPage();
 
 // Sample data row for the table
 $pdf->SetFont('Arial', '', 9);
-for ($i = 1; $i <= 30; $i++) {
+// for ($i = 1; $i <= 30; $i++) {
+//     $pdf->CheckPageBreak(4);
+//     $pdf->Cell(10, 5, $i, 1, 0, 'C');
+//     $pdf->Cell(30, 5, 'Item ' . $i, 1, 0, 'C');
+//     $pdf->Cell(20, 5, '202' . $i, 1, 0, 'C');
+//     $pdf->Cell(25, 5, number_format(1000 * $i, 2), 1, 0, 'C');
+//     $pdf->Cell(30, 5, 'DINV' . $i, 1, 0, 'C');
+//     $pdf->Cell(15, 5, 'Page ' . $i, 1, 0, 'C');
+//     $pdf->Cell(40, 5, 'FA' . $i, 1, 0, 'C');
+//     $pdf->Cell(20, 5, 'Bal ' . $i, 1, 0, 'C');
+//     $pdf->Cell(10, 5, 'Tot', 1, 0, 'C');
+//     $pdf->Cell(20, 5, '' , 1, 0, 'C');
+//     $pdf->Cell(15, 5, '', 1, 0, 'C');
+//     $pdf->Cell(15, 5, '', 1, 0, 'C');
+//     $pdf->Cell(15, 5, '', 1, 1, 'C');
+// }
+
+$query = "SELECT * FROM invoice";
+$result = mysqli_query($con,$query);
+$totalRows = mysqli_num_rows($result);
+
+$pdf->SetFont('Arial', '', 10);
+$i = 1;       
+    
+while($row=mysqli_fetch_assoc($result)){
     $pdf->CheckPageBreak(4);
-    $pdf->Cell(10, 5, $i, 1, 0, 'C');
-    $pdf->Cell(30, 5, 'Item ' . $i, 1, 0, 'C');
-    $pdf->Cell(20, 5, '202' . $i, 1, 0, 'C');
-    $pdf->Cell(25, 5, number_format(1000 * $i, 2), 1, 0, 'C');
-    $pdf->Cell(30, 5, 'DINV' . $i, 1, 0, 'C');
-    $pdf->Cell(15, 5, 'Page ' . $i, 1, 0, 'C');
-    $pdf->Cell(40, 5, 'FA' . $i, 1, 0, 'C');
-    $pdf->Cell(20, 5, 'Bal ' . $i, 1, 0, 'C');
-    $pdf->Cell(10, 5, 'Tot', 1, 0, 'C');
-    $pdf->Cell(20, 5, '' , 1, 0, 'C');
-    $pdf->Cell(15, 5, '', 1, 0, 'C');
-    $pdf->Cell(15, 5, '', 1, 0, 'C');
-    $pdf->Cell(15, 5, '', 1, 1, 'C');
+    $pdf->Cell(10, 4, $i, 1);
+    $pdf->Cell(30, 4, $row['name'], 1);
+    $pdf->Cell(20, 4, date('Y', strtotime($row['date'])), 1);
+    $pdf->Cell(25, 4, $row['price'], 1);
+    $pdf->Cell(50, 4, $row['folio_number'], 1);
+    $pdf->Cell(50, 4, '', 1);
+    $pdf->Cell(50, 4, '' , 1);
+    $pdf->Cell(30, 4, '' , 1);
+    $pdf->Ln();
+    $i++;
 }
 
 // Output the PDF (download or display)
