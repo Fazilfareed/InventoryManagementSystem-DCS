@@ -280,10 +280,9 @@
                                         if ($purchaseDateObj > $currentDate) {
                                             // Calculate the difference in days between the current date and the warranty end date
                                             $interval = $currentDate->diff($purchaseDateObj);
-                                            echo 
-                                            $interval->y . " years<br>" 
-                                            . $interval->m . " months<br>" 
-                                            . $interval->d . " days<br>left";
+                                            if($interval->y>0 ){echo  $interval->y . " years<br>" ;}
+                                            if($interval->m>0){ echo $interval->m . " months<br>" ;}
+                                            if($interval->d>0){echo  $interval->d . " days<br>left";}
                                         } else {
                                             // Warranty has expired
                                             echo "expired";

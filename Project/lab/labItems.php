@@ -25,6 +25,7 @@
 </head>
 <body>
     <?php include("../header/header.php");?> <hr>
+    
     <div class="main-container">
        
         <?php
@@ -40,6 +41,26 @@
                 if(mysqli_num_rows($result) > 0){
                     
         ?>
+        
+    <div class="table-con" style="background-color:white;margin-bottom:10px;padding:2px;">
+    <?php
+        $query1 = "SELECT 	folio_number FROM invoice WHERE invoice_id = $id";
+        $result1 = $con->query($query1);
+
+        if ($result1) {
+            // Fetch the single row from the result
+            $row = $result1->fetch_assoc();
+            
+            // Access the specific column
+            $value = $row['folio_number'];
+            
+            // Output the value
+            echo "<b>Folio Numbers :</b> $value";
+        } else {
+            echo "Query error: " . $con->error;
+        }
+    ?>
+    </div>
         <div class="table-con">
         <table>
                 <thead>
@@ -61,7 +82,21 @@
                         <tr>
                             
                             <td hidden = "hidden"><?php echo $row['invoice_id']?></a></td>
-                            <td><?php echo $row['set_id']?></a></td>
+                            <td>
+                            <?php
+                                if($row['item'] == 'CPU'){
+                                    echo $row['set_id']."A";
+                                }else if($row['item'] == 'Monitor'){
+                                    echo $row['set_id']."B";
+                                }else if($row['item'] == 'Keyboard'){
+                                    echo $row['set_id']."C";
+                                }else if($row['item'] == 'Mouse'){
+                                    echo $row['set_id']."D";
+                                }else{
+                                    echo $row['set_id'];
+                                }
+                            ?>
+                            </a></td>
                             <td><?php echo $row['category']?></a></td>
                             <td><?php echo $row['item']?></td>
                             <td><?php echo $row['serial_number']?></td>
@@ -73,6 +108,9 @@
                         </tr>
                     <?php
                         }
+                }else{
+                    // theres no rows
+                    echo "No data";
                 }
             }
         ?>
