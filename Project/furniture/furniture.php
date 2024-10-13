@@ -169,6 +169,7 @@
                     <th>Supplier Phone</th>
                     <th>SRN</th>
                     <th>Location</th>
+                    <th>Warranty</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -191,6 +192,33 @@
                                 <td><?php echo $rowinvoice['f_supplier_tt']?></td>
                                 <td><?php echo $rowinvoice['f_srn']?></td>
                                 <td><?php echo $rowinvoice['location']?></td>
+                                <td>
+                                    <?php
+                                        // Purchase date and warranty period (in months)
+                                        $purchaseDate = $rowinvoice['f_date'];
+                                        $warrantyMonths = $rowinvoice['warranty'];
+
+                                        // Convert the purchase date to a DateTime object
+                                        $purchaseDateObj = new DateTime($purchaseDate);
+                                        // Add the warranty period (in months) to the purchase date
+                                        $purchaseDateObj->modify("+$warrantyMonths months");
+                                        // Get the current date
+                                        $currentDate = new DateTime();
+
+                                        // Check if (purchase date + warranty) > current date
+                                        if ($purchaseDateObj > $currentDate) {
+                                            // Calculate the difference in days between the current date and the warranty end date
+                                            $interval = $currentDate->diff($purchaseDateObj);
+                                            echo 
+                                            $interval->y . " years<br>" 
+                                            . $interval->m . " months<br>" 
+                                            . $interval->d . " days<br>left";
+                                        } else {
+                                            // Warranty has expired
+                                            echo "expired";
+                                        }
+                                    ?>
+                                </td>
                                 <td>
                                     <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
                                     <form method="post" action="actionItem.php">

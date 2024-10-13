@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2024 at 03:45 PM
+-- Generation Time: Oct 11, 2024 at 08:22 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,7 +43,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `username`, `email`, `tp`, `role`, `password`) VALUES
 (2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$mqZzmKv5SXtLEP/8P2/XHecPODD5iogI1zxvYFwC4c61AOGYiCfQ6'),
-(16, 'fazil', 'fazil', 'fzlfareed@gmail.com', 789456123, 'admin', '$2y$10$cCsODK4la/kjtQTaygg3muoBjZnsVi6LHTTxP9.RNoagjrdpINW8i');
+(19, 'fazil', 'fazil', 'fzlfareed@gmail.com', 789456123, 'admin', '$2y$10$/odL06qxirkcZlwvXy2a/O429YbAmC4CH85rLmFjXbZxz1lcNCxWi'),
+(20, 'sahran', 'sahranmhd', 'sahranmhd@gmail.com', 789874561, 'admin', '$2y$10$yMSHyCf1lFsXAobHAmtQz..rm2x2KxiOCYK2ZtbgGkOvrP/IIbkRa');
 
 -- --------------------------------------------------------
 
@@ -63,18 +64,18 @@ CREATE TABLE `f_invoice` (
   `f_supplier_tt` int(15) NOT NULL,
   `f_srn` int(11) NOT NULL,
   `f_type` varchar(15) NOT NULL,
-  `location` varchar(50) NOT NULL
+  `location` varchar(50) NOT NULL,
+  `warranty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `f_invoice`
 --
 
-INSERT INTO `f_invoice` (`invoice_id`, `f_name`, `f_date`, `f_price`, `f_quantity`, `f_folio_number`, `f_description`, `f_supplier_name`, `f_supplier_tt`, `f_srn`, `f_type`, `location`) VALUES
-(4, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS'),
-(6, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS'),
-(7, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS'),
-(9, 'Chamindu', '2023-08-31', 0, 4, 'UOJ/CSC/123/1-3', 'lkjklk', 'Chamidu', 0, 0, '', 'CUL 3&45');
+INSERT INTO `f_invoice` (`invoice_id`, `f_name`, `f_date`, `f_price`, `f_quantity`, `f_folio_number`, `f_description`, `f_supplier_name`, `f_supplier_tt`, `f_srn`, `f_type`, `location`, `warranty`) VALUES
+(4, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0),
+(6, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0),
+(7, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0);
 
 -- --------------------------------------------------------
 
@@ -88,16 +89,6 @@ CREATE TABLE `f_items` (
   `location` varchar(100) NOT NULL,
   `working` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `f_items`
---
-
-INSERT INTO `f_items` (`invoice_id`, `f_set_id`, `location`, `working`) VALUES
-(9, 1, 'CUL 3&45', 'yes'),
-(9, 2, 'CUL 3&45', 'yes'),
-(9, 3, 'CUL 3&45', 'yes'),
-(9, 4, 'CUL 3&45', 'No');
 
 -- --------------------------------------------------------
 
@@ -117,30 +108,39 @@ CREATE TABLE `invoice` (
   `supplier_tt` int(15) NOT NULL,
   `srn` int(11) NOT NULL,
   `type` varchar(15) NOT NULL,
-  `location` varchar(50) NOT NULL
+  `location` varchar(50) NOT NULL,
+  `warranty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `type`, `location`) VALUES
-(108, 'Test_1234aaaaaaaa', '2023-08-18', 12330000, 10, 'UOJ/CSC/123/1-13', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'jasdljas;ldkjaslidjsaldkjsaldajsldkjasdsadasd', 123456789, 2023, '', 'CSL 3&4hhhhhh'),
-(110, 'Test_1', '2023-08-31', 0, 0, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(111, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(112, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(113, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(114, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(115, 'Test_1', '2023-08-02', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45'),
-(116, 'Test_22', '2023-08-28', 123, 3, 'UOJ/CSC/123/1-26', 'aaaaaaaaaaaa', 'Chamidu', 123, 1234, 'electronic', 'CUL 3&45'),
-(117, 'Chamindu', '2023-08-28', 1233, 2, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'asdfe', 1234, 0, 'electronic', 'DCS'),
-(118, 'aaaa', '2023-08-26', 0, 2, 'UOJ/CSC/123/1-20', '', '', 0, 0, 'laptop', ''),
-(119, 'bbbbb', '0000-00-00', 0, 12, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'electronic', ''),
-(120, 'Test_211', '2026-10-31', 123, 2, 'UOJ/CSC/123/1-3222', 'aaaaaaa', '123', 123, 123, 'laptop', '123'),
-(121, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4'),
-(122, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4'),
-(123, 'Test_1', '2023-08-26', 123, 2, 'UOJ/CSC/123/1-3', '', 'ytg', 0, 0, 'laptop', 'CSL 3&4'),
-(125, 'laptop', '2024-02-05', 18000, 10, 'uoj/compsc/425/le/10', 'jdfdljf ldkjfld ldf', 'fazil', 789456123, 786, 'desktop', 'csl 3 and 4');
+INSERT INTO `invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `type`, `location`, `warranty`) VALUES
+(108, 'Test_1234aaaaaaaa', '2023-08-18', 12330000, 10, 'UOJ/CSC/123/1-13', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'jasdljas;ldkjaslidjsaldkjsaldajsldkjasdsadasd', 123456789, 2023, '', 'CSL 3&4hhhhhh', 0),
+(110, 'Test_1', '2023-08-31', 0, 0, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(111, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(112, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(113, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(114, 'Test_1', '0000-00-00', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(115, 'Test_1', '2023-08-02', 0, 2, 'UOJ/CSC/123/1-11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 0, 0, 'desktop', 'CUL 3&45', 0),
+(116, 'Test_22', '2023-08-28', 123, 3, 'UOJ/CSC/123/1-26', 'aaaaaaaaaaaa', 'Chamidu', 123, 1234, 'electronic', 'CUL 3&45', 0),
+(117, 'Chamindu', '2023-08-28', 1233, 2, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'asdfe', 1234, 0, 'electronic', 'DCS', 0),
+(118, 'aaaa', '2023-08-26', 0, 2, 'UOJ/CSC/123/1-20', '', '', 0, 0, 'laptop', '', 0),
+(119, 'bbbbb', '0000-00-00', 0, 12, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'electronic', '', 0),
+(120, 'Test_211', '2026-10-31', 123, 2, 'UOJ/CSC/123/1-3222', 'aaaaaaa', '123', 123, 123, 'laptop', '123', 0),
+(121, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4', 0),
+(122, 'Test_1', '2023-08-26', 12, 2, 'UOJ/CSC/123/1-3', '', '', 0, 0, 'laptop', 'CSL 3&4', 0),
+(123, 'Test_1', '2023-08-26', 123, 2, 'UOJ/CSC/123/1-3', '', 'ytg', 0, 0, 'laptop', 'CSL 3&4', 0),
+(125, 'laptop', '2024-02-05', 18000, 10, 'uoj/compsc/425/le/10', 'jdfdljf ldkjfld ldf', 'fazil', 789456123, 786, 'desktop', 'csl 3 and 4', 0),
+(126, 'Hp laptop', '2024-10-05', 8000, 5, 'uoj/compsc/426/le/10', 'bought hp laptop ', 'fazil fareed', 789456123, 786654, 'desktop', 'csl 1 and 2', 0),
+(127, 'dell desktop', '2024-10-11', 9000, 3, 'uoj/compsc/562/le/10', 'bought dell laptop', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 0),
+(128, 'dell desktop', '2024-10-10', 9000, 3, 'uoj/compsc/562/le/10', 'dfdf', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 1),
+(129, 'dell desktop test warranty', '2024-10-07', 9000, 3, 'uoj/compsc/562/le/10', 'dfdf', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 3),
+(130, 'hp desktop test warranty', '2024-10-10', 9000, 3, 'uoj/compsc/562/le/10', 'dfdf', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 22),
+(131, 'hp warranty', '2024-10-13', 9000, 23, 'uoj/compsc/582/le/10', 'dfdf', 'mohomad', 789456, 3578, 'desktop', 'csl 1 and 2', 2),
+(132, 'test warranty', '2024-10-05', 9000, 3, 'uoj/compsc/562/le/10', '', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 0),
+(133, 'test warranty', '2024-10-05', 9000, 3, 'uoj/compsc/562/le/102', '', 'mohomad', 789456, 354678, 'desktop', 'csl 1 and 2', 0);
 
 -- --------------------------------------------------------
 
@@ -188,7 +188,7 @@ INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`
 (120, 1, 'laptop', 'Serial_number', '-', '1235676868', 'No'),
 (120, 2, 'laptop', 'Model_number', '2', '123', 'yes'),
 (120, 2, 'laptop', 'Serial_number', 'asd', '123', 'yes'),
-(125, 1, 'desktop', 'CPU', 'a', 'csl 3 and 4', 'yes'),
+(125, 1, 'desktop', 'CPU', 'a', 'csl 3 and 4', 'tik'),
 (125, 1, 'desktop', 'Monitor', 'b', 'csl 3 and 4', 'yes'),
 (125, 1, 'desktop', 'Keyboard', 'c', 'csl 3 and 4', 'yes'),
 (125, 1, 'desktop', 'Mouse', 'd', 'csl 3 and 4', 'yes'),
@@ -227,7 +227,63 @@ INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`
 (125, 10, 'desktop', 'CPU', '', 'csl 3 and 4', 'yes'),
 (125, 10, 'desktop', 'Monitor', '', 'csl 3 and 4', 'yes'),
 (125, 10, 'desktop', 'Keyboard', '', 'csl 3 and 4', 'yes'),
-(125, 10, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes');
+(125, 10, 'desktop', 'Mouse', '', 'csl 3 and 4', 'yes'),
+(126, 1, 'desktop', 'CPU', 'A900', 'csl 1 and 2', 'yes'),
+(126, 1, 'desktop', 'Monitor', '', 'csl 1 and 2', 'yes'),
+(126, 1, 'desktop', 'Keyboard', '', 'csl 1 and 2', 'yes'),
+(126, 1, 'desktop', 'Mouse', '', 'csl 1 and 2', 'yes'),
+(126, 2, 'desktop', 'CPU', 'A800', 'csl 1 and 2', 'yes'),
+(126, 2, 'desktop', 'Monitor', '', 'csl 1 and 2', 'yes'),
+(126, 2, 'desktop', 'Keyboard', '', 'csl 1 and 2', 'yes'),
+(126, 2, 'desktop', 'Mouse', '', 'csl 1 and 2', 'yes'),
+(126, 3, 'desktop', 'CPU', '', 'csl 1 and 2', 'yes'),
+(126, 3, 'desktop', 'Monitor', '', 'csl 1 and 2', 'yes'),
+(126, 3, 'desktop', 'Keyboard', '', 'csl 1 and 2', 'yes'),
+(126, 3, 'desktop', 'Mouse', '', 'csl 1 and 2', 'yes'),
+(126, 4, 'desktop', 'CPU', '', 'csl 1 and 2', 'yes'),
+(126, 4, 'desktop', 'Monitor', '', 'csl 1 and 2', 'yes'),
+(126, 4, 'desktop', 'Keyboard', '', 'csl 1 and 2', 'yes'),
+(126, 4, 'desktop', 'Mouse', '', 'csl 1 and 2', 'yes'),
+(126, 5, 'desktop', 'CPU', '', 'csl 1 and 2', 'yes'),
+(126, 5, 'desktop', 'Monitor', '', 'csl 1 and 2', 'yes'),
+(126, 5, 'desktop', 'Keyboard', '', 'csl 1 and 2', 'yes'),
+(126, 5, 'desktop', 'Mouse', '', 'csl 1 and 2', 'yes'),
+(127, 1, 'desktop', 'CPU', 'A253', 'csl 1 and 2', 'no'),
+(127, 1, 'desktop', 'Monitor', 'B789', 'csl 1 and 2', 'yes'),
+(127, 1, 'desktop', 'Keyboard', 'C675', 'csl 1 and 2', 'yes'),
+(127, 1, 'desktop', 'Mouse', 'D9876', 'csl 1 and 2', 'yes'),
+(127, 2, 'desktop', 'CPU', 'A359', 'csl 1 and 2', 'yes'),
+(127, 2, 'desktop', 'Monitor', 'B765', 'csl 1 and 2', 'yes'),
+(127, 2, 'desktop', 'Keyboard', 'C688', 'csl 1 and 2', 'yes'),
+(127, 2, 'desktop', 'Mouse', 'D789', 'csl 1 and 2', 'yes'),
+(127, 3, 'desktop', 'CPU', 'A987', 'csl 1 and 2', 'yes'),
+(127, 3, 'desktop', 'Monitor', 'B865', 'csl 1 and 2', 'yes'),
+(127, 3, 'desktop', 'Keyboard', 'C765', 'csl 1 and 2', 'yes'),
+(127, 3, 'desktop', 'Mouse', 'D897', 'csl 1 and 2', 'yes'),
+(131, 1, 'desktop', 'CPU', 'B253', 'csl 1 and 2', 'yes'),
+(131, 1, 'desktop', 'Monitor', 'C789', 'csl 1 and 2', 'yes'),
+(131, 1, 'desktop', 'Keyboard', 'D675', 'csl 1 and 2', 'yes'),
+(131, 1, 'desktop', 'Mouse', 'A9876', 'csl 1 and 2', 'yes'),
+(131, 2, 'desktop', 'CPU', 'B359', 'csl 1 and 2', 'yes'),
+(131, 2, 'desktop', 'Monitor', 'A765', 'csl 1 and 2', 'yes'),
+(131, 2, 'desktop', 'Keyboard', 'D688', 'csl 1 and 2', 'yes'),
+(131, 2, 'desktop', 'Mouse', 'A789', 'csl 1 and 2', 'yes'),
+(131, 3, 'desktop', 'CPU', 'B287', 'csl 1 and 2', 'yes'),
+(131, 3, 'desktop', 'Monitor', 'C865', 'csl 1 and 2', 'yes'),
+(131, 3, 'desktop', 'Keyboard', 'D765', 'csl 1 and 2', 'yes'),
+(131, 3, 'desktop', 'Mouse', 'A897', 'csl 1 and 2', 'yes'),
+(133, 1, 'desktop', 'CPU', 'B253', 'csl 1 and 2', 'yes'),
+(133, 1, 'desktop', 'Monitor', 'C789', 'csl 1 and 2', 'yes'),
+(133, 1, 'desktop', 'Keyboard', 'D675', 'csl 1 and 2', 'yes'),
+(133, 1, 'desktop', 'Mouse', 'A9876', 'csl 1 and 2', 'yes'),
+(133, 2, 'desktop', 'CPU', 'B359', 'csl 1 and 2', 'yes'),
+(133, 2, 'desktop', 'Monitor', 'A765', 'csl 1 and 2', 'yes'),
+(133, 2, 'desktop', 'Keyboard', 'D688', 'csl 1 and 2', 'yes'),
+(133, 2, 'desktop', 'Mouse', 'A789', 'csl 1 and 2', 'yes'),
+(133, 3, 'desktop', 'CPU', 'B287', 'csl 1 and 2', 'yes'),
+(133, 3, 'desktop', 'Monitor', 'C865', 'csl 1 and 2', 'yes'),
+(133, 3, 'desktop', 'Keyboard', 'D765', 'csl 1 and 2', 'yes'),
+(133, 3, 'desktop', 'Mouse', 'A897', 'csl 1 and 2', 'yes');
 
 -- --------------------------------------------------------
 
@@ -246,16 +302,17 @@ CREATE TABLE `o_invoice` (
   `supplier_name` varchar(150) NOT NULL,
   `supplier_tt` int(15) NOT NULL,
   `srn` int(11) NOT NULL,
-  `location` varchar(50) NOT NULL
+  `location` varchar(50) NOT NULL,
+  `warranty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `o_invoice`
 --
 
-INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `location`) VALUES
-(15, 'Test_1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '0000-00-00', 1234, 123, 'UOJ/CSC/123/1-3', '1231aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 2147483647, 0, 'CUL 3&45aaa'),
-(16, 'Chamindu', '2023-08-31', 320, 3, 'UOJ/CSC/123/1-20', 'ljijljojlkjljlk', 'Chamidu', 4563121, 321, 'CUL 3&45');
+INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `location`, `warranty`) VALUES
+(15, 'Test_1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '0000-00-00', 1234, 123, 'UOJ/CSC/123/1-3', '1231aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 2147483647, 0, 'CUL 3&45aaa', 0),
+(16, 'Chamindu', '2023-08-31', 320, 3, 'UOJ/CSC/123/1-20', 'ljijljojlkjljlk', 'Chamidu', 4563121, 321, 'CUL 3&45', 15);
 
 -- --------------------------------------------------------
 
@@ -335,7 +392,7 @@ ALTER TABLE `o_items`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `f_invoice`
@@ -347,7 +404,7 @@ ALTER TABLE `f_invoice`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `o_invoice`

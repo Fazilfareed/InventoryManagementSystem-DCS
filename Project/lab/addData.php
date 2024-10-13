@@ -63,6 +63,10 @@ h2{
         <label for="quantity">Quantity</label> <br>
         <input type="number" name="quantity" value="<?php if(isset($_GET['id'])){echo $row1['quantity'];}?>" required/><br>
 
+        <label for="warranty">Warranty Period</label> <br>
+        <input type="number" name="warranty" value="<?php if(isset($_GET['id'])){echo $row1['warranty'];}?>" placeholder="In months" required/><br>
+
+
         <label for="folio">Folio Number</label> <br>
         <input type="text" name="folio" value="<?php if(isset($_GET['id'])){echo $row1['folio_number'];}?>" required/><br>
 
