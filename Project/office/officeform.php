@@ -17,9 +17,9 @@
     $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_invoice"));
     $totalPages = ceil($totalRows / $rowsPerPage);
 
-    if (isset($_GET['search'])) {
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+    if (isset($_POST['search'])) {
+        $year = $_POST['year'];
+        $name = $_POST['name'];
 
         
         if(!(empty($year)) AND  !(empty($name))){
@@ -39,10 +39,10 @@
     }
 
 
-    if (isset($_GET['export'])) {
+    if (isset($_POST['export'])) {
         
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+        $year = $_POST['year'];
+        $name = $_POST['name'];
 
         
         if(!(empty($year)) AND  !(empty($name))){
@@ -239,9 +239,9 @@
 
     <div class="main-container">
         <div class="container">
-        <h2>Form B</h2>
+        <h2>Form A</h2>
             <div>
-                <form action="officeForm_B.php" method="get">
+                <form action="office.php" method="post">
                 
                     <input type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
                     <input type="text" placeholder="name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
