@@ -14,6 +14,9 @@
         if(mysqli_num_rows($result) == 1){
             $row = mysqli_fetch_assoc($result);
         }
+    }else{
+        header("location: ../login/login.php");
+        exit();
     }
 
 ?>
@@ -49,13 +52,12 @@
                     <input type="text" name="uname" placeholder="Username" value="<?php if(isset($_GET['id'])){echo $row['username'];} ?>" required/> 
                 
                     <input type="email" name="email" placeholder="Email" value="<?php if(isset($_GET['id'])){echo $row['email'];} ?>" required/> 
-                
                     <input type="text" name="tpnumber" placeholder="Telephone" value="<?php if(isset($_GET['id'])){echo $row['tp'];} ?>" required/>
 
                     <input type="hidden" name="role" value="<?php if(isset($_GET['id'])){echo $row['role'];} ?>" required/>
 
                     <input type="password" name="password" placeholder="Password" value="" required/> 
-                 
+                    
                     <input type="password" name="c_password" placeholder="Confirm Password" value="" required/> 
 
                     <input type="submit" class="button" name="<?php if(isset($_GET['id'])){echo "update";} else{echo 'register';} ?>" value="<?php if(isset($_GET['id'])){echo "Update";} else{echo 'Register';} ?>" />
