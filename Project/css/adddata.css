@@ -1,13 +1,14 @@
-.container{
+.container {
     background: var(--bg-gradient);
     padding: 1rem 0 1rem 0;
 }
-h2{
+
+h2 {
     text-align: center;
     margin-bottom: 1.4rem;
 }
 
-.sub-container-1{
+.sub-container-1 {
     width: 1160px;
     background: #fff;
     border-radius: 10px;
@@ -20,14 +21,14 @@ h2{
 }
 
 
-label{
+label {
     display: block;
     font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
     margin-bottom: 1rem;
 }
 
-input{
+input {
     display: block;
     width: 100%;
     font-family: Poppins-Medium;
@@ -43,19 +44,21 @@ input{
     font-family: 'Poppins', sans-serif;
 }
 
-input:focus{
+input:focus {
     outline: none;
     text-align: left;
 }
 
-.galaxy{
+
+
+.galaxy {
     display: flex;
     justify-content: space-around;
 }
 
-.button-1{
-    background: black ;
-    color: white ;
+.button-1 {
+    background: black;
+    color: white;
     cursor: pointer;
     width: 230px;
     font-family: Poppins-Medium;
@@ -68,9 +71,9 @@ input:focus{
     font-family: 'Poppins', sans-serif;
 }
 
-.button{
-    background: var(--inp-color) ;
-    color: white ;
+.button {
+    background: var(--inp-color);
+    color: white;
     cursor: pointer;
     width: 230px;
     font-family: Poppins-Medium;
@@ -84,3 +87,55 @@ input:focus{
 
 }
 
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 30px;
+    background-color: #e6e6e6;
+    border-radius: 50%;
+    border: 2px solid #666;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+input[type="radio"]:checked {
+    background-color: #666;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 1.5px;
+    left: 2.5px;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.radio-group label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: #666;
+}
+
+.radio-group .radio-bttn {
+    width: 10px;
+}
