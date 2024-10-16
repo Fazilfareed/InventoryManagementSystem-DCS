@@ -20,9 +20,10 @@
         $srn = $_POST['srn'];
         $type = $_POST['type'];
         $location = $_POST['location'];
+        $warranty = $_POST['warranty'];
 
         
-        $query1 = "INSERT INTO invoice(name,date,price,quantity,folio_number,description,supplier_name,supplier_tt,srn,type,location) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$type','$location') ";
+        $query1 = "INSERT INTO invoice(name,date,price,quantity,folio_number,description,supplier_name,supplier_tt,srn,type,location,warranty) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$type','$location','$warranty') ";
         $result1 = mysqli_query($con,$query1);
 
         $query2 ="SELECT invoice_id FROM invoice WHERE folio_number ='$folio'";
@@ -48,9 +49,7 @@
     
                     // Inside the loop where you're inserting item data
                     foreach ($items as $item) {
-                        $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id'
-                        
-                        , '$i', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
+                        $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id', '$i', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
                         $result3 = mysqli_query($con, $query3);
                     }
                 }  
@@ -118,8 +117,9 @@
         $srn = $_POST['srn'];
         $type = $_POST['type'];
         $location = $_POST['location'];
+        $warranty = $_POST['warranty'];
 
-        $query = "UPDATE invoice SET name='$name',date='$date',price='$price',quantity='$quantity',folio_number='$folio',description='$description',supplier_name='$sName',supplier_tt='$s_tp',srn='$srn',location='$location' where invoice_id='$id'";
+        $query = "UPDATE invoice SET name='$name',date='$date',price='$price',quantity='$quantity',folio_number='$folio',description='$description',supplier_name='$sName',supplier_tt='$s_tp',srn='$srn',location='$location',warranty='$warranty' where invoice_id='$id'";
 
         $result = mysqli_query($con,$query);
         if($result){

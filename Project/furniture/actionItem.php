@@ -18,8 +18,9 @@
         $s_tp = $_POST['s_tp'];
         $srn = $_POST['srn'];
         $location = $_POST['location'];
+        $warranty= $_POST['warranty'];
 
-        $query1 = "INSERT INTO f_invoice(f_name,f_date,f_price,f_quantity,f_folio_number,f_description,f_supplier_name,f_supplier_tt,f_srn,location) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$location') ";
+        $query1 = "INSERT INTO f_invoice(f_name,f_date,f_price,f_quantity,f_folio_number,f_description,f_supplier_name,f_supplier_tt,f_srn,location,warranty) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$location','$warranty') ";
         $result1 = mysqli_query($con,$query1);
 
         if(!$result1){
@@ -65,8 +66,9 @@
         $srn = $_POST['srn'];
         $type = $_POST['type'];
         $location = $_POST['location'];
+        $warranty= $_POST['warranty'];
 
-        $query = "UPDATE f_invoice SET f_name='$name',f_date='$date',f_price='$price',f_quantity='$quantity',f_folio_number='$folio',f_description='$description',f_supplier_name='$sName',f_supplier_tt='$s_tp',f_srn='$srn',location='$location' where invoice_id='$id'";
+        $query = "UPDATE f_invoice SET f_name='$name',f_date='$date',f_price='$price',f_quantity='$quantity',f_folio_number='$folio',f_description='$description',f_supplier_name='$sName',f_supplier_tt='$s_tp',f_srn='$srn',location='$location',warranty='$warranty' where invoice_id='$id'";
 
         $result = mysqli_query($con,$query);
         if($result){

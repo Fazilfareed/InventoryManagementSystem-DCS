@@ -25,19 +25,19 @@ class PDF extends FPDF
         $this->Ln(2); // Line break
         $this->SetFont('Arial', 'B', 9);
         $this->Cell(10, 10, 'No.', 1, 0, 'C');
-        $this->Cell(30, 10, 'Description of Item', 1, 0, 'C');
-        $this->MultiCell(20, 5, 'Purchase' . "\n" . ' Year', 1, 'C');
-        $this->SetXY(70, $this->GetY()-10); // Adjust cursor position after MultiCell
+        $this->Cell(50, 10, 'Description of Item', 1, 0, 'C');
+        $this->MultiCell(17, 5, 'Purchase' . "\n" . 'Year', 1, 'C');
+        $this->SetXY(87, $this->GetY()-10); // Adjust cursor position after MultiCell
         $this->Cell(25, 10, 'Purchase Value', 1, 0, 'C');
         $this->Cell(40, 10, 'Dept. Inventory No', 1, 0, 'C');
         $this->Cell(15, 10, 'Page No.', 1, 0, 'C');
         $this->MultiCell(40, 5, 'Fixed Assets No' . "\n" . '()', 1, 'C');
-        $this->SetXY(180, $this->GetY()-10); // Adjust cursor position after MultiCell
-        $this->MultiCell(20, 5, 'Book' . "\n" . ' Balance', 1, 'C');
-        $this->SetXY(200, $this->GetY()-10); // Adjust cursor position after MultiCell
+        $this->SetXY(207, $this->GetY()-10); // Adjust cursor position after MultiCell
+        $this->MultiCell(15, 5, 'Book' . "\n" . 'Balance', 1, 'C');
+        $this->SetXY(222, $this->GetY()-10); // Adjust cursor position after MultiCell
         $this->Cell(10, 10, 'Total', 1, 0, 'C');
-        $this->MultiCell(20, 5, 'Verified' . "\n" . ' Balance', 1, 'C');
-        $this->SetXY(230, $this->GetY()-10); // Adjust cursor position after MultiCell
+        $this->MultiCell(15, 5, 'Verified' . "\n" . 'Balance', 1, 'C');
+        $this->SetXY(247, $this->GetY()-10); // Adjust cursor position after MultiCell
         $this->Cell(15, 10, 'Surplus', 1, 0, 'C');
         $this->Cell(15, 10, 'Deficit', 1, 0, 'C');
         $this->Cell(15, 10, 'Remarks', 1, 1, 'C');
@@ -78,10 +78,8 @@ class PDF extends FPDF
     }
 
     function CheckPageBreak($h) {
-        // Calculate footer space (assumed 70mm)
         $footerHeight = 70;
         
-        // Check if the height of the next row would exceed the page height minus the footer space
         if($this->GetY() + $h > ($this->h - $footerHeight)) {
             $this->AddPage($this->CurOrientation);
         }
@@ -93,26 +91,10 @@ class PDF extends FPDF
 $pdf = new PDF("L", "mm", "A4");
 $pdf->AddPage();
 
-// Sample data row for the table
 $pdf->SetFont('Arial', '', 9);
-// for ($i = 1; $i <= 30; $i++) {
-//     $pdf->CheckPageBreak(4);
-//     $pdf->Cell(10, 5, $i, 1, 0, 'C');
-//     $pdf->Cell(30, 5, 'Item ' . $i, 1, 0, 'C');
-//     $pdf->Cell(20, 5, '202' . $i, 1, 0, 'C');
-//     $pdf->Cell(25, 5, number_format(1000 * $i, 2), 1, 0, 'C');
-//     $pdf->Cell(30, 5, 'DINV' . $i, 1, 0, 'C');
-//     $pdf->Cell(15, 5, 'Page ' . $i, 1, 0, 'C');
-//     $pdf->Cell(40, 5, 'FA' . $i, 1, 0, 'C');
-//     $pdf->Cell(20, 5, 'Bal ' . $i, 1, 0, 'C');
-//     $pdf->Cell(10, 5, 'Tot', 1, 0, 'C');
-//     $pdf->Cell(20, 5, '' , 1, 0, 'C');
-//     $pdf->Cell(15, 5, '', 1, 0, 'C');
-//     $pdf->Cell(15, 5, '', 1, 0, 'C');
-//     $pdf->Cell(15, 5, '', 1, 1, 'C');
-// }
 
-$query = "SELECT * FROM invoice";
+
+$query = "SELECT * FROM f_invoice";
 $result = mysqli_query($con,$query);
 $totalRows = mysqli_num_rows($result);
 
@@ -121,14 +103,19 @@ $i = 1;
     
 while($row=mysqli_fetch_assoc($result)){
     $pdf->CheckPageBreak(4);
-    $pdf->Cell(10, 4, $i, 1);
-    $pdf->Cell(30, 4, $row['name'], 1);
-    $pdf->Cell(20, 4, date('Y', strtotime($row['date'])), 1);
-    $pdf->Cell(25, 4, $row['price'], 1);
-    $pdf->Cell(50, 4, $row['folio_number'], 1);
-    $pdf->Cell(50, 4, '', 1);
-    $pdf->Cell(50, 4, '' , 1);
-    $pdf->Cell(30, 4, '' , 1);
+    $pdf->Cell(10, 5, $i, 1);
+    $pdf->Cell(50, 5, $row['f_name'], 1);
+    $pdf->Cell(17, 5, date('Y', strtotime($row['f_date'])), 1);
+    $pdf->Cell(25, 5, $row['f_price'], 1);
+    $pdf->Cell(40, 5, $row['f_folio_number'], 1);
+    $pdf->Cell(15, 5, '', 1);
+    $pdf->Cell(40, 5, '', 1);
+    $pdf->Cell(15, 5, '', 1);
+    $pdf->Cell(10, 5, '', 1);
+    $pdf->Cell(15, 5, '' , 1);
+    $pdf->Cell(15, 5, '' , 1);
+    $pdf->Cell(15, 5, '', 1);
+    $pdf->Cell(15, 5, '', 1);
     $pdf->Ln();
     $i++;
 }

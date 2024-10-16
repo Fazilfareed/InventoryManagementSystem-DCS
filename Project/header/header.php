@@ -18,6 +18,8 @@
                     <ul class="dropdown">
                         <li><a href="../lab/lab.php" >Lab Equipments</a></li>
                         <li><a href="../lab/addData.php">Add Lab Equipments</a></li>
+                        <li><a href="../lab/labForm_A.php">Form A</a></li>
+                        <li><a href="../lab/labForm_B.php">Form B</a></li>
                     </ul>
                 </li>
 
@@ -25,18 +27,16 @@
                     <ul class="dropdown">
                         <li><a href="../office/office.php">Office Equipments</a></li>
                         <li><a href="../office/addData.php">Add Office Equipments</a></li>
+                        <li><a href="../office/officeForm_A.php">Form A</a></li>
+                        <li><a href="../office/officeForm_B.php">Form B</a></li>
                     </ul>
                 </li>
                 <li class="furniture"><a href="../furniture/furniture.php">Furniture</a>
                     <ul class="dropdown">
                         <li><a href="../furniture/furniture.php">Furniture</a></li>
                         <li><a href="../furniture/addData.php">Add Furniture</a></li>
-                    </ul>
-                </li>
-                <li class="form"><a href="#">Form</a>
-                    <ul class="dropdown">
-                        <li><a href="../form/form_A.php">Form A</a></li>
-                        <li><a href="../form/form_B.php">Form B</a></li>
+                        <li><a href="../furniture/furnitureForm_A.php">Form A</a></li>
+                        <li><a href="../furniture/furnitureForm_B.php">Form B</a></li>
                     </ul>
                 </li>
             </ul>

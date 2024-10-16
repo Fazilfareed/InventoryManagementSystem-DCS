@@ -26,7 +26,7 @@ class PDF extends FPDF {
         // List title
         $this->SetFont('Arial', 'BU', 12);
         $this->Cell(0, 5, 'LIST OF UNUSABLE / REPAIRABLE / TRANSFERRED', 0, 1, 'C');
-        $this->Ln(1); // Adds some space after the header
+        $this->Ln(1); 
 
         $this->SetFont('Arial', '', 12);
         $this->Cell(50, 5, 'Department: ..........................................................', 0, 1);
@@ -34,22 +34,22 @@ class PDF extends FPDF {
 
         // Table headers
         $this->SetFont('Arial', 'B', 10);
-        $this->Cell(10, 7, 'No', 1);
-        $this->Cell(40, 7, 'Article', 1);
-        $this->Cell(20, 7, 'Qty', 1);
-        $this->Cell(20, 7, 'S/D/R/T', 1);
-        $this->Cell(50, 7, 'Master Inventory Folio No.', 1);
-        $this->Cell(50, 7, 'Department Inventory No.', 1);
-        $this->Cell(50, 7, 'Fixed Assets No.', 1);
-        $this->Cell(30, 7, 'Remarks', 1);
+        $this->Cell(10, 7, 'No', 1,0,'C');
+        $this->Cell(60, 7, 'Article', 1,0,'C');
+        $this->Cell(10, 7, 'Qty', 1,0,'C');
+        $this->Cell(15, 7, 'S/D/R/T', 1,0,'C');
+        $this->Cell(50, 7, 'Master Inventory Folio No.', 1,0,'C');
+        $this->Cell(50, 7, 'Department Inventory No.', 1,0,'C');
+        $this->Cell(50, 7, 'Fixed Assets No.', 1,0,'C');
+        $this->Cell(30, 7, 'Remarks', 1,0,'C');
         $this->Ln();
     }
 
 
     // Page footer
     function Footer() {
-        // Position at 1.5 cm from bottom
-        $this->SetY(-80); // Adjust this value based on the height of your content
+        // Adjust this value based on the height of your content
+        $this->SetY(-80); 
         
         // Set font for the footer
         $this->SetFont('Arial', 'BU', 12);
@@ -120,40 +120,19 @@ class PDF extends FPDF {
     }
 
     function CheckPageBreak($h) {
-        // Calculate footer space (assumed 70mm)
+
         $footerHeight = 80;
         
-        // Check if the height of the next row would exceed the page height minus the footer space
         if($this->GetY() + $h > ($this->h - $footerHeight)) {
             $this->AddPage($this->CurOrientation);
         }
     }
-
-
-    
-
-    function GenerateTable() {
-
-        
-        
-        // while($data=mysqli_fetch_array($result)){
-        //     $this->CheckPageBreak(4);
-        //     $this->Cell(10, 4, $data['invoice_id'], 1);
-        //     $this->Cell(40, 4, $data['name'], 1);
-        // }    
-    }
 }
 
-
-
-// Create instance of the custom PDF class
 $pdf = new PDF("L", "mm", "A4");
 $pdf->AddPage();
 
-
-
-//$pdf->GenerateTable();
-$query = "SELECT * FROM invoice";
+$query = "SELECT * FROM f_invoice";
 $result = mysqli_query($con,$query);
 $totalRows = mysqli_num_rows($result);
 
@@ -162,14 +141,14 @@ $i = 1;
     
 while($row=mysqli_fetch_assoc($result)){
     $pdf->CheckPageBreak(4);
-    $pdf->Cell(10, 4, $i, 1);
-    $pdf->Cell(40, 4, $row['name'], 1);
-    $pdf->Cell(20, 4, $row['quantity'], 1);
-    $pdf->Cell(20, 4, '', 1);
-    $pdf->Cell(50, 4, $row['folio_number'], 1);
-    $pdf->Cell(50, 4, '', 1);
-    $pdf->Cell(50, 4, '' , 1);
-    $pdf->Cell(30, 4, '' , 1);
+    $pdf->Cell(10, 5, $i, 1);
+    $pdf->Cell(60, 5, $row['f_name'], 1);
+    $pdf->Cell(10, 5, $row['f_quantity'], 1);
+    $pdf->Cell(15, 5, '', 1);
+    $pdf->Cell(50, 5, $row['f_folio_number'], 1);
+    $pdf->Cell(50, 5, '', 1);
+    $pdf->Cell(50, 5, '' , 1);
+    $pdf->Cell(30, 5, '' , 1);
     $pdf->Ln();
     $i++;
 }
