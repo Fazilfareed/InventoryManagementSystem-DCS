@@ -20,12 +20,12 @@
     if (isset($_GET['search'])) {
         $year = $_GET['year'];
         $name = $_GET['name'];
-
         
         if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
         }
+
         elseif (!(empty($year))) {
             $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year ";
         }
@@ -44,11 +44,11 @@
         $year = $_GET['year'];
         $name = $_GET['name'];
 
-        
         if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
         }
+
         elseif (!(empty($year))) {
             $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year ";
         }
@@ -138,12 +138,10 @@
 
             function CheckPageBreak($h) {
                 $footerHeight = 70;
-                
                 if($this->GetY() + $h > ($this->h - $footerHeight)) {
                     $this->AddPage($this->CurOrientation);
                 }
             }
-
         }
 
         // Create PDF object
@@ -181,7 +179,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Equipments</title>
+    <title>Form A</title>
     <link rel="stylesheet" href="../css/lab.css">
     <link rel="stylesheet" href="../css/main.css">
 
@@ -221,7 +219,7 @@
             <table>
                 <thead>
                     <tr>
-                    <th>Article Name</th>
+                        <th>Article Name</th>
                         <th>Purchase Year</th>
                         <th>Purcahse Price</th>
                         <th>Master Inventory No</th>

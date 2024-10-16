@@ -21,14 +21,10 @@
         $year = $_GET['year'];
         $name = $_GET['name'];
 
-        
-
         if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
             $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
             
         }
-
-        
 
         else if(!(empty($year)) AND  !(empty($type))){
             
@@ -38,8 +34,6 @@
             
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
         } 
-        
-
         else if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
@@ -51,10 +45,10 @@
         elseif (!(empty($name))) {
             $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
         }
-        
         elseif(!(empty($type))){
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
         }
+
         else{
             $queryinvoice = "SELECT * FROM invoice ";
         }
@@ -69,7 +63,6 @@
 
         if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
             $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
-            
         }
 
         else if(!(empty($year)) AND  !(empty($type))){
@@ -80,7 +73,6 @@
             
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
         } 
-        
         else if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
@@ -95,36 +87,12 @@
         elseif(!(empty($type))){
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
         }
+
         else{
             $queryinvoice = "SELECT * FROM invoice ";
         }
 
-
         $resultinvoice1 = mysqli_query($con,$queryinvoice);
-
-        // Fetch data and write to the CSV
-        // while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
-        //     $rowData = [
-        //         $rowinvoice1['name'],
-        //         $rowinvoice1['date'],
-        //         $rowinvoice1['price'],
-        //         $rowinvoice1['quantity'],
-        //         $rowinvoice1['folio_number'],
-        //         $rowinvoice1['description'],
-        //         $rowinvoice1['supplier_name'],
-        //         $rowinvoice1['supplier_tt'],
-        //         $rowinvoice1['srn'],
-        //         $rowinvoice1['location']
-        //     ];
-        //     fputcsv($output, $rowData);
-        // }
-    
-        // // Close the output stream
-        // fclose($output);
-        // exit();
-
-
-        
 
         // Extend the FPDF class to add header and footer
         
@@ -168,7 +136,6 @@
                 $this->Cell(30, 7, 'Remarks', 1,0,'C');
                 $this->Ln();
             }
-        
         
             // Page footer
             function Footer() {
@@ -240,13 +207,10 @@
                 $this->SetFont('Arial', 'B', 10);
                 $this->Cell(60, 5, 'Vice Chancellor / Registrar', 0, 0,'C');
         
-        
             }
         
             function CheckPageBreak($h) {
-        
                 $footerHeight = 80;
-                
                 if($this->GetY() + $h > ($this->h - $footerHeight)) {
                     $this->AddPage($this->CurOrientation);
                 }
@@ -285,7 +249,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Equipments</title>
+    <title>Form B</title>
     <link rel="stylesheet" href="../css/lab.css">
     <link rel="stylesheet" href="../css/main.css">
 
