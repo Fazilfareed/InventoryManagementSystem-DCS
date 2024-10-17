@@ -16,11 +16,11 @@ $queryinvoice = "SELECT * FROM invoice ORDER BY invoice_id DESC LIMIT $offset, $
 $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM invoice"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
-if (isset($_POST['search'])) {
-    $type = $_POST['type'];
-    $year = $_POST['year'];
-    $folio = $_POST['folio'];
-    $SN = $_POST['SN'];
+if (isset($_GET['search'])) {
+    $type = $_GET['type'];
+    $year = $_GET['year'];
+    $folio = $_GET['folio'];
+    $SN = $_GET['SN'];
 
     //testing folio number
     $search_parts = explode('/', $folio);
@@ -67,7 +67,7 @@ if (isset($_POST['search'])) {
     }
 }
 
-if (isset($_POST['export'])) {
+if (isset($_GET['export'])) {
     // Set appropriate headers for downloading
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment;filename="lab_equipment.csv"');
@@ -81,10 +81,10 @@ if (isset($_POST['export'])) {
     fputcsv($output, $columnHeaders);
 
 
-    $type = $_POST['type'];
-    $year = $_POST['year'];
-    $folio = $_POST['folio'];
-    $SN = $_POST['SN'];
+    $type = $_GET['type'];
+    $year = $_GET['year'];
+    $folio = $_GET['folio'];
+    $SN = $_GET['SN'];
 
     if (!(empty($year)) and  !(empty($folio)) and !(empty($SN)) and !(empty($type))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number='$folio' AND invoice.type = '$type' ";
@@ -180,7 +180,7 @@ if (isset($_POST['export'])) {
 
             <h2>Search Lab Equipments...</h2>
             <div>
-                <form action="lab.php" method="post">
+                <form action="lab.php" method="get">
 
                     <select name="type">
                         <option value="">Please Select</option>
@@ -214,6 +214,7 @@ if (isset($_POST['export'])) {
                         <th>Inventory Number</th>
                         <th>Description</th>
                         <th colspan=2>Supplier Details</th>
+                        <th>Page Number</th>
                         <!-- <th>Supplier Phone</th>
                         <th>SRN</th> -->
                         <!-- <th>Category</th> -->
@@ -250,6 +251,7 @@ if (isset($_POST['export'])) {
 
                                 ?>
                             </td>
+                            <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt']
                                         ?></td>
                                 <td><?php //echo $rowinvoice['srn']
@@ -305,7 +307,7 @@ if (isset($_POST['export'])) {
 
 
             </table>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 $(document).ready(function() {
                     $('.description').each(function() {
@@ -340,7 +342,7 @@ if (isset($_POST['export'])) {
                         }
                     });
                 });
-            </script>
+            </script> -->
         </div>
 
         <div class="pagination" style="margin:15px;">
