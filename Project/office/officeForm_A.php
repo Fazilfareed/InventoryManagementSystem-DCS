@@ -206,9 +206,11 @@
                 <form action="officeForm_A.php" method="get">
                 
                     <input type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
+
                     <input type="text" placeholder="name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
                     
                     <input class="button" type="submit"  name="search" value="Search" />
+
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 
                 </form>
@@ -242,18 +244,30 @@
                                 <tr>
                                     
                                 <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
+
                                 <td><?php echo $rowinvoice['date']?></td>
+
                                 <td><?php echo $rowinvoice['price']?></td>
-                                <td><?php echo "MNo";?></td>
+
+                                <td class="folio_number"><?php echo "UoJ-0604J4114096080/0094-0096";?></td>
+
                                 <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
-                                <td class="description"><?php echo "PNo";?></td>
-                                <td class="sname"><?php echo "FNo";?></td>
+
+                                <td ><?php echo "PNo";?></td>
+
+                                <td class="folio_number"><?php echo "FNo";?></td>
+
                                 <td><?php echo "BookBalance";?></td>
+
                                 <td><?php echo "total";?></td>
+
                                 <td>
                                     <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
+
                                     <form method="post" action="actionItem.php">
+
                                     <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
+
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                     </form>
                                 </td>    
@@ -276,20 +290,13 @@
             });
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
                 });
             });
-            $(document).ready(function() {
-                $('.sname').each(function() {
-                    if ($(this).width() > 150) {
-                        $(this).removeClass('sname').addClass('sname expandable');
-                        $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
-                    }
-                });
-            });
+            
             
             </script>
         </div>

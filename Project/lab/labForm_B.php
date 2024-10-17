@@ -282,9 +282,11 @@
                     </select>
 
                     <input  type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
+
                     <input  type="text" placeholder="Artical Name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
 
                     <input class="button" type="submit"  name="search" value="Search" />
+                    
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 </form>
             </div>
@@ -296,6 +298,7 @@
                     <tr>
                         <th>Article Name</th>
                         <th>Qty</th>
+                        <th>Mark as S/D/R/T</th>
                         <th>Master Inventory No</th>
                         <th>Department Inventory Number</th>
                         <th>Fixed Assest No</th>
@@ -312,10 +315,17 @@
                         ?>
                             <tr>
                                 <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
+
                                 <td><?php echo $rowinvoice['quantity']?></td>
+
+                                <td><?php echo "" ?></td>
+
                                 <td><?php echo $rowinvoice['folio_number']?></td>
-                                <td><?php echo "DIN";?></td>
+
+                                <td><?php echo "UJ/COMPSC/425/LE/369/11B";?></td>
+
                                 <td><?php echo "FAN";?></td>
+
                                 <td>
                                     <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
                                     <form method="post" action="actionItem.php">
@@ -334,7 +344,7 @@
 
             </table>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <!-- <script>
+            <script>
             $(document).ready(function() {
                 $('.description').each(function() {
                     if ($(this).width() > 200) {
@@ -346,7 +356,7 @@
 
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -354,7 +364,7 @@
             });
             $(document).ready(function() {
                 $('.sname').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('sname').addClass('sname expandable');
                         $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -362,13 +372,13 @@
             });
             $(document).ready(function() {
                 $('.folio_number').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('folio_number').addClass('folio_number expandable');
                         $(this).closest('tr').after('<tr><td class="folio_number expandable">' + $(this).text() + '</td></tr>');
                     }
                 });
             });
-            </script> -->
+            </script>
         </div>
 
         <div class="pagination" style="margin:15px;">
