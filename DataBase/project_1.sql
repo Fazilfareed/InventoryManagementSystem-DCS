@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 01:33 PM
+-- Generation Time: Oct 17, 2024 at 02:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -64,6 +64,7 @@ CREATE TABLE `f_invoice` (
   `f_supplier_tt` int(15) NOT NULL,
   `f_srn` int(11) NOT NULL,
   `f_type` varchar(15) NOT NULL,
+  `page_number` varchar(15) NOT NULL,
   `location` varchar(50) NOT NULL,
   `warranty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -72,11 +73,9 @@ CREATE TABLE `f_invoice` (
 -- Dumping data for table `f_invoice`
 --
 
-INSERT INTO `f_invoice` (`invoice_id`, `f_name`, `f_date`, `f_price`, `f_quantity`, `f_folio_number`, `f_description`, `f_supplier_name`, `f_supplier_tt`, `f_srn`, `f_type`, `location`, `warranty`) VALUES
-(4, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0),
-(6, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0),
-(7, 'Test_1', '2023-08-26', 321, 6, 'UOJ/CSC/123/1-10', 'aaaaaaaaaaaa', 'asdfe', 123, 321, '', 'DCS', 0),
-(10, 'test furniture', '2024-10-05', 18999, 1, 'uoj/compsc/124/fe/10', 'lkljfldfd', 'fazil', 2147483647, 2147483647, '', 'csl 3 & 4', 2);
+INSERT INTO `f_invoice` (`invoice_id`, `f_name`, `f_date`, `f_price`, `f_quantity`, `f_folio_number`, `f_description`, `f_supplier_name`, `f_supplier_tt`, `f_srn`, `f_type`, `page_number`, `location`, `warranty`) VALUES
+(10, 'test furniture', '2024-10-05', 0, 1, 'uoj/compsc/124/fe/10', 'lkljfldfd', 'fazil', 2147483647, 2147483647, '', 'FE102', 'csl 3 & 4', 2),
+(11, 'test_1', '2024-10-10', 50000, 1, 'uoj/csc/132/Fe/18', 'table', 'fazil', 78945613, 66579, '', 'OE790', 'DCS', 6);
 
 -- --------------------------------------------------------
 
@@ -86,9 +85,9 @@ INSERT INTO `f_invoice` (`invoice_id`, `f_name`, `f_date`, `f_price`, `f_quantit
 
 CREATE TABLE `f_items` (
   `invoice_id` int(11) NOT NULL,
-  `f_set_id` int(11) NOT NULL,
+  `f_set_id` varchar(50) NOT NULL,
   `location` varchar(100) NOT NULL,
-  `working` varchar(10) NOT NULL
+  `working` enum('yes','no','R','S','D','T') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -96,7 +95,8 @@ CREATE TABLE `f_items` (
 --
 
 INSERT INTO `f_items` (`invoice_id`, `f_set_id`, `location`, `working`) VALUES
-(10, 1, 'csl 3 & 4', 'yes');
+(10, '1', 'csl 3 & 4', 'yes'),
+(11, '1', 'DCS', 'no');
 
 -- --------------------------------------------------------
 
@@ -204,7 +204,8 @@ CREATE TABLE `o_invoice` (
 
 INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `page_number`, `location`, `warranty`) VALUES
 (17, 'test_1', '2024-10-10', 18000, 3, 'uoj/csc/132/oe/31-33', 'first item', 'fazil', 456789123, 66579, 'OE789', 'csl 3 & 4', 13),
-(18, 'test_2', '2024-10-18', 18000, 3, 'uoj/csc/132/oe/34-36', '2nd item', 'fazil', 456789123, 66579, 'OE790', 'csl 3 & 4', 13);
+(18, 'test_2', '2024-10-18', 18000, 3, 'uoj/csc/132/oe/34-36', '2nd item', 'fazil', 456789123, 66579, 'OE790', 'csl 3 & 4', 13),
+(19, 'ldlfjkddddddddddddd hkdfldddddddd sdkfhdf', '2024-10-10', 38902, 2, 'uoj/csc/132/oe/37-38', 'NEW ETOIH HTW  ADFH DFHDFHOIA DFDFJGDJK FDHF DJFDN DUHFNDF JHDNFDHF NADFHN ADJFNDFJDN FDHFND FHDNFDAFNDFDN FDJFHDFJDFNDFJ NDFDNFODJFNDFNDOFOEF DFJDKJFDJ FODFDLFDOI FODFJDLF DFJHFD JNFDOFDOF DDFJDOJFOD FDF ', 'fazil', 78945613, 66579, 'OE790', 'csl 3 & 4', 34);
 
 -- --------------------------------------------------------
 
@@ -230,7 +231,9 @@ INSERT INTO `o_items` (`invoice_id`, `set_id`, `serial_number`, `location`, `wor
 (17, '2', 'S234', 'csl 3 & 4', 'yes'),
 (18, 'uoj/csc/132/oe/34', 'S284', 'csl 3 & 4', 'R'),
 (18, 'uoj/csc/132/oe/35', 'S234', 'csl 3 & 4', 'yes'),
-(18, 'uoj/csc/132/oe/36', 'S234', 'csl 3 & 4', 'yes');
+(18, 'uoj/csc/132/oe/36', 'S234', 'csl 3 & 4', 'yes'),
+(19, 'uoj/csc/132/oe/37', 'Gei2', 'csl 3 & 4', 'yes'),
+(19, 'uoj/csc/132/oe/38', 'S234', 'csl 3 & 4', 'yes');
 
 --
 -- Indexes for dumped tables
@@ -293,7 +296,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `f_invoice`
 --
 ALTER TABLE `f_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -305,7 +308,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `o_invoice`
 --
 ALTER TABLE `o_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
