@@ -1,13 +1,13 @@
-.main-container{
+.main-container {
     padding: 50px;
     min-height: 100vh;
     height: fit-content;
-    background: linear-gradient(-135deg,#c850c0,#4158d0);
-   
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+
 }
 
 /* search bar */
-.container{
+.container {
     text-align: center;
     background-color: white;
     border-radius: 15px;
@@ -17,13 +17,13 @@
     padding: 0 0 10px 0;
 }
 
-h2{
+h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
     font-family: 'Poppins', sans-serif;
 }
 
-select{
+select {
     font-size: 15px;
     color: #666;
     background: #e6e6e6;
@@ -31,20 +31,20 @@ select{
     border-radius: 5px;
     padding: 0 15px 0 15px;
     border: none;
-    font-family: 'Poppins', sans-serif;   
+    font-family: 'Poppins', sans-serif;
     width: 150px;
 }
 
-select:focus{
+select:focus {
     outline: none;
 }
 
-.inputData{
+.inputData {
     display: block;
     margin: 10px 0 10px 0;
 }
 
-.inputData input{
+.inputData input {
     font-size: 15px;
     color: #666;
     background: #e6e6e6;
@@ -56,7 +56,7 @@ select:focus{
     width: 100px;
 }
 
-option{
+option {
     font-size: 15px;
     color: #666;
     background: #e6e6e6;
@@ -67,12 +67,12 @@ option{
     font-family: 'Poppins', sans-serif;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
-.button{
-    background :#57b846 ;
+.button {
+    background: #57b846;
     color: white;
     cursor: pointer;
     height: 40px;
@@ -84,21 +84,21 @@ input:focus{
     margin-top: 10px;
 }
 
-table{
+table {
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
-   max-width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     position: relative;
 }
 
-.table-con{
+.table-con {
     border-collapse: collapse;
     background: #fff;
     border-radius: 10px;
     width: auto;
-    margin:auto;
+    margin: auto;
     position: relative;
     font-family: 'Open Sans';
     text-align: center;
@@ -131,7 +131,7 @@ table{
 }
 
 .table-con td.sname {
-    max-width: 150px;
+    max-width: 170px;
     word-wrap: break-word;
 }
 
@@ -154,29 +154,29 @@ table{
 
 
 
-th{
+th {
     width: 200px;
-    font-size:18px;
+    font-size: 18px;
     background: #293036;
     color: white;
     padding: 15px;
 }
 
-td{
+td {
     padding: 12px;
 }
 
-tr:hover{
+tr:hover {
     background-color: #DAE2EB;
 }
 
-tr:hover a{
+tr:hover a {
     color: #000F68;
 }
 
 
 
-input{
+input {
     font-size: 15px;
     color: #666;
     background: #e6e6e6;
@@ -187,19 +187,24 @@ input{
     font-family: 'Poppins', sans-serif;
 }
 
-.logout{
-    margin:5px;background-color: #ff0000; color: #ffffff; border: none; padding: 5px 10px; cursor: pointer;
+.logout {
+    margin: 5px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {
-    .main-container{
+    .main-container {
         padding: 18px;
         min-height: 100vh;
-        height: fit-content;  
+        height: fit-content;
     }
-    
+
     /* search bar */
-    .container{
+    .container {
         text-align: center;
         background-color: white;
         border-radius: 15px;
@@ -208,31 +213,31 @@ input{
         margin-bottom: 0.8rem;
         padding: 0 0 4px 0;
     }
-    
-    h2{
+
+    h2 {
         font-size: 0.7rem;
         margin-bottom: 0.3rem;
         font-family: 'Poppins', sans-serif;
     }
-    
-    select{
+
+    select {
         font-size: 8px;
         height: 30px;
         border-radius: 5px;
         padding: 0 5px 0 5px;
         border: none;
-        font-family: 'Poppins', sans-serif;   
+        font-family: 'Poppins', sans-serif;
         width: 100px;
     }
 
-    option{
+    option {
         font-size: 5px;
         height: 7px;
         border-radius: 5px;
         padding: 0 3px 0 3px;
     }
-    
-    .button{
+
+    .button {
         cursor: pointer;
         height: 16px;
         border-radius: 5px;
@@ -241,8 +246,8 @@ input{
         font-family: 'Poppins', sans-serif;
         width: 100px;
     }
-    
-    table{
+
+    table {
         border-collapse: collapse;
         border-radius: 10px;
         overflow: hidden;
@@ -250,83 +255,89 @@ input{
         margin: 0 auto;
         position: relative;
     }
-    
-    .table-con{
+
+    .table-con {
         border-collapse: collapse;
         background: #fff;
         border-radius: 10px;
         width: auto;
-        margin:auto;
+        margin: auto;
         position: relative;
         font-family: 'Open Sans';
         text-align: center;
         background: #fff;
     }
- 
+
     .table-con td.description {
         max-width: 30px;
         word-wrap: break-word;
     }
-    
+
     .table-con td.description.expandable {
         overflow: visible;
         white-space: normal;
         text-overflow: clip;
     }
-    
+
     .table-con td.name {
         max-width: 30px;
         word-wrap: break-word;
     }
-    
+
     .table-con td.name.expandable {
         overflow: visible;
         white-space: normal;
         text-overflow: clip;
     }
-    
+
     .table-con td.sname {
         max-width: 30px;
         word-wrap: break-word;
     }
-    
+
     .table-con td.sname.expandable {
         overflow: visible;
         white-space: normal;
         text-overflow: clip;
-    } 
+    }
 
     .table-con td.folio_number {
         max-width: 30px;
         word-wrap: break-word;
     }
-    
+
     .table-con td.folio_number.expandable {
         overflow: visible;
         white-space: normal;
         text-overflow: clip;
     }
-    
-    th{
+
+    th {
         width: 60px;
-        font-size:6px;
+        font-size: 6px;
         background: #293036;
         color: white;
         padding: 1px;
     }
-    
-    td{
+
+    td {
         padding: 2px;
         font-size: 6px;
     }
-    input{
-    width: 100px;
-    height: 20px;
-    font-size: 9px;
-  }
-  .logout{
-    background-color: #ff0000; color: #ffffff; border: none; padding: 1px 2px; cursor: pointer;
-    font-size: 6px;
- }
-    
+
+    input {
+        width: 100px;
+        height: 20px;
+        font-size: 9px;
+    }
+
+    .logout {
+        background-color: #ff0000;
+        color: #ffffff;
+        border: none;
+        padding: 1px 2px;
+        cursor: pointer;
+        font-size: 6px;
+    }
+
 }
