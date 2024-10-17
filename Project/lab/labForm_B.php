@@ -334,7 +334,7 @@
 
             </table>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
+            <!-- <script>
             $(document).ready(function() {
                 $('.description').each(function() {
                     if ($(this).width() > 200) {
@@ -368,7 +368,7 @@
                     }
                 });
             });
-            </script>
+            </script> -->
         </div>
 
         <div class="pagination" style="margin:15px;">

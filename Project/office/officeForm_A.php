@@ -209,7 +209,7 @@
                     <input type="text" placeholder="name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
                     
                     <input class="button" type="submit"  name="search" value="Search" />
-                    <input class="button" type="submit" name="export" value="Export to Excel" />
+                    <input class="button" type="submit" name="export" value="Export to PDF" />
                 
                 </form>
             </div>
