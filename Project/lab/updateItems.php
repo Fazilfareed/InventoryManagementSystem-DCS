@@ -56,9 +56,9 @@ if (isset($_GET['id']) && isset($_GET['setid']) && isset($_GET['item'])) {
                                                 } ?> " /> <br>
 
         <label for="setid">Set Id</label> <br>
-        <input type="number" name="setid" value="<?php if (isset($_GET['setid']) && isset($_GET['id']) && isset($_GET['item'])) {
-                                                        echo $setid;
-                                                    } ?>" required /> <br>
+        <input type="text" name="setid" value="<?php if (isset($_GET['setid']) && isset($_GET['id']) && isset($_GET['item'])) {
+                                                    echo $setid;
+                                                } ?>" required /> <br>
 
         <label for="category">Category</label> <br>
         <input type="text" name="category" value="<?php if (isset($_GET['setid']) && isset($_GET['id']) && isset($_GET['item'])) {
@@ -83,8 +83,8 @@ if (isset($_GET['id']) && isset($_GET['setid']) && isset($_GET['item'])) {
         <label for="working">Working</label> <br>
 
         <div class="radio-group">
-            <div><input type="radio" name="working" value="Yes" <?php if (isset($row1['working']) && $row1['working'] == 'Yes') echo 'checked'; ?> /> Yes</div>
-            <div><input type="radio" name="working" value="No" <?php if (isset($row1['working']) && $row1['working'] == 'No') echo 'checked'; ?> /> No</div>
+            <div><input type="radio" name="working" value="Yes" <?php if (isset($row1['working']) && $row1['working'] == 'yes') echo 'checked'; ?> /> Yes</div>
+            <div><input type="radio" name="working" value="No" <?php if (isset($row1['working']) && $row1['working'] == 'no') echo 'checked'; ?> /> No</div>
             <div><input type="radio" name="working" value="R" <?php if (isset($row1['working']) && $row1['working'] == 'R') echo 'checked'; ?> /> R</div>
             <div><input type="radio" name="working" value="S" <?php if (isset($row1['working']) && $row1['working'] == 'S') echo 'checked'; ?> /> S</div>
             <div><input type="radio" name="working" value="D" <?php if (isset($row1['working']) && $row1['working'] == 'D') echo 'checked'; ?> /> D</div>

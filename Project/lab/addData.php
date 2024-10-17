@@ -110,6 +110,15 @@ if (isset($_GET['id'])) {
                                                     echo $row1['srn'];
                                                 } ?>" /> <br>
 
+
+        <label for="pageNumber">Page Number</label> <br>
+        <input type="text" name="pageNumber" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['page_number'];
+                                                    } ?>" /> <br>
+
+
+
+
         <label for="location">Location:</label>
         <input type="text" name="location" value="<?php if (isset($_GET['id'])) {
                                                         echo $row1['location'];
@@ -159,7 +168,7 @@ if (isset($_GET['id'])) {
                     for (var i = 0; i < 4; i++) {
                         var th = document.createElement("th");
                         if (i == 0) {
-                            th.innerHTML = "CPU";
+                            th.innerHTML = "System Unit";
                         } else if (i == 1) {
                             th.innerHTML = "Monitor";
                         } else if (i == 2) {
@@ -204,7 +213,17 @@ if (isset($_GET['id'])) {
                     var newRow = tableBody.insertRow();
 
                     var cell = newRow.insertCell();
-                    cell.textContent = i;
+
+                    //for get folio number
+                    let string = document.querySelector('input[name="folio"]').value;
+                    let parts = string.split('-');
+                    let result = parts[0];
+
+                    let lastPart = result.split('/').pop();
+                    let incrementedNumber = parseInt(lastPart) + i - 1;
+                    let updatedString = result.replace(lastPart, incrementedNumber);
+
+                    cell.textContent = updatedString;
 
                     if (selectedType == "desktop") {
                         for (var j = 0; j < 4; j++) {
@@ -212,13 +231,17 @@ if (isset($_GET['id'])) {
                             var input = document.createElement("input");
                             input.type = "text";
                             if (j == 0) {
-                                input.name = "CPU" + i;
+                                input.name = "SystemUnit" + i;
+                                input.placeholder = "serial Number";
                             } else if (j == 1) {
                                 input.name = "Monitor" + i;
+                                input.placeholder = "serial Number";
                             } else if (j == 2) {
                                 input.name = "Keyboard" + i;
+                                input.placeholder = "serial Number";
                             } else if (j == 3) {
                                 input.name = "Mouse" + i;
+                                input.placeholder = "serial Number";
                             }
 
                             cell.appendChild(input);
