@@ -246,9 +246,11 @@
                     </select>
 
                     <input  type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
+
                     <input  type="text" placeholder="Artical Name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
 
                     <input class="button" type="submit"  name="search" value="Search" />
+
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 </form>
             </div>
@@ -282,10 +284,10 @@
                                 <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
                                 <td><?php echo $rowinvoice['date']?></td>
                                 <td><?php echo $rowinvoice['price']?></td>
-                                <td><?php echo "MNo";?></td>
+                                <td class="folio_number"><?php echo "J41140960970070-0072";?></td>
                                 <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
-                                <td class="description"><?php echo "PNo";?></td>
-                                <td class="sname"><?php echo "FNo";?></td>
+                                <td ><?php echo "PgNo";?></td>
+                                <td class="folio_number"><?php echo "";?></td>
                                 <td><?php echo "BookBalance";?></td>
                                 <td><?php echo "total";?></td>
                                 <td>
@@ -318,23 +320,15 @@
 
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
                 });
             });
             $(document).ready(function() {
-                $('.sname').each(function() {
-                    if ($(this).width() > 150) {
-                        $(this).removeClass('sname').addClass('sname expandable');
-                        $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
-                    }
-                });
-            });
-            $(document).ready(function() {
                 $('.folio_number').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('folio_number').addClass('folio_number expandable');
                         $(this).closest('tr').after('<tr><td class="folio_number expandable">' + $(this).text() + '</td></tr>');
                     }

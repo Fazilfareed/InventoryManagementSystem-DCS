@@ -259,6 +259,7 @@
                     <tr>
                         <th>Article Name</th>
                         <th>Qty</th>
+                        <th>Mark as S/D/R/T</th>
                         <th>Master Inventory No</th>
                         <th>Department Inventory Number</th>
                         <th>Fixed Assest No</th>
@@ -272,24 +273,31 @@
                         $resultinvoice = mysqli_query($con,$queryinvoice);
 
                         while($rowinvoice = mysqli_fetch_assoc($resultinvoice)){
-                            ?>
-                                <tr>
+                        ?>
+                            <tr>
                                     
-                                    <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
-                                    <td><?php echo $rowinvoice['quantity']?></td>
-                                    <td><?php echo $rowinvoice['folio_number']?></td>
-                                    <td><?php echo "DIN";?></td>
-                                    <td><?php echo "FAN";?></td>
-                                    <td>
-                                        <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
-                                        <form method="post" action="actionItem.php">
-                                        <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
-                                        <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
-                                        </form>
-                                    </td>
+                                <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
 
-                                </tr>
-                            <?php
+                                <td><?php echo $rowinvoice['quantity']?></td>
+
+                                <td><?php echo "" ?></td>
+
+                                <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
+
+                                <td><?php echo "UJ/COMPSC/425/LE/369/11B";?></td>
+
+                                <td><?php echo "FAN";?></td>
+
+                                <td>
+                                    <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
+                                    <form method="post" action="actionItem.php">
+                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
+                                    </form>
+                                </td>
+
+                             </tr>
+                        <?php
                         }
                     ?>
                 </tbody>
@@ -306,7 +314,7 @@
             });
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 400) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -314,7 +322,7 @@
             });
             $(document).ready(function() {
                 $('.sname').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('sname').addClass('sname expandable');
                         $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                     }
