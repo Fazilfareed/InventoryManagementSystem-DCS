@@ -164,6 +164,7 @@ if (isset($_POST['export'])) {
                         <th>Inventory Number</th>
                         <th>Description</th>
                         <th colspan=2>Supplier Details</th>
+                        <th>Page Number</th>
                         <!-- <th>Supplier Phone</th>
                         <th>SRN</th>  -->
                         <th>Location</th>
@@ -198,6 +199,7 @@ if (isset($_POST['export'])) {
 
                                 ?>
                             </td>
+                            <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt'] 
                                         ?></td>
                             <td><?php //echo $rowinvoice['srn'] 
@@ -243,7 +245,7 @@ if (isset($_POST['export'])) {
                     ?>
                 </tbody>
             </table>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 $(document).ready(function() {
                     $('.description').each(function() {
@@ -269,7 +271,7 @@ if (isset($_POST['export'])) {
                         }
                     });
                 });
-            </script>
+            </script> -->
         </div>
 
         <div class="pagination" style="margin:15px;">

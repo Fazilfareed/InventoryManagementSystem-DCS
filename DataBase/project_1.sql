@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 12:47 PM
+-- Generation Time: Oct 17, 2024 at 01:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -193,6 +193,7 @@ CREATE TABLE `o_invoice` (
   `supplier_name` varchar(150) NOT NULL,
   `supplier_tt` int(15) NOT NULL,
   `srn` int(11) NOT NULL,
+  `page_number` varchar(15) NOT NULL,
   `location` varchar(50) NOT NULL,
   `warranty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -201,9 +202,9 @@ CREATE TABLE `o_invoice` (
 -- Dumping data for table `o_invoice`
 --
 
-INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `location`, `warranty`) VALUES
-(15, 'Test_1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2024-10-04', 1234, 123, 'UOJ/CSC/145/1-3', '1231aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Chamidu', 2147483647, 0, 'CUL 3&45aaa', 0),
-(16, 'Chamindu', '2023-08-31', 320, 3, 'UOJ/CSC/123/1-20', 'ljijljojlkjljlk', 'Chamidu', 4563121, 321, 'CUL 3&45', 15);
+INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio_number`, `description`, `supplier_name`, `supplier_tt`, `srn`, `page_number`, `location`, `warranty`) VALUES
+(17, 'test_1', '2024-10-10', 18000, 3, 'uoj/csc/132/oe/31-33', 'first item', 'fazil', 456789123, 66579, 'OE789', 'csl 3 & 4', 13),
+(18, 'test_2', '2024-10-18', 18000, 3, 'uoj/csc/132/oe/34-36', '2nd item', 'fazil', 456789123, 66579, 'OE790', 'csl 3 & 4', 13);
 
 -- --------------------------------------------------------
 
@@ -213,10 +214,10 @@ INSERT INTO `o_invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `fol
 
 CREATE TABLE `o_items` (
   `invoice_id` int(11) NOT NULL,
-  `set_id` int(11) NOT NULL,
+  `set_id` varchar(50) NOT NULL,
   `serial_number` varchar(50) NOT NULL,
   `location` varchar(100) NOT NULL,
-  `working` varchar(10) NOT NULL
+  `working` enum('yes','no','R','S','D','T') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -224,9 +225,12 @@ CREATE TABLE `o_items` (
 --
 
 INSERT INTO `o_items` (`invoice_id`, `set_id`, `serial_number`, `location`, `working`) VALUES
-(16, 1, '1234', 'CUL 3&45', 'yes'),
-(16, 2, 'model1234', 'CUL 3&45', 'yes'),
-(16, 3, '', 'CUL 3&45', 'yes');
+(17, '0', 'S234', 'csl 3 & 4', 'yes'),
+(17, '1', 'S234', 'csl 3 & 4', 'yes'),
+(17, '2', 'S234', 'csl 3 & 4', 'yes'),
+(18, 'uoj/csc/132/oe/34', 'S284', 'csl 3 & 4', 'R'),
+(18, 'uoj/csc/132/oe/35', 'S234', 'csl 3 & 4', 'yes'),
+(18, 'uoj/csc/132/oe/36', 'S234', 'csl 3 & 4', 'yes');
 
 --
 -- Indexes for dumped tables
@@ -301,7 +305,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `o_invoice`
 --
 ALTER TABLE `o_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

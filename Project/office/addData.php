@@ -1,100 +1,131 @@
 <?php
-    include("../config/connection.php");
-    session_start();
+include("../config/connection.php");
+session_start();
 
-    if(!isset($_SESSION['uname'])){
-        header("location: login.php");
-        exit();
-    }
+if (!isset($_SESSION['uname'])) {
+    header("location: login.php");
+    exit();
+}
 
-    $queryinvoice = "SELECT * FROM invoice";
-    $result = mysqli_query($con,$queryinvoice);
+$queryinvoice = "SELECT * FROM invoice";
+$result = mysqli_query($con, $queryinvoice);
 
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-        $query1 = "SELECT * FROM o_invoice WHERE invoice_id = $id";
-        $result1 = mysqli_query($con, $query1);
-        $row1 = mysqli_fetch_assoc($result1);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query1 = "SELECT * FROM o_invoice WHERE invoice_id = $id";
+    $result1 = mysqli_query($con, $query1);
+    $row1 = mysqli_fetch_assoc($result1);
 
-        $query2 = "SELECT * FROM o_items WHERE invoice_id = $id";
-        $result2 = mysqli_query($con, $query2);
-        $row2 = mysqli_fetch_assoc($result2);
-    }
+    $query2 = "SELECT * FROM o_items WHERE invoice_id = $id";
+    $result2 = mysqli_query($con, $query2);
+    $row2 = mysqli_fetch_assoc($result2);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Data</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/adddata.css">
-<style>
+    <style>
+        form {
+            margin: auto;
+            width: 800px;
+        }
 
-
-form{
-    margin:auto;
-    width:800px;
-}
-h2{
-    margin:10px;
-    text-align:center;
-}
-        
-        
+        h2 {
+            margin: 10px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
-<?php include("../header/header.php");?>
-    <h2><?php if(isset($_GET['id'])){echo "Update Office Invoice";}else{echo "Add Office Invoice";}?></h2>
+    <?php include("../header/header.php"); ?>
+    <h2><?php if (isset($_GET['id'])) {
+            echo "Update Office Invoice";
+        } else {
+            echo "Add Office Invoice";
+        } ?></h2>
 
     <form action="actionItem.php" method="POST">
 
-        <input type="hidden" name="id" value="<?php if(isset($_GET['id'])){echo $row1['invoice_id'];}?> " /> <br>
+        <input type="hidden" name="id" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['invoice_id'];
+                                                } ?> " /> <br>
 
         <label for="aName">Article Name</label> <br>
-        <input type="text" name="aname" value="<?php if(isset($_GET['id'])){echo $row1['name'];}?>" required/> <br>
+        <input type="text" name="aname" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['name'];
+                                                } ?>" required /> <br>
 
         <label for="date">Date</label> <br>
-        <input type="date" name="date" value="<?php if(isset($_GET['id'])){echo $row1['date'];}?>" required/><br>
+        <input type="date" name="date" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['date'];
+                                                } ?>" required /><br>
 
         <label for="price">Price(Per Unit)</label> <br>
-        <input type="number" name="price" value="<?php if(isset($_GET['id'])){echo $row1['price'];}?>"required /><br>
+        <input type="number" name="price" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['price'];
+                                                    } ?>" required /><br>
 
         <label for="quantity">Quantity</label> <br>
-        <input type="number" name="quantity" value="<?php if(isset($_GET['id'])){echo $row1['quantity'];}?>" required/><br>
+        <input type="number" name="quantity" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['quantity'];
+                                                    } ?>" required /><br>
 
-        
+
         <label for="warranty">Warranty Period</label> <br>
-        <input type="number" name="warranty" value="<?php if(isset($_GET['id'])){echo $row1['warranty'];}?>" placeholder="In months" required/><br>
+        <input type="number" name="warranty" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['warranty'];
+                                                    } ?>" placeholder="In months" required /><br>
 
         <label for="folio">Folio Number</label> <br>
-        <input type="text" name="folio" value="<?php if(isset($_GET['id'])){echo $row1['folio_number'];}?>" required/><br>
+        <input type="text" name="folio" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['folio_number'];
+                                                } ?>" required /><br>
 
         <label for="description">Description</label>
-        <textarea name="description" cols="20" rows="10"><?php if(isset($_GET['id'])){echo $row1['description'];}?></textarea> <br><br><br>
+        <textarea name="description" cols="20" rows="10"><?php if (isset($_GET['id'])) {
+                                                                echo $row1['description'];
+                                                            } ?></textarea> <br><br><br>
 
         <label for="sName">Supplier Name</label> <br>
-        <input type="text" name="sName" value="<?php if(isset($_GET['id'])){echo $row1['supplier_name'];}?>"required /> <br>
+        <input type="text" name="sName" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['supplier_name'];
+                                                } ?>" required /> <br>
 
         <label for="s_tp">Supplier T.P.</label> <br>
-        <input type="number" name="s_tp" value="<?php if(isset($_GET['id'])){echo $row1['supplier_tt'];}?>" /> <br>
+        <input type="number" name="s_tp" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['supplier_tt'];
+                                                } ?>" /> <br>
 
         <label for="srn">SRN Number</label> <br>
-        <input type="number" name="srn" value="<?php if(isset($_GET['id'])){echo $row1['srn'];}?>" /> <br>
+        <input type="number" name="srn" value="<?php if (isset($_GET['id'])) {
+                                                    echo $row1['srn'];
+                                                } ?>" /> <br>
 
+        <label for="pageNumber">Page Number</label> <br>
+        <input type="text" name="pageNumber" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['page_number'];
+                                                    } ?>" /> <br>
         <label for="location">Location:</label>
-        <input type="text" name="location" value="<?php if(isset($_GET['id'])){echo $row1['location'];}?>" required/>
+        <input type="text" name="location" value="<?php if (isset($_GET['id'])) {
+                                                        echo $row1['location'];
+                                                    } ?>" required />
         <br><br>
 
         <select name="type" style="margin:20px ; padding: 10px; font-size:15px;" onchange="updateTableHeader()" hidden='hidden'>
-            <option value="electronic">electronic</option>   
+            <option value="electronic">electronic</option>
         </select>
-        <button type="button"  onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: #303655; margin: 10px;" <?php if(isset($_GET['id'])) {?> disabled="disabled" <?php } ?>>Add Serial Number</button>
+        <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: #303655; margin: 10px;" <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
 
         <div>
-            <table id="dataTable"  hidden="hidden">
+            <table id="dataTable" hidden="hidden">
                 <thead id="tableHeader">
                     <tr>
                         <th>No</th>
@@ -148,36 +179,46 @@ h2{
             //         tableHeader.appendChild(th);
             //     }
 
-                
+
             // }
-                
-            function addtable(){
+
+            function addtable() {
 
                 let element = document.getElementById("dataTable");
                 element.removeAttribute("hidden");
 
                 var selectedType = document.querySelector('select[name="type"]').value;
-                var quantity =parseInt(document.querySelector('input[name="quantity"]').value);
+                var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
 
                 var tableHeader = document.getElementById("dataTable").getElementsByTagName('thead')[0].insertRow();
                 var rowNumberHeader = document.createElement("th");
 
-                 var tableBody = document.getElementById("tableBody");
+                var tableBody = document.getElementById("tableBody");
                 for (var i = 1; i <= quantity; i++) {
                     var newRow = tableBody.insertRow();
-                    
+
                     var cell = newRow.insertCell();
-                    cell.textContent = i;
-                    
-                    if(selectedType == "electronic"){
-                            var cell = newRow.insertCell();
-                            var input = document.createElement("input");
-                            input.type = "text";
-                            input.name = "Serial_number" + i;                            
-                            cell.appendChild(input);
-                        }
+
+                    //for get folio number
+                    let string = document.querySelector('input[name="folio"]').value;
+                    let parts = string.split('-');
+                    let result = parts[0];
+
+                    let lastPart = result.split('/').pop();
+                    let incrementedNumber = parseInt(lastPart) + i - 1;
+                    let updatedString = result.replace(lastPart, incrementedNumber);
+
+                    cell.textContent = updatedString;
+
+                    if (selectedType == "electronic") {
+                        var cell = newRow.insertCell();
+                        var input = document.createElement("input");
+                        input.type = "text";
+                        input.name = "Serial_number" + i;
+                        cell.appendChild(input);
                     }
-                
+                }
+
                 var inputContainer = document.getElementById("input-container");
                 inputContainer.innerHTML = '';
 
@@ -190,7 +231,7 @@ h2{
                 addTypeButton.removeAttribute("disabled");
             }
 
-            function addtype(){
+            function addtype() {
 
 
                 var inputContainer = document.getElementById("input-container");
@@ -203,9 +244,9 @@ h2{
                 newInput.name = 'type[]';
 
                 var removeButton = document.createElement('button');
-                removeButton.className='removeButton';
+                removeButton.className = 'removeButton';
                 removeButton.textContent = ("Remove");
-                removeButton.onclick = function(){
+                removeButton.onclick = function() {
                     remove(inputRow);
                 };
 
@@ -215,14 +256,23 @@ h2{
                 inputContainer.appendChild(inputRow);
             }
 
-            function remove(inputRow){
+            function remove(inputRow) {
                 var inputContainer = document.getElementById('input-container');
 
                 inputContainer.removeChild(inputRow);
             }
         </script>
 
-        <input class="button" type="submit" name="<?php if(isset($_GET['id'])){echo "update";}else{echo "padd";}?>" value="<?php if(isset($_GET['id'])){echo "Update";}else{echo "Add";}?>" style="width: 75%;"/> <br>
+        <input class="button" type="submit" name="<?php if (isset($_GET['id'])) {
+                                                        echo "update";
+                                                    } else {
+                                                        echo "padd";
+                                                    } ?>" value="<?php if (isset($_GET['id'])) {
+                                                                        echo "Update";
+                                                                    } else {
+                                                                        echo "Add";
+                                                                    } ?>" style="width: 75%;" /> <br>
     </form>
 </body>
+
 </html>
