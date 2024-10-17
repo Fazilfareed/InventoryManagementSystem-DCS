@@ -21,14 +21,10 @@
         $year = $_GET['year'];
         $name = $_GET['name'];
 
-        
-
         if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
             $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
             
         }
-
-        
 
         else if(!(empty($year)) AND  !(empty($type))){
             
@@ -38,8 +34,6 @@
             
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
         } 
-        
-
         else if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
@@ -51,18 +45,16 @@
         elseif (!(empty($name))) {
             $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
         }
-        
         elseif(!(empty($type))){
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
         }
+
         else{
             $queryinvoice = "SELECT * FROM invoice ";
         }
     }
 
     if (isset($_GET['export'])) {
-        
-
         $type = $_GET['type'];
         $year = $_GET['year'];
         $name = $_GET['name'];
@@ -80,7 +72,6 @@
             
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
         } 
-        
         else if(!(empty($year)) AND  !(empty($name))){
             
             $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
@@ -95,6 +86,7 @@
         elseif(!(empty($type))){
             $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
         }
+
         else{
             $queryinvoice = "SELECT * FROM invoice ";
         }
@@ -178,7 +170,6 @@
 
             function CheckPageBreak($h) {
                 $footerHeight = 70;
-                
                 if($this->GetY() + $h > ($this->h - $footerHeight)) {
                     $this->AddPage($this->CurOrientation);
                 }
@@ -213,10 +204,6 @@
 
         // Output the PDF (download or display)
         $pdf->Output();
-
-
-
-
     }
 ?>
 
@@ -226,7 +213,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Equipments</title>
+    <title>Form A</title>
     <link rel="stylesheet" href="../css/lab.css">
     <link rel="stylesheet" href="../css/main.css">
 
