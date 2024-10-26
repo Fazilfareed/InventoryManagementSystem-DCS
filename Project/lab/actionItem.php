@@ -117,10 +117,8 @@ if (isset($_POST['padd'])) {
             }
         } elseif ($type === "electronic") {
             for ($i = 1; $i <= $quantity; $i++) {
-                $items = array('Serial_number'); // Array of item items
-
+                $items = array('testelectro'); // Array of item items
                 $itemData = array(); // Initialize an array to store item data
-
                 $index = (string)$i; // Convert $i to string for concatenation
 
                 //exploding

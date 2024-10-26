@@ -57,41 +57,41 @@
     if (isset($_GET['export'])) {
         
 
-        $type = $_GET['type'];
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+        // $type = $_GET['type'];
+        // $year = $_GET['year'];
+        // $name = $_GET['name'];
 
-        if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
-        }
+        // if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
+        //     $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
+        // }
 
-        else if(!(empty($year)) AND  !(empty($type))){
+        // else if(!(empty($year)) AND  !(empty($type))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-        }  
-        else if(!(empty($type)) AND  !(empty($name))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
+        // }  
+        // else if(!(empty($type)) AND  !(empty($name))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-        } 
-        else if(!(empty($year)) AND  !(empty($name))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
+        // } 
+        // else if(!(empty($year)) AND  !(empty($name))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-        }
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
+        // }
         
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-        }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
-        }
-        elseif(!(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
-        }
+        // elseif (!(empty($year))) {
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
+        // }
+        // elseif (!(empty($name))) {
+        //     $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
+        // }
+        // elseif(!(empty($type))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
+        // }
 
-        else{
-            $queryinvoice = "SELECT * FROM invoice ";
-        }
-
+        // else{
+        //     $queryinvoice = "SELECT * FROM invoice ";
+        // }
+        $queryinvoice = "SELECT * FROM items ";
         $resultinvoice1 = mysqli_query($con,$queryinvoice);
 
         // Extend the FPDF class to add header and footer
@@ -226,10 +226,10 @@
         while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
             $pdf->CheckPageBreak(4);
             $pdf->Cell(10, 5, $i, 1);
-            $pdf->Cell(60, 5, $rowinvoice1['name'], 1);
-            $pdf->Cell(10, 5, $rowinvoice1['quantity'], 1);
+            $pdf->Cell(60, 5, $rowinvoice1['item'], 1);
+            $pdf->Cell(10, 5,"", 1);
             $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(50, 5, $rowinvoice1['folio_number'], 1);
+            $pdf->Cell(50, 5, $rowinvoice1['set_id'], 1);
             $pdf->Cell(50, 5, '', 1);
             $pdf->Cell(50, 5, '' , 1);
             $pdf->Cell(30, 5, '' , 1);

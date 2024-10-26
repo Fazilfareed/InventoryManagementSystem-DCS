@@ -109,9 +109,9 @@ table {
 
 
 .table-con td.description {
-    max-width: 300px;
+    max-width: 200px;
     word-wrap: break-word;
-    min-width: 250px;
+    min-width: 100px;
 }
 
 .table-con td.description.expandable {
@@ -123,7 +123,7 @@ table {
 .table-con td.name {
     max-width: 200px;
     word-wrap: break-word;
-    min-width: 200px;
+    min-width: 100px;
 }
 
 .table-con td.name.expandable {
@@ -135,7 +135,7 @@ table {
 .table-con td.sname {
     max-width: 300px;
     word-wrap: break-word;
-    min-width: 200px;
+    min-width: 100px;
 }
 
 .table-con td.sname.expandable {

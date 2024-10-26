@@ -94,7 +94,7 @@ if (isset($_POST['search'])) {
                         <th>Article Name</th>
                         <th>Purchase Date</th>
                         <th>Purchase Price</th>
-                        <!-- <th>Quantity</th> -->
+                        <th>Quantity</th>
                         <th>Inventory Number</th>
                         <th>Description</th>
                         <th colspan=2>Supplier Details</th>
@@ -121,7 +121,7 @@ if (isset($_POST['search'])) {
 
                             <td><?php echo $rowinvoice['price'] ?></td>
 
-                            <!-- <td><?php echo $rowinvoice['quantity'] ?></td> -->
+                            <td><?php echo $rowinvoice['quantity'] ?></td>
 
                             <td><?php echo $rowinvoice['folio_number'] ?></td>
 

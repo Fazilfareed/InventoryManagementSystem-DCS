@@ -40,67 +40,6 @@ if (isset($_GET['search'])) {
     }
 }
 
-
-if (isset($_GET['export'])) {
-    // Set appropriate headers for downloading
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment;filename="Furniture_equipment.csv"');
-    header('Cache-Control: max-age=0');
-
-    // Open output stream for writing
-    $output = fopen('php://output', 'w');
-
-    // Write column headers to the CSV
-    $columnHeaders = ['Artical Name', 'Purchase Date', 'Purchase Price', 'Quantity', 'Folio NUmber', 'Description', 'Supplier Name', 'Supplier phone', 'SRN', 'Location'];
-    fputcsv($output, $columnHeaders);
-
-
-    $year = $_GET['year'];
-    $folio = $_GET['folio'];
-    $location = $_GET['location'];
-
-    if (!(empty($year)) and  !(empty($folio)) and !(empty($location))) {
-        $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } else if (!(empty($year)) and  !(empty($folio))) {
-        $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } elseif (!(empty($year)) and  !(empty($location))) {
-        $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year ORDER BY f_name ASC";
-    } elseif (!(empty($folio)) and  !(empty($location))) {
-        $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } elseif (!(empty($year))) {
-        $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year  ORDER BY f_name ASC";
-    } elseif (!(empty($folio))) {
-        $queryinvoice = "SELECT * FROM f_invoice WHERE f_folio_number='$folio' ORDER BY f_name ASC";
-    } elseif (!(empty($location))) {
-        $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' ORDER BY f_name ASC";
-    } else {
-        $queryinvoice = "SELECT * FROM f_invoice  ORDER BY f_name ASC";
-    }
-
-
-    $resultinvoice1 = mysqli_query($con, $queryinvoice);
-
-    // Fetch data and write to the CSV
-    while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
-        $rowData = [
-            $rowinvoice1['f_name'],
-            $rowinvoice1['f_date'],
-            $rowinvoice1['f_price'],
-            $rowinvoice1['f_quantity'],
-            $rowinvoice1['f_folio_number'],
-            $rowinvoice1['f_description'],
-            $rowinvoice1['f_supplier_name'],
-            $rowinvoice1['f_supplier_tt'],
-            $rowinvoice1['f_srn'],
-            $rowinvoice1['location']
-        ];
-        fputcsv($output, $rowData);
-    }
-
-    // Close the output stream
-    fclose($output);
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -134,17 +73,13 @@ if (isset($_GET['export'])) {
             <h2>Search Furniture Equipments...</h2>
             <div>
                 <form action="furniture.php" method="get">
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
-                                                                                    echo $_POST['year'];
-                                                                                } ?>" />
-                    <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {
-                                                                                            echo $_POST['folio'];
-                                                                                        } ?>" />
-                    <input type="text" placeholder="Location" name="location" value="<?php if (isset($_POST['location'])) {
-                                                                                            echo $_POST['location'];
-                                                                                        } ?>" />
+                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {echo $_POST['year'];} ?>" />
+
+                    <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {echo $_POST['folio'];} ?>" />
+
+                    <input type="text" placeholder="Location" name="location" value="<?php if (isset($_POST['location'])) {echo $_POST['location'];} ?>" />
+
                     <input class="button" type="submit" name="search" value="Search" />
-                    <input class="button" type="submit" name="export" value="Export to Excel" />
 
                 </form>
             </div>
@@ -157,7 +92,7 @@ if (isset($_GET['export'])) {
                         <th>Article Name</th>
                         <th>Purchase Date</th>
                         <th>Purchase Price</th>
-                        <!-- <th>Quantity</th> -->
+                        <th>Quantity</th>
                         <th>Inventory Number</th>
                         <th>Description</th>
                         <th colspan=2>Supplier Details</th>
@@ -182,7 +117,7 @@ if (isset($_GET['export'])) {
                             <td class="name"><a href="furnitureItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['f_name'] ?></a></td>
                             <td><?php echo $rowinvoice['f_date'] ?></td>
                             <td><?php echo $rowinvoice['f_price'] ?></td>
-                            <!-- <td><?php echo $rowinvoice['f_quantity'] ?></td> -->
+                            <td><?php echo $rowinvoice['f_quantity'] ?></td>
                             <td><?php echo $rowinvoice['f_folio_number'] ?></td>
                             <td class="description"><?php echo $rowinvoice['f_description'] ?></td>
                             <td class="sname" colspan=2>
@@ -234,7 +169,7 @@ if (isset($_GET['export'])) {
                                 <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>">Edit</a>
                                 <form method="post" action="actionItem.php">
                                     <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
-                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')" style="">Remove</button>
+                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                 </form>
                             </td>
                         </tr>
@@ -243,11 +178,11 @@ if (isset($_GET['export'])) {
                     ?>
                 </tbody>
             </table>
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
             $(document).ready(function() {
                 $('.description').each(function() {
-                    if ($(this).width() > 200) {
+                    if ($(this).width() > 250) {
                         $(this).removeClass('description').addClass('description expandable');
                         $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -255,7 +190,7 @@ if (isset($_GET['export'])) {
             });
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 250) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -263,13 +198,13 @@ if (isset($_GET['export'])) {
             });
             $(document).ready(function() {
                 $('.sname').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('sname').addClass('sname expandable');
                         $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                     }
                 });
             });
-            </script> -->
+            </script>
         </div>
 
         <div class="pagination" style="margin:15px;">
