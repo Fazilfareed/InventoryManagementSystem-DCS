@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 02:05 PM
+-- Generation Time: Oct 26, 2024 at 07:25 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,8 +43,41 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `username`, `email`, `tp`, `role`, `password`) VALUES
 (2, 'UOJ DCS', 'masteradmin', 'masteradmin@gmial.com', 123456789, 'masteradmin', '$2y$10$mqZzmKv5SXtLEP/8P2/XHecPODD5iogI1zxvYFwC4c61AOGYiCfQ6'),
-(19, 'fazil', 'fazil', 'fzlfareed@gmail.com', 789456123, 'admin', '$2y$10$/odL06qxirkcZlwvXy2a/O429YbAmC4CH85rLmFjXbZxz1lcNCxWi'),
+(19, 'fazil', 'fazil', 'fzlfareed@gmail.com', 789456123, 'admin', '$2y$10$bET9ze/UPJd5zQzCtr1Coet75J7JaTzTDMdB3MY24CjZIGg.BhF5W'),
 (20, 'sahran', 'sahranmhd', 'sahranmhd@gmail.com', 789874561, 'admin', '$2y$10$yMSHyCf1lFsXAobHAmtQz..rm2x2KxiOCYK2ZtbgGkOvrP/IIbkRa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `formb_table`
+--
+
+CREATE TABLE `formb_table` (
+  `article` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `sdrt` varchar(3) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_Inventory_no` varchar(50) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `remarks` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `formb_table`
+--
+
+INSERT INTO `formb_table` (`article`, `quantity`, `sdrt`, `master_inventory_no`, `dept_Inventory_no`, `fixed_asset_no`, `remarks`) VALUES
+('System Unit', 0, 'no', '', 'uoj/csc/453/le/18A', '', ''),
+('Keyboard', 0, 'no', '', 'uoj/csc/453/le/18C', '', ''),
+('Mouse', 0, 'S', '', 'uoj/csc/453/le/18D', '', ''),
+('Monitor', 0, 'no', '', 'uoj/csc/453/le/19B', '', ''),
+('Mouse', 0, 'no', '', 'uoj/csc/453/le/19D', '', ''),
+('electronics test', 0, 'no', '', 'uoj/csc/123/le/300', '', ''),
+('laptop test', 0, 'no', '', 'uoj/csc/530/le/259', '', ''),
+('laptop test', 0, 'no', '', 'uoj/csc/530/le/260', '', ''),
+('System Unit', 0, 'no', '', 'uoj/csc/242/le/12A', '', ''),
+('single electronic test', 0, 'S', '', 'uoj/csc/20/le/50', '', ''),
+('sahran', 0, 'S', '', 'uoj/lms/421/le/15', '', '');
 
 -- --------------------------------------------------------
 
@@ -131,7 +164,9 @@ INSERT INTO `invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio
 (177, 'laptop test', '2024-10-10', 58000, 2, 'uoj/csc/530/le/259-260', '', 'fazil', 789456123, 665479, 'laptop', 'LE354', 'cscl 3 and 4', 24),
 (178, 'single desktop test', '2024-10-11', 58000, 1, 'uoj/csc/242/le/12', 'dfdfdlfjk dkjfldj ', 'fazil', 789456123, 665479, 'desktop', 'LE354', 'cscl 3 and 4', 24),
 (179, 'single laptop test', '2024-10-11', 58000, 1, 'uoj/csc/242/le/50', 'jdljhdf dfhjdof hdifdniuhd idfjhdfndhfl ', 'fazil', 789456123, 665479, 'laptop', 'LE354', 'cscl 3 and 4', 24),
-(180, 'single electronic test', '2024-10-12', 58000, 1, 'uoj/csc/20/le/50', '', 'fazil', 789456123, 665479, 'electronic', 'LE354', 'cscl 3 and 4', 24);
+(180, 'single electronic test', '2024-10-12', 58000, 1, 'uoj/csc/20/le/50', '', 'fazil', 789456123, 665479, 'electronic', 'LE354', 'cscl 3 and 4', 24),
+(181, 'electro', '2024-10-12', 13000, 2, 'uoj/lms/123/le/12-13', 'hel', 'faz', 243509, 3409341, 'electronic', 'le124', 'jaffna', 30),
+(182, 'sahran', '2024-10-19', 3000, 3, 'uoj/lms/421/le/14-16', 'test electro', 'fazil', 93434213, 3435358, 'electronic', 'le453', 'jaffna', 12);
 
 -- --------------------------------------------------------
 
@@ -154,27 +189,32 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`, `location`, `working`) VALUES
-(174, 'uoj/csc/453/le/18A', 'desktop', 'System Unit', 'A18', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/18A', 'desktop', 'System Unit', 'A18', 'cscl 3 and 4', 'no'),
 (174, 'uoj/csc/453/le/18B', 'desktop', 'Monitor', 'B18', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/18C', 'desktop', 'Keyboard', 'C18', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/18D', 'desktop', 'Mouse', 'D18', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/18C', 'desktop', 'Keyboard', 'C18', 'cscl 3 and 4', 'no'),
+(174, 'uoj/csc/453/le/18D', 'desktop', 'Mouse', 'D18', 'cscl 3 and 4', 'S'),
 (174, 'uoj/csc/453/le/19A', 'desktop', 'System Unit', 'A19', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/19B', 'desktop', 'Monitor', 'B19', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/19B', 'desktop', 'Monitor', 'B19', 'cscl 3 and 4', 'no'),
 (174, 'uoj/csc/453/le/19C', 'desktop', 'Keyboard', 'C1980', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/19D', 'desktop', 'Mouse', 'D1980', 'cscl 3 and 4', 'yes'),
-(176, 'uoj/csc/123/le/300', 'electronic', 'Serial_number', 'Gei2', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/19D', 'desktop', 'Mouse', 'D1980', 'cscl 3 and 4', 'no'),
+(176, 'uoj/csc/123/le/300', 'electronic', 'Serial_number', 'Gei2', 'cscl 3 and 4', 'no'),
 (176, 'uoj/csc/123/le/301', 'electronic', 'Serial_number', 'Gei10', 'cscl 3 and 4', 'yes'),
 (177, 'uoj/csc/530/le/259', 'laptop', 'Model_number', 'M351', 'cscl 3 and 4', 'yes'),
-(177, 'uoj/csc/530/le/259', 'laptop', 'Serial_number', 'S234', 'cscl 3 and 4', 'yes'),
-(177, 'uoj/csc/530/le/260', 'laptop', 'Model_number', 'M532', 'cscl 3 and 4', 'yes'),
+(177, 'uoj/csc/530/le/259', 'laptop', 'Serial_number', 'S234', 'cscl 3 and 4', 'no'),
+(177, 'uoj/csc/530/le/260', 'laptop', 'Model_number', 'M532', 'cscl 3 and 4', 'no'),
 (177, 'uoj/csc/530/le/260', 'laptop', 'Serial_number', 'S234', 'cscl 3 and 4', 'yes'),
-(178, 'uoj/csc/242/le/12A', 'desktop', 'System Unit', 'D2045', 'cscl 3 and 4', 'yes'),
+(178, 'uoj/csc/242/le/12A', 'desktop', 'System Unit', 'D2045', 'cscl 3 and 4', 'no'),
 (178, 'uoj/csc/242/le/12B', 'desktop', 'Monitor', 'D2045', 'cscl 3 and 4', 'yes'),
 (178, 'uoj/csc/242/le/12C', 'desktop', 'Keyboard', 'D2045', 'cscl 3 and 4', 'yes'),
 (178, 'uoj/csc/242/le/12D', 'desktop', 'Mouse', 'D2045', 'cscl 3 and 4', 'yes'),
 (179, 'uoj/csc/242/le/50', 'laptop', 'Model_number', 'M351', 'cscl 3 and 4', 'yes'),
 (179, 'uoj/csc/242/le/50', 'laptop', 'Serial_number', 'Gei2', 'cscl 3 and 4', 'yes'),
-(180, 'uoj/csc/20/le/50', 'electronic', 'Serial_number', 'S234', 'cscl 3 and 4', 'yes');
+(180, 'uoj/csc/20/le/50', 'electronic', 'Serial_number', 'S234', 'cscl 3 and 4', 'S'),
+(181, 'uoj/lms/123/le/12', 'electronic', 'electro', 's34', 'jaffna', 'yes'),
+(181, 'uoj/lms/123/le/13', 'electronic', 'electro', 's123', 'jaffna', 'yes'),
+(182, 'uoj/lms/421/le/14', 'electronic', 'sahran', 's4520', 'jaffna', 'yes'),
+(182, 'uoj/lms/421/le/15', 'electronic', 'sahran', 's1230', 'jaffna', 'S'),
+(182, 'uoj/lms/421/le/16', 'electronic', 'sahran', 's2340', 'jaffna', 'yes');
 
 -- --------------------------------------------------------
 
@@ -302,7 +342,7 @@ ALTER TABLE `f_invoice`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
 
 --
 -- AUTO_INCREMENT for table `o_invoice`
