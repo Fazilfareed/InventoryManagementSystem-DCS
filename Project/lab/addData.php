@@ -204,10 +204,10 @@ if (isset($_GET['id'])) {
 
                 var selectedType = document.querySelector('select[name="type"]').value;
                 var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
+                var articleName = document.querySelector('input[name="aname"]').value;
 
                 var tableHeader = document.getElementById("dataTable").getElementsByTagName('thead')[0].insertRow();
                 var rowNumberHeader = document.createElement("th");
-
                 var tableBody = document.getElementById("tableBody");
                 for (var i = 1; i <= quantity; i++) {
                     var newRow = tableBody.insertRow();
@@ -263,7 +263,7 @@ if (isset($_GET['id'])) {
                         var cell = newRow.insertCell();
                         var input = document.createElement("input");
                         input.type = "text";
-                        input.name = "Serial_number" + i;
+                        input.name = articleName + i;
                         cell.appendChild(input);
                     }
                 }
