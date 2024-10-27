@@ -39,8 +39,14 @@ if (isset($_POST['padd'])) {
         $row = mysqli_fetch_assoc($result2);
         $id = $row['invoice_id'];
 
+        //folio
+        $result3 = mysqli_query($con, "SELECT f_folio_number FROM f_invoice WHERE invoice_id ='$id'");
+        $row2 = mysqli_fetch_assoc($result3);
+        $folionum=$row2['f_folio_number'];
+
+
         for ($i = 1; $i <= $quantity; $i++) {
-            $query3 = "INSERT INTO f_items(invoice_id,f_set_id,location,working) values ('$id', '$i','$location','yes')";
+            $query3 = "INSERT INTO f_items(invoice_id,f_set_id,location,working) values ('$id', '$folionum','$location','yes')";
             $result3 = mysqli_query($con, $query3);
         }
         if ($result1) {

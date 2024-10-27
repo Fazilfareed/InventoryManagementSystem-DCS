@@ -12,13 +12,14 @@ $result = mysqli_query($con, $queryinvoice);
 
 if (isset($_GET['id']) && isset($_GET['setid'])) {
     $id = $_GET['id'];
-    $setid = (int)$_GET['setid'];
+    $setid = $_GET['setid'];
     $query1 = "SELECT * FROM f_items WHERE f_set_id = '$setid' AND invoice_id='$id'";
     $result1 = mysqli_query($con, $query1);
     $row1 = mysqli_fetch_assoc($result1);
     if (!$result1) {
         die("Database query failed.");
     }
+   
 }
 ?>
 
@@ -51,7 +52,7 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
     <form action="actionItem.php" method="POST">
 
         <input type="hidden" name="id" value="<?php if (isset($_GET['setid']) && isset($_GET['id'])) {
-                                                    echo (int)$_GET['id'];
+                                                    echo (int)$row1['invoice_id'];
                                                 } ?> " /> <br>
 
         <label for="setid">Set Id</label> <br>
