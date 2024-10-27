@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2024 at 07:25 AM
+-- Generation Time: Oct 27, 2024 at 08:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -74,10 +74,48 @@ INSERT INTO `formb_table` (`article`, `quantity`, `sdrt`, `master_inventory_no`,
 ('Mouse', 0, 'no', '', 'uoj/csc/453/le/19D', '', ''),
 ('electronics test', 0, 'no', '', 'uoj/csc/123/le/300', '', ''),
 ('laptop test', 0, 'no', '', 'uoj/csc/530/le/259', '', ''),
-('laptop test', 0, 'no', '', 'uoj/csc/530/le/260', '', ''),
+('laptop test', 0, 'no', '', 'uoj/csc/530/le/259', '', ''),
 ('System Unit', 0, 'no', '', 'uoj/csc/242/le/12A', '', ''),
 ('single electronic test', 0, 'S', '', 'uoj/csc/20/le/50', '', ''),
-('sahran', 0, 'S', '', 'uoj/lms/421/le/15', '', '');
+('sahran', 0, 'no', '', 'uoj/lms/421/le/16', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_forma_table`
+--
+
+CREATE TABLE `f_forma_table` (
+  `description` varchar(200) NOT NULL,
+  `purchase_year` year(4) NOT NULL,
+  `purchase_value` decimal(10,0) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_inventory_no` varchar(50) NOT NULL,
+  `page_no` varchar(20) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `book_balance` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `verified_balance` int(11) NOT NULL,
+  `surplus` int(11) NOT NULL,
+  `deficit` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_formb_table`
+--
+
+CREATE TABLE `f_formb_table` (
+  `article` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `sdrt` varchar(3) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_Inventory_no` varchar(50) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `remarks` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -180,6 +218,7 @@ CREATE TABLE `items` (
   `category` varchar(100) NOT NULL,
   `item` varchar(100) NOT NULL,
   `serial_number` varchar(30) NOT NULL,
+  `model_number` varchar(50) NOT NULL,
   `location` varchar(100) NOT NULL,
   `working` enum('yes','no','R','T','D','S') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -188,33 +227,107 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`, `location`, `working`) VALUES
-(174, 'uoj/csc/453/le/18A', 'desktop', 'System Unit', 'A18', 'cscl 3 and 4', 'no'),
-(174, 'uoj/csc/453/le/18B', 'desktop', 'Monitor', 'B18', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/18C', 'desktop', 'Keyboard', 'C18', 'cscl 3 and 4', 'no'),
-(174, 'uoj/csc/453/le/18D', 'desktop', 'Mouse', 'D18', 'cscl 3 and 4', 'S'),
-(174, 'uoj/csc/453/le/19A', 'desktop', 'System Unit', 'A19', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/19B', 'desktop', 'Monitor', 'B19', 'cscl 3 and 4', 'no'),
-(174, 'uoj/csc/453/le/19C', 'desktop', 'Keyboard', 'C1980', 'cscl 3 and 4', 'yes'),
-(174, 'uoj/csc/453/le/19D', 'desktop', 'Mouse', 'D1980', 'cscl 3 and 4', 'no'),
-(176, 'uoj/csc/123/le/300', 'electronic', 'Serial_number', 'Gei2', 'cscl 3 and 4', 'no'),
-(176, 'uoj/csc/123/le/301', 'electronic', 'Serial_number', 'Gei10', 'cscl 3 and 4', 'yes'),
-(177, 'uoj/csc/530/le/259', 'laptop', 'Model_number', 'M351', 'cscl 3 and 4', 'yes'),
-(177, 'uoj/csc/530/le/259', 'laptop', 'Serial_number', 'S234', 'cscl 3 and 4', 'no'),
-(177, 'uoj/csc/530/le/260', 'laptop', 'Model_number', 'M532', 'cscl 3 and 4', 'no'),
-(177, 'uoj/csc/530/le/260', 'laptop', 'Serial_number', 'S234', 'cscl 3 and 4', 'yes'),
-(178, 'uoj/csc/242/le/12A', 'desktop', 'System Unit', 'D2045', 'cscl 3 and 4', 'no'),
-(178, 'uoj/csc/242/le/12B', 'desktop', 'Monitor', 'D2045', 'cscl 3 and 4', 'yes'),
-(178, 'uoj/csc/242/le/12C', 'desktop', 'Keyboard', 'D2045', 'cscl 3 and 4', 'yes'),
-(178, 'uoj/csc/242/le/12D', 'desktop', 'Mouse', 'D2045', 'cscl 3 and 4', 'yes'),
-(179, 'uoj/csc/242/le/50', 'laptop', 'Model_number', 'M351', 'cscl 3 and 4', 'yes'),
-(179, 'uoj/csc/242/le/50', 'laptop', 'Serial_number', 'Gei2', 'cscl 3 and 4', 'yes'),
-(180, 'uoj/csc/20/le/50', 'electronic', 'Serial_number', 'S234', 'cscl 3 and 4', 'S'),
-(181, 'uoj/lms/123/le/12', 'electronic', 'electro', 's34', 'jaffna', 'yes'),
-(181, 'uoj/lms/123/le/13', 'electronic', 'electro', 's123', 'jaffna', 'yes'),
-(182, 'uoj/lms/421/le/14', 'electronic', 'sahran', 's4520', 'jaffna', 'yes'),
-(182, 'uoj/lms/421/le/15', 'electronic', 'sahran', 's1230', 'jaffna', 'S'),
-(182, 'uoj/lms/421/le/16', 'electronic', 'sahran', 's2340', 'jaffna', 'yes');
+INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`, `model_number`, `location`, `working`) VALUES
+(174, 'uoj/csc/453/le/18A', 'desktop', 'System Unit', 'A18', '', 'cscl 3 and 4', 'no'),
+(174, 'uoj/csc/453/le/18B', 'desktop', 'Monitor', 'B18', '', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/18C', 'desktop', 'Keyboard', 'C18', '', 'cscl 3 and 4', 'no'),
+(174, 'uoj/csc/453/le/18D', 'desktop', 'Mouse', 'D18', '', 'cscl 3 and 4', 'S'),
+(174, 'uoj/csc/453/le/19A', 'desktop', 'System Unit', 'A19', '', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/19B', 'desktop', 'Monitor', 'B19', '', 'cscl 3 and 4', 'no'),
+(174, 'uoj/csc/453/le/19C', 'desktop', 'Keyboard', 'C1980', '', 'cscl 3 and 4', 'yes'),
+(174, 'uoj/csc/453/le/19D', 'desktop', 'Mouse', 'D1980', '', 'cscl 3 and 4', 'no'),
+(176, 'uoj/csc/123/le/300', 'electronic', 'Serial_number', 'Gei2', '', 'cscl 3 and 4', 'no'),
+(176, 'uoj/csc/123/le/301', 'electronic', 'Serial_number', 'Gei10', '', 'cscl 3 and 4', 'yes'),
+(177, 'uoj/csc/530/le/259', 'laptop', 'Model_number', 'M351', '', 'cscl 3 and 4', 'no'),
+(177, 'uoj/csc/530/le/259', 'laptop', 'Serial_number', 'S234', '', 'cscl 3 and 4', 'no'),
+(177, 'uoj/csc/530/le/260', 'laptop', 'Model_number', 'M532', '', 'cscl 3 and 4', 'yes'),
+(177, 'uoj/csc/530/le/260', 'laptop', 'Serial_number', 'S234', '', 'cscl 3 and 4', 'yes'),
+(178, 'uoj/csc/242/le/12A', 'desktop', 'System Unit', 'D2045', '', 'cscl 3 and 4', 'no'),
+(178, 'uoj/csc/242/le/12B', 'desktop', 'Monitor', 'D2045', '', 'cscl 3 and 4', 'yes'),
+(178, 'uoj/csc/242/le/12C', 'desktop', 'Keyboard', 'D2045', '', 'cscl 3 and 4', 'yes'),
+(178, 'uoj/csc/242/le/12D', 'desktop', 'Mouse', 'D2045', '', 'cscl 3 and 4', 'yes'),
+(179, 'uoj/csc/242/le/50', 'laptop', 'Model_number', 'M351', '', 'cscl 3 and 4', 'yes'),
+(179, 'uoj/csc/242/le/50', 'laptop', 'Serial_number', 'Gei2', '', 'cscl 3 and 4', 'yes'),
+(180, 'uoj/csc/20/le/50', 'electronic', 'Serial_number', 'S234', '', 'cscl 3 and 4', 'S'),
+(181, 'uoj/lms/123/le/12', 'electronic', 'electro', 's34', '', 'jaffna', 'yes'),
+(181, 'uoj/lms/123/le/13', 'electronic', 'electro', 's123', '', 'jaffna', 'yes'),
+(182, 'uoj/lms/421/le/14', 'electronic', 'sahran', 's4520', '', 'jaffna', 'yes'),
+(182, 'uoj/lms/421/le/15', 'electronic', 'sahran', 's1230', '', 'jaffna', 'yes'),
+(182, 'uoj/lms/421/le/16', 'electronic', 'sahran', 's2340', '', 'jaffna', 'no');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `l_forma_table`
+--
+
+CREATE TABLE `l_forma_table` (
+  `description` varchar(200) NOT NULL,
+  `purchase_year` year(4) NOT NULL,
+  `purchase_value` decimal(10,0) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_inventory_no` varchar(50) NOT NULL,
+  `page_no` varchar(20) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `book_balance` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `verified_balance` varchar(50) NOT NULL,
+  `surplus` varchar(50) NOT NULL,
+  `deficit` varchar(50) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `l_forma_table`
+--
+
+INSERT INTO `l_forma_table` (`description`, `purchase_year`, `purchase_value`, `master_inventory_no`, `dept_inventory_no`, `page_no`, `fixed_asset_no`, `book_balance`, `total`, `verified_balance`, `surplus`, `deficit`, `remarks`) VALUES
+('desktop test', '2024', 116000, '', 'uoj/csc/453/le/18-19', 'LE354', '', 3, 0, '', '', '', ''),
+('electronics test', '2024', 116000, '', 'uoj/csc/123/le/300-301', 'LE354', '', 1, 0, '', '', '', ''),
+('laptop test', '2024', 116000, '', 'uoj/csc/530/le/259-260', 'LE354', '', 2, 0, '', '', '', ''),
+('single desktop test', '2024', 58000, '', 'uoj/csc/242/le/12', 'LE354', '', 3, 0, '', '', '', ''),
+('single laptop test', '2024', 58000, '', 'uoj/csc/242/le/50', 'LE354', '', 2, 0, '', '', '', ''),
+('single electronic test', '2024', 58000, '', 'uoj/csc/20/le/50', 'LE354', '', 0, 0, '', '', '', ''),
+('electro', '2024', 26000, '', 'uoj/lms/123/le/12-13', 'le124', '', 2, 0, '', '', '', ''),
+('sahran', '2024', 9000, '', 'uoj/lms/421/le/14-16', 'le453', '', 2, 0, '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `o_forma_table`
+--
+
+CREATE TABLE `o_forma_table` (
+  `description` varchar(200) NOT NULL,
+  `purchase_year` year(4) NOT NULL,
+  `purchase_value` decimal(10,0) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_inventory_no` varchar(50) NOT NULL,
+  `page_no` varchar(20) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `book_balance` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `verified_balance` int(11) NOT NULL,
+  `surplus` int(11) NOT NULL,
+  `deficit` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `o_formb_table`
+--
+
+CREATE TABLE `o_formb_table` (
+  `article` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `sdrt` varchar(3) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_Inventory_no` varchar(50) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `remarks` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -257,6 +370,7 @@ CREATE TABLE `o_items` (
   `invoice_id` int(11) NOT NULL,
   `set_id` varchar(50) NOT NULL,
   `serial_number` varchar(50) NOT NULL,
+  `model_number` varchar(50) NOT NULL,
   `location` varchar(100) NOT NULL,
   `working` enum('yes','no','R','S','D','T') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -265,15 +379,15 @@ CREATE TABLE `o_items` (
 -- Dumping data for table `o_items`
 --
 
-INSERT INTO `o_items` (`invoice_id`, `set_id`, `serial_number`, `location`, `working`) VALUES
-(17, '0', 'S234', 'csl 3 & 4', 'yes'),
-(17, '1', 'S234', 'csl 3 & 4', 'yes'),
-(17, '2', 'S234', 'csl 3 & 4', 'yes'),
-(18, 'uoj/csc/132/oe/34', 'S284', 'csl 3 & 4', 'R'),
-(18, 'uoj/csc/132/oe/35', 'S234', 'csl 3 & 4', 'yes'),
-(18, 'uoj/csc/132/oe/36', 'S234', 'csl 3 & 4', 'yes'),
-(19, 'uoj/csc/132/oe/37', 'Gei2', 'csl 3 & 4', 'yes'),
-(19, 'uoj/csc/132/oe/38', 'S234', 'csl 3 & 4', 'yes');
+INSERT INTO `o_items` (`invoice_id`, `set_id`, `serial_number`, `model_number`, `location`, `working`) VALUES
+(17, '0', 'S234', '', 'csl 3 & 4', 'yes'),
+(17, '1', 'S234', '', 'csl 3 & 4', 'yes'),
+(17, '2', 'S234', '', 'csl 3 & 4', 'yes'),
+(18, 'uoj/csc/132/oe/34', 'S284', '', 'csl 3 & 4', 'R'),
+(18, 'uoj/csc/132/oe/35', 'S234', '', 'csl 3 & 4', 'yes'),
+(18, 'uoj/csc/132/oe/36', 'S234', '', 'csl 3 & 4', 'yes'),
+(19, 'uoj/csc/132/oe/37', 'Gei2', '', 'csl 3 & 4', 'yes'),
+(19, 'uoj/csc/132/oe/38', 'S234', '', 'csl 3 & 4', 'yes');
 
 --
 -- Indexes for dumped tables
