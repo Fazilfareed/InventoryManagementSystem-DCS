@@ -12,54 +12,26 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $offset = ($page - 1) * $rowsPerPage;
 
-    $queryinvoice = "SELECT * FROM o_invoice ORDER BY invoice_id DESC LIMIT $offset, $rowsPerPage";
+    $queryinvoice = "SELECT * FROM o_formb_table";
 
     $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_invoice"));
     $totalPages = ceil($totalRows / $rowsPerPage);
 
     if (isset($_GET['search'])) {
-        $year = $_GET['year'];
-        $name = $_GET['name'];
 
-        if(!(empty($year)) AND  !(empty($name))){
-            $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
+        $sdrt = $_GET['sdrt'];
+        if (!(empty($sdrt))) {
+            $queryinvoice = "SELECT * FROM o_formb_table WHERE sdrt='$sdrt' ";
         }
-
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-        }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM o_invoice WHERE name='$name' ";
-        }
-        
         else{
-            $queryinvoice = "SELECT * FROM o_invoice  ";
+            $queryinvoice = "SELECT * FROM o_formb_table  ";
         }
     }
 
 
     if (isset($_GET['export'])) {
         
-        $year = $_GET['year'];
-        $name = $_GET['name'];
-
-        
-        if(!(empty($year)) AND  !(empty($name))){
-            
-            $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-        }
-        
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-        }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM o_invoice WHERE name='$name' ";
-        }
-        
-        else{
-            $queryinvoice = "SELECT * FROM o_invoice  ";
-        }
-
+        $queryinvoice = "SELECT * FROM o_formb_table ";
         $resultinvoice1 = mysqli_query($con,$queryinvoice);
 
         class PDF extends FPDF {
@@ -173,8 +145,6 @@
                 $this->SetX(160);
                 $this->SetFont('Arial', 'B', 10);
                 $this->Cell(60, 5, 'Vice Chancellor / Registrar', 0, 0,'C');
-        
-        
             }
         
             function CheckPageBreak($h) {
@@ -196,13 +166,13 @@
         while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
             $pdf->CheckPageBreak(4);
             $pdf->Cell(10, 5, $i, 1);
-            $pdf->Cell(60, 5, $rowinvoice1['name'], 1);
+            $pdf->Cell(60, 5, $rowinvoice1['article'], 1);
             $pdf->Cell(10, 5, $rowinvoice1['quantity'], 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(50, 5, $rowinvoice1['folio_number'], 1);
-            $pdf->Cell(50, 5, '', 1);
-            $pdf->Cell(50, 5, '' , 1);
-            $pdf->Cell(30, 5, '' , 1);
+            $pdf->Cell(15, 5, $rowinvoice1['sdrt'], 1);
+            $pdf->Cell(50, 5, $rowinvoice1['master_inventory_no'], 1);
+            $pdf->Cell(50, 5, $rowinvoice1['dept_Inventory_no'], 1);
+            $pdf->Cell(50, 5, $rowinvoice1['fixed_asset_no'], 1);
+            $pdf->Cell(30, 5, $rowinvoice1['remarks'], 1);
             $pdf->Ln();
             $i++;
         }
@@ -239,17 +209,16 @@
 
     <div class="main-container">
         <div class="container">
-        <h2>Form B</h2>
+        <h2>FORM B</h2>
             <div>
                 <form action="officeForm_B.php" method="get">
                 
-                    <input type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
-                    <input type="text" placeholder="name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
-                    
+                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if(isset($_POST['sdrt'])){echo $_POST['sdrt'];}?>" />
                     <input class="button" type="submit"  name="search" value="Search" />
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 
                 </form>
+                <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
             </div>
         </div>
 
@@ -263,6 +232,7 @@
                         <th>Master Inventory No</th>
                         <th>Department Inventory Number</th>
                         <th>Fixed Assest No</th>
+                        <th>Remarks</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -276,22 +246,24 @@
                         ?>
                             <tr>
                                     
-                                <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
+                                <td class="name"><?php echo $rowinvoice['article']?></td>
 
                                 <td><?php echo $rowinvoice['quantity']?></td>
 
-                                <td><?php echo "" ?></td>
+                                <td><?php echo $rowinvoice['sdrt'] ?></td>
 
-                                <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
+                                <td><?php echo$rowinvoice['master_inventory_no']?></td>
 
-                                <td><?php echo "UJ/COMPSC/425/LE/369/11B";?></td>
+                                <td><?php echo $rowinvoice['dept_Inventory_no']?></td>
 
-                                <td><?php echo "FAN";?></td>
+                                <td><?php echo $rowinvoice['fixed_asset_no']?></td>
+
+                                <td><?php echo $rowinvoice['remarks'] ?></td>
 
                                 <td>
-                                    <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
-                                    <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <a href="addDataFormB.php?dept_Inventory_no=<?php echo $rowinvoice['dept_Inventory_no'] ?>" >Edit</a>
+                                    <form method="post" action="actionItemFormB.php">
+                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['dept_Inventory_no']; ?>">
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                     </form>
                                 </td>

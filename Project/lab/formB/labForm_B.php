@@ -1,10 +1,10 @@
 <?php
-require('fpdf/fpdf.php');
-include("../config/connection.php");
-//include("formBTable.php");
+require('../fpdf/fpdf.php');
+include("../../config/connection.php");
+include("formBTable.php");
 session_start();
 if (!isset($_SESSION['uname'])) {
-    header("location: ../login/login.php");
+    header("location: ../../login/login.php");
     exit();
 }
 
@@ -18,30 +18,29 @@ $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM invoice"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
 if (isset($_GET['search'])) {
-    // $type = $_GET['type'];
-    // $year = $_GET['year'];
-    $sdrt = $_GET['sdrt'];
+    $type = $_GET['type'];
+    $year = $_GET['year'];
+    $name = $_GET['name'];
 
-    // if (!(empty($year)) and  !(empty($name)) and !(empty($type))) {
-    //     $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
-    // } else if (!(empty($year)) and  !(empty($type))) {
+    if (!(empty($year)) and  !(empty($name)) and !(empty($type))) {
+        $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
+    } else if (!(empty($year)) and  !(empty($type))) {
 
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-    // } else if (!(empty($type)) and  !(empty($name))) {
+        $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
+    } else if (!(empty($type)) and  !(empty($name))) {
 
-    //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-    // } else if (!(empty($year)) and  !(empty($name))) {
+        $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
+    } else if (!(empty($year)) and  !(empty($name))) {
 
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-    // } elseif (!(empty($year))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-    // } elseif (!(empty($name))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
-    // }
-    if (!(empty($sdrt))) {
-        $queryinvoice = "SELECT * FROM formb_table WHERE sdrt='$sdrt' ";
+        $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
+    } elseif (!(empty($year))) {
+        $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
+    } elseif (!(empty($name))) {
+        $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
+    } elseif (!(empty($type))) {
+        $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
     } else {
-        $queryinvoice = "SELECT * FROM formb_table ";
+        $queryinvoice = "SELECT * FROM invoice ";
     }
 }
 
@@ -211,12 +210,12 @@ if (isset($_GET['export'])) {
         $pdf->CheckPageBreak(4);
         $pdf->Cell(10, 5, $i, 1);
         $pdf->Cell(60, 5, $rowinvoice1['article'], 1);
-        $pdf->Cell(10, 5, $rowinvoice1['quantity'], 1);
+        $pdf->Cell(10, 5, '', 1);
         $pdf->Cell(15, 5, $rowinvoice1['sdrt'], 1);
-        $pdf->Cell(50, 5, $rowinvoice1['master_inventory_no'], 1);
+        $pdf->Cell(50, 5, '', 1);
         $pdf->Cell(50, 5, $rowinvoice1['dept_Inventory_no'], 1);
-        $pdf->Cell(50, 5, $rowinvoice1['fixed_asset_no'], 1);
-        $pdf->Cell(30, 5, $rowinvoice1['remarks'], 1);
+        $pdf->Cell(50, 5, '', 1);
+        $pdf->Cell(30, 5, '', 1);
         $pdf->Ln();
         $i++;
     }
@@ -234,8 +233,8 @@ if (isset($_GET['export'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form B</title>
-    <link rel="stylesheet" href="../css/lab.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="../../css/main.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -250,7 +249,7 @@ if (isset($_GET['export'])) {
 </head>
 
 <body>
-    <?php include "../header/header.php"; ?>
+    <?php include "../../header/header.php"; ?>
     <hr>
     <div class="main-container">
         <div class="container">
@@ -259,23 +258,21 @@ if (isset($_GET['export'])) {
             <div>
                 <form action="labForm_B.php" method="get">
 
-                    <!-- <select name="type">
+                    <select name="type">
                         <option value="">Please Select</option>
                         <option value="desktop" <?php if (isset($_POST['type']) && $_POST['type'] === 'desktop') echo ' selected'; ?>>Desktop</option>
                         <option value="laptop" <?php if (isset($_POST['type']) && $_POST['type'] === 'laptop') echo ' selected'; ?>>Laptop</option>
                         <option value="electronic" <?php if (isset($_POST['type']) && $_POST['type'] === 'electronic') echo ' selected'; ?>>Electronic</option>
-                    </select> -->
+                    </select>
 
+                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {echo $_POST['year'];} ?>" />
 
-                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {echo $_POST['sdrt'];} ?>" />
+                    <input type="text" placeholder="Artical Name" name="name" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} ?>" />
 
                     <input class="button" type="submit" name="search" value="Search" />
 
                     <input class="button" type="submit" name="export" value="Export to PDF" />
-
-                    
                 </form>
-                <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
             </div>
         </div>
 
@@ -289,7 +286,6 @@ if (isset($_GET['export'])) {
                         <th>Master Inventory No</th>
                         <th>Department Inventory Number</th>
                         <th>Fixed Assest No</th>
-                        <th>Remarks</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -314,11 +310,9 @@ if (isset($_GET['export'])) {
 
                             <td><?php echo $rowinvoice['fixed_asset_no'] ?></td>
 
-                            <td><?php echo $rowinvoice['remarks'] ?></td>
-
                             <td>
-                                <a href="addDataFormB.php?dept_Inventory_no=<?php echo $rowinvoice['dept_Inventory_no'] ?>" > Edit </a>
-                                <form method="post" action="actionItemFormB.php">
+                                <a href="addData.php?id=<?php echo $rowinvoice['dept_Inventory_no'] ?>" > Edit </a>
+                                <form method="post" action="actionItem.php">
                                     <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['dept_Inventory_no']; ?>">
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                 </form>
