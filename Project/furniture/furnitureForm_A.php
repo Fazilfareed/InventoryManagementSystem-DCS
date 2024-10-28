@@ -12,7 +12,7 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $offset = ($page - 1) * $rowsPerPage;
 
-    $queryinvoice = "SELECT * FROM f_invoice ORDER BY invoice_id DESC LIMIT $offset, $rowsPerPage";
+    $queryinvoice = "SELECT * FROM f_forma_table";
 
     $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM f_invoice"));
     $totalPages = ceil($totalRows / $rowsPerPage);
@@ -40,24 +40,24 @@
 
     if (isset($_GET['export'])) {
         
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+        // $year = $_GET['year'];
+        // $name = $_GET['name'];
 
-        if (!(empty($year)) AND  !(empty($name))) {
-            $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year AND f_name='$name' ";
-        }
+        // if (!(empty($year)) AND  !(empty($name))) {
+        //     $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year AND f_name='$name' ";
+        // }
 
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year";
-        }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM f_invoice WHERE f_name='$name' ";
-        }
+        // elseif (!(empty($year))) {
+        //     $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year";
+        // }
+        // elseif (!(empty($name))) {
+        //     $queryinvoice = "SELECT * FROM f_invoice WHERE f_name='$name' ";
+        // }
         
-        else{
-            $queryinvoice = "SELECT * FROM f_invoice";
-        }
-    
+        // else{
+        //     $queryinvoice = "SELECT * FROM f_invoice";
+        // }
+        $queryinvoice = "SELECT * FROM f_forma_table";
         $resultinvoice1 = mysqli_query($con,$queryinvoice);
 
         class PDF extends FPDF
@@ -150,18 +150,18 @@
         while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
             $pdf->CheckPageBreak(4);
             $pdf->Cell(10, 5, $i, 1);
-            $pdf->Cell(50, 5, $rowinvoice1['f_name'], 1);
-            $pdf->Cell(17, 5, date('Y', strtotime($rowinvoice1['f_date'])), 1);
-            $pdf->Cell(25, 5, $rowinvoice1['f_price'], 1);
-            $pdf->Cell(40, 5, $rowinvoice1['f_folio_number'], 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(40, 5, '', 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(10, 5, '', 1);
-            $pdf->Cell(15, 5, '' , 1);
-            $pdf->Cell(15, 5, '' , 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(15, 5, '', 1);
+            $pdf->Cell(50, 5, $rowinvoice1['description'], 1);
+            $pdf->Cell(17, 5, $rowinvoice1['purchase_year'], 1);
+            $pdf->Cell(25, 5, $rowinvoice1['purchase_value'], 1);
+            $pdf->Cell(40, 5, $rowinvoice1['dept_inventory_no'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['page_no'], 1);
+            $pdf->Cell(40, 5, $rowinvoice1['fixed_asset_no'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['book_balance'], 1);
+            $pdf->Cell(10, 5, $rowinvoice1['total'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['verified_balance'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['surplus'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['deficit'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['remarks'], 1);
             $pdf->Ln();
             $i++;
         }
@@ -176,7 +176,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form A</title>
+    <title>FORM A</title>
     <link rel="stylesheet" href="../css/lab.css">
     <link rel="stylesheet" href="../css/main.css">
 
@@ -196,16 +196,17 @@
     
     <div class="main-container">
         <div class="container">
-            <h2>Form A</h2>
+            <h2>FORM A</h2>
             <div>
                 <form action="furnitureForm_A.php" method="get">
                     <input type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
-                    <input type="text" placeholder="Folio number" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
+                    <input type="text" placeholder="Article Name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
                     
                     <input class="button" type="submit"  name="search" value="Search" />
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 
                 </form>
+                <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
             </div>
         </div>
 
@@ -216,12 +217,16 @@
                     <th>Article Name</th>
                     <th>Purchase Year</th>
                     <th>Purcahse Price</th>
-                    <th>Master Inventory No</th>
+                        <!-- <th>Master Inventory No</th> -->
                     <th>Department Inventory Number</th>
                     <th>Page No</th>
                     <th>Fixed Assest No</th>
                     <th>Book Balance</th>
                     <th>Total</th>
+                    <th>Verified Balance</th>
+                    <th>Surplus</th>
+                    <th>Deficit</th>
+                    <th>Remarks</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -234,19 +239,23 @@
                     while($rowinvoice = mysqli_fetch_assoc($resultinvoice)){
                         ?>
                             <tr>
-                                <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['f_name']?></a></td>
-                                <td><?php echo $rowinvoice['f_date']?></td>
-                                <td><?php echo $rowinvoice['f_price']?></td>
-                                <td><?php echo "MNo";?></td>
-                                <td class="folio_number"><?php echo $rowinvoice['f_folio_number']?></td>
-                                <td class="description"><?php echo "PNo";?></td>
-                                <td class="sname"><?php echo "FNo";?></td>
-                                <td><?php echo "BookBalance";?></td>
-                                <td><?php echo "total";?></td>
+                                <td class="name"><?php echo $rowinvoice['description']?></td>
+                                <td><?php echo $rowinvoice['purchase_year']?></td>
+                                <td><?php echo $rowinvoice['purchase_value']?></td>
+                                <!-- <td class="folio_number"><?php echo $rowinvoice['master_inventory_no']?></td> -->
+                                <td class="folio_number"><?php echo $rowinvoice['dept_inventory_no']?></td>
+                                <td ><?php echo $rowinvoice['page_no']?></td>
+                                <td class="folio_number"><?php echo $rowinvoice['fixed_asset_no']?></td>
+                                <td><?php echo $rowinvoice['book_balance']?></td>
+                                <td><?php echo $rowinvoice['total']?></td>
+                                <td><?php echo $rowinvoice['verified_balance']?></td>
+                                <td><?php echo $rowinvoice['surplus']?></td>
+                                <td><?php echo $rowinvoice['deficit']?></td>
+                                <td><?php echo $rowinvoice['remarks']?></td>
                                 <td>
-                                    <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
-                                    <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <a href="addDataFormA.php?dept_inventory_no=<?php echo $rowinvoice['dept_inventory_no'] ?>" >Edit</a>
+                                    <form method="post" action="actionItemFormA.php">
+                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['dept_inventory_no']; ?>">
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                     </form>
                                 </td>
@@ -268,7 +277,7 @@
             });
             $(document).ready(function() {
                 $('.name').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('name').addClass('name expandable');
                         $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                     }
@@ -276,7 +285,7 @@
             });
             $(document).ready(function() {
                 $('.sname').each(function() {
-                    if ($(this).width() > 150) {
+                    if ($(this).width() > 200) {
                         $(this).removeClass('sname').addClass('sname expandable');
                         $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                     }
