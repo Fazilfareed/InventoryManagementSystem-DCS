@@ -2,7 +2,8 @@
     padding: 50px;
     min-height: 100vh;
     height: fit-content;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+    background: linear-gradient(-135deg, #01064a, #21acc2);
 
 }
 
@@ -72,7 +73,7 @@ input:focus {
 }
 
 .button {
-    background: #57b846;
+    background: #3ee3eb;
     color: white;
     cursor: pointer;
     height: 40px;
@@ -158,7 +159,7 @@ table {
 
 
 th {
-    width: 100px;
+    width: 200px;
     font-size: 18px;
     background: #293036;
     color: white;

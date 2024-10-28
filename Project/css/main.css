@@ -9,7 +9,8 @@
 }
 
 :root {
-    --bg-gradient: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* --bg-gradient: linear-gradient(-135deg, #c850c0, #4158d0); */
+    --bg-gradient: linear-gradient(-135deg, #01064a, #21acc2);
     --bg-gray: #e6e6e6;
     --text-color: #666;
     --inp-color: #57b846;

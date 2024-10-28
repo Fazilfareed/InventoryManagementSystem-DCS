@@ -21,13 +21,13 @@ if (isset($_GET['search'])) {
     $folio = $_GET['folio'];
     $location = $_GET['location'];
 
-    if (!(empty($year)) and  !(empty($folio)) and !(empty($location))) {
+    if (!(empty($year)) and !(empty($folio)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } else if (!(empty($year)) and  !(empty($folio))) {
+    } else if (!(empty($year)) and !(empty($folio))) {
         $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } elseif (!(empty($year)) and  !(empty($location))) {
+    } elseif (!(empty($year)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year ORDER BY f_name ASC";
-    } elseif (!(empty($folio)) and  !(empty($location))) {
+    } elseif (!(empty($folio)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND f_folio_number='$folio' ORDER BY f_name ASC";
     } elseif (!(empty($year))) {
         $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year  ORDER BY f_name ASC";
@@ -59,13 +59,13 @@ if (isset($_GET['export'])) {
     $folio = $_GET['folio'];
     $location = $_GET['location'];
 
-    if (!(empty($year)) and  !(empty($folio)) and !(empty($location))) {
+    if (!(empty($year)) and !(empty($folio)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } else if (!(empty($year)) and  !(empty($folio))) {
+    } else if (!(empty($year)) and !(empty($folio))) {
         $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year AND f_folio_number='$folio' ORDER BY f_name ASC";
-    } elseif (!(empty($year)) and  !(empty($location))) {
+    } elseif (!(empty($year)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND EXTRACT(YEAR FROM f_date)=$year ORDER BY f_name ASC";
-    } elseif (!(empty($folio)) and  !(empty($location))) {
+    } elseif (!(empty($folio)) and !(empty($location))) {
         $queryinvoice = "SELECT * FROM f_invoice INNER JOIN f_items ON f_items.invoice_id = f_invoice.invoice_id WHERE f_items.location='$location' AND f_folio_number='$folio' ORDER BY f_name ASC";
     } elseif (!(empty($year))) {
         $queryinvoice = "SELECT * FROM f_invoice WHERE EXTRACT(YEAR FROM f_date)=$year  ORDER BY f_name ASC";
@@ -115,7 +115,8 @@ if (isset($_GET['export'])) {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <style>
@@ -127,7 +128,7 @@ if (isset($_GET['export'])) {
 
 <body>
     <?php include("../header/header.php"); ?>
-    <hr>
+
 
     <div class="main-container">
         <div class="container">
@@ -135,14 +136,14 @@ if (isset($_GET['export'])) {
             <div>
                 <form action="furniture.php" method="get">
                     <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
-                                                                                    echo $_POST['year'];
-                                                                                } ?>" />
+                        echo $_POST['year'];
+                    } ?>" />
                     <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {
-                                                                                            echo $_POST['folio'];
-                                                                                        } ?>" />
+                        echo $_POST['folio'];
+                    } ?>" />
                     <input type="text" placeholder="Location" name="location" value="<?php if (isset($_POST['location'])) {
-                                                                                            echo $_POST['location'];
-                                                                                        } ?>" />
+                        echo $_POST['location'];
+                    } ?>" />
                     <input class="button" type="submit" name="search" value="Search" />
                     <input class="button" type="submit" name="export" value="Export to Excel" />
 
@@ -177,9 +178,11 @@ if (isset($_GET['export'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                    ?>
+                        ?>
                         <tr>
-                            <td class="name"><a href="furnitureItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['f_name'] ?></a></td>
+                            <td class="name"><a
+                                    href="furnitureItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['f_name'] ?></a>
+                            </td>
                             <td><?php echo $rowinvoice['f_date'] ?></td>
                             <td><?php echo $rowinvoice['f_price'] ?></td>
                             <!-- <td><?php echo $rowinvoice['f_quantity'] ?></td> -->
@@ -199,7 +202,7 @@ if (isset($_GET['export'])) {
                             </td>
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['f_supplier_tt']
-                                        ?></td>
+                                ?></td>
                                 <td><?php //echo $rowinvoice['f_srn']
                                     ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -221,7 +224,7 @@ if (isset($_GET['export'])) {
                                     // Calculate the difference in days between the current date and the warranty end date
                                     $interval = $currentDate->diff($purchaseDateObj);
                                     echo
-                                    $interval->y . " years<br>"
+                                        $interval->y . " years<br>"
                                         . $interval->m . " months<br>"
                                         . $interval->d . " days<br>left";
                                 } else {
@@ -233,12 +236,15 @@ if (isset($_GET['export'])) {
                             <td>
                                 <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>">Edit</a>
                                 <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
-                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')" style="">Remove</button>
+                                    <input type="hidden" name="<?php echo "remove"; ?>"
+                                        value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <button class="logout" type="submit"
+                                        onclick="return confirm('Are you sure to remove this record ?')"
+                                        style="">Remove</button>
                                 </form>
                             </td>
                         </tr>
-                    <?php
+                        <?php
                     }
                     ?>
                 </tbody>

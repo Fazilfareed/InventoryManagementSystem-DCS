@@ -9,14 +9,17 @@
 <body>
     <div class="nav-bar">
         <div class="header_1">
-            <a href="../admin/index.php"><h1>UOJ DCS IMS </h1></a>
+            <a class="logo_link" href="../admin/index.php">
+                <img src="../Multimedia/logo-DCS.png">
+                <h1>UOJ DCS IMS </h1>
+            </a>
         </div>
 
         <div class="header_2">
             <ul>
-                <li class="lab"><a href="../lab/lab.php" >Lab Equipments</a>
+                <li class="lab"><a href="../lab/lab.php">Lab Equipments</a>
                     <ul class="dropdown">
-                        <li><a href="../lab/lab.php" >Lab Equipments</a></li>
+                        <li><a href="../lab/lab.php">Lab Equipments</a></li>
                         <li><a href="../lab/addData.php">Add Lab Equipments</a></li>
                         <li><a href="../lab/labForm_A.php">Form A</a></li>
                         <li><a href="../lab/labForm_B.php">Form B</a></li>
@@ -44,35 +47,36 @@
         </div>
 
         <div class="inside_1">
-            
-        <a href="../login/logout.php" class="logout">Log Out</a>
-      
-        <?php 
+
+            <a href="../login/logout.php" class="logout">Log Out</a>
+
+            <?php
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             $username = $_SESSION['uname'];
             $query = "SELECT role FROM admin WHERE username = '$username' ";
-            $result = mysqli_query($con,$query);
+            $result = mysqli_query($con, $query);
             $row = mysqli_fetch_assoc($result);
             if ('masteradmin' == $row['role']) {
                 ?>
                 <a href="../admin/masterAdminAction.php">
-                    <img src="../Multimedia/user.png" alt="user">
+                    <img src="../Multimedia/user2.png" alt="user">
                 </a>
                 <?php
             } else {
                 ?>
                 <a href="../admin/adminAction.php">
-                    <img src="../Multimedia/user.png" alt="user">
+                    <img src="../Multimedia/user2.png" alt="user">
                 </a>
                 <?php
             }
-        ?>
+            ?>
         </div>
     </div>
 
 
 </body>
+
 </html>

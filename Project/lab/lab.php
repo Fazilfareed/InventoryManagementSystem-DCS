@@ -24,35 +24,35 @@ if (isset($_GET['search'])) {
 
     //testing folio number
     $search_parts = explode('/', $folio);
-    $search_number = (int)end($search_parts);  // The number we're looking for (e.g., "10")
+    $search_number = (int) end($search_parts);  // The number we're looking for (e.g., "10")
     if (count($search_parts) === 5) {
         $folio = implode('/', array_slice($search_parts, 0, -1)) . '/';
     }
 
-    if (!(empty($year)) and  !(empty($folio)) and !(empty($SN)) and !(empty($type))) {
+    if (!(empty($year)) and !(empty($folio)) and !(empty($SN)) and !(empty($type))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number Like '$folio%' AND invoice.type = '$type' ";
-    } else if (!(empty($year)) and  !(empty($folio)) and !(empty($SN))) {
+    } else if (!(empty($year)) and !(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.folio_number Like '$folio%' ";
-    } else if (!(empty($type)) and  !(empty($folio)) and !(empty($SN))) {
+    } else if (!(empty($type)) and !(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.type = '$type' AND invoice.folio_number='$folio%' ";
-    } else if (!(empty($year)) and  !(empty($type)) and !(empty($SN))) {
+    } else if (!(empty($year)) and !(empty($type)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND invoice.type = '$type' ";
-    } else if (!(empty($year)) and  !(empty($type)) and !(empty($folio))) {
+    } else if (!(empty($year)) and !(empty($type)) and !(empty($folio))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE invoice.folio_number Like '$folio%' AND EXTRACT(YEAR FROM date)=$year AND invoice.type = '$type' ";
-    } else if (!(empty($year)) and  !(empty($type))) {
+    } else if (!(empty($year)) and !(empty($type))) {
 
         $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-    } else if (!(empty($type)) and  !(empty($folio))) {
+    } else if (!(empty($type)) and !(empty($folio))) {
 
         $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND folio_number Like '$folio%' ";
-    } else if (!(empty($type)) and  !(empty($SN))) {
+    } else if (!(empty($type)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.type='$type'  ";
-    } else if (!(empty($year)) and  !(empty($folio))) {
+    } else if (!(empty($year)) and !(empty($folio))) {
 
         $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND folio_number Like '$folio%' ";
-    } elseif (!(empty($year)) and  !(empty($SN))) {
+    } elseif (!(empty($year)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year  ";
-    } elseif (!(empty($folio)) and  !(empty($SN))) {
+    } elseif (!(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM invoice INNER JOIN items ON items.invoice_id = invoice.invoice_id WHERE items.serial_number='$SN' AND invoice.folio_number Like '$folio%' ";
     } elseif (!(empty($year))) {
         $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
@@ -81,7 +81,8 @@ if (isset($_GET['search'])) {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <style>
@@ -93,7 +94,7 @@ if (isset($_GET['search'])) {
 
 <body>
     <?php include "../header/header.php"; ?>
-    <hr>
+
     <div class="main-container">
         <div class="container">
 
@@ -103,19 +104,31 @@ if (isset($_GET['search'])) {
 
                     <select name="type">
                         <option value="">Please Select</option>
-                        <option value="desktop" <?php if (isset($_POST['type']) && $_POST['type'] === 'desktop') echo ' selected'; ?>>Desktop</option>
-                        <option value="laptop" <?php if (isset($_POST['type']) && $_POST['type'] === 'laptop') echo ' selected'; ?>>Laptop</option>
-                        <option value="electronic" <?php if (isset($_POST['type']) && $_POST['type'] === 'electronic') echo ' selected'; ?>>Electronic</option>
+                        <option value="desktop" <?php if (isset($_POST['type']) && $_POST['type'] === 'desktop')
+                            echo ' selected'; ?>>Desktop</option>
+                        <option value="laptop" <?php if (isset($_POST['type']) && $_POST['type'] === 'laptop')
+                            echo ' selected'; ?>>Laptop</option>
+                        <option value="electronic" <?php if (isset($_POST['type']) && $_POST['type'] === 'electronic')
+                            echo ' selected'; ?>>Electronic</option>
                     </select>
 
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {echo $_POST['year'];} ?>" />
+                    <input type="number" placeholder="Year" name="year"
+                        value="<?php if (isset($_POST['year'])) {
+                            echo $_POST['year'];
+                        } ?>" />
 
-                    <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {echo $_POS['folio'];} ?>" />
+                    <input type="text" placeholder="Folio number" name="folio"
+                        value="<?php if (isset($_POST['folio'])) {
+                            echo $_POS['folio'];
+                        } ?>" />
 
-                    <input type="text" placeholder="Serial Number" name="SN" value="<?php if (isset($_POST['SN'])) {echo $_POST['SN'];}?>">
+                    <input type="text" placeholder="Serial Number" name="SN"
+                        value="<?php if (isset($_POST['SN'])) {
+                            echo $_POST['SN'];
+                        } ?>">
 
                     <input class="button" type="submit" name="search" value="Search" />
-                    
+
                 </form>
             </div>
         </div>
@@ -148,9 +161,11 @@ if (isset($_GET['search'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                    ?>
+                        ?>
                         <tr>
-                            <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a></td>
+                            <td class="name"><a
+                                    href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a>
+                            </td>
                             <td><?php echo $rowinvoice['date'] ?></td>
                             <td><?php echo $rowinvoice['price'] ?></td>
                             <td><?php echo $rowinvoice['quantity'] ?></td>
@@ -170,7 +185,7 @@ if (isset($_GET['search'])) {
                             </td>
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt']
-                                        ?></td>
+                                ?></td>
                                 <td><?php //echo $rowinvoice['srn']
                                     ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -192,13 +207,13 @@ if (isset($_GET['search'])) {
                                     // Calculate the difference in days between the current date and the warranty end date
                                     $interval = $currentDate->diff($purchaseDateObj);
                                     if ($interval->y > 0) {
-                                        echo  $interval->y . " years<br>";
+                                        echo $interval->y . " years<br>";
                                     }
                                     if ($interval->m > 0) {
                                         echo $interval->m . " months<br>";
                                     }
                                     if ($interval->d > 0) {
-                                        echo  $interval->d . " days<br>left";
+                                        echo $interval->d . " days<br>left";
                                     }
                                 } else {
                                     // Warranty has expired
@@ -210,12 +225,14 @@ if (isset($_GET['search'])) {
                             <td>
                                 <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>">Edit</a>
                                 <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
-                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
+                                    <input type="hidden" name="<?php echo "remove"; ?>"
+                                        value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <button class="logout" type="submit"
+                                        onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                 </form>
                             </td>
                         </tr>
-                    <?php
+                        <?php
                     }
                     ?>
 
@@ -226,8 +243,8 @@ if (isset($_GET['search'])) {
             </table>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                $(document).ready(function() {
-                    $('.description').each(function() {
+                $(document).ready(function () {
+                    $('.description').each(function () {
                         if ($(this).width() > 300) {
                             $(this).removeClass('description').addClass('description expandable');
                             $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
@@ -235,24 +252,24 @@ if (isset($_GET['search'])) {
                     });
                 });
 
-                $(document).ready(function() {
-                    $('.name').each(function() {
+                $(document).ready(function () {
+                    $('.name').each(function () {
                         if ($(this).width() > 200) {
                             $(this).removeClass('name').addClass('name expandable');
                             $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                         }
                     });
                 });
-                $(document).ready(function() {
-                    $('.sname').each(function() {
+                $(document).ready(function () {
+                    $('.sname').each(function () {
                         if ($(this).width() > 300) {
                             $(this).removeClass('sname').addClass('sname expandable');
                             $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                         }
                     });
                 });
-                $(document).ready(function() {
-                    $('.folio_number').each(function() {
+                $(document).ready(function () {
+                    $('.folio_number').each(function () {
                         if ($(this).width() > 200) {
                             $(this).removeClass('folio_number').addClass('folio_number expandable');
                             $(this).closest('tr').after('<tr><td class="folio_number expandable">' + $(this).text() + '</td></tr>');

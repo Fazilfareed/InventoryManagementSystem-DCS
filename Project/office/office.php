@@ -21,14 +21,14 @@ if (isset($_POST['search'])) {
     $folio = $_POST['folio'];
     $SN = $_POST['SN'];
 
-    if (!(empty($year)) and  !(empty($folio)) and !(empty($SN))) {
+    if (!(empty($year)) and !(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM o_invoice INNER JOIN o_items ON o_items.invoice_id = o_invoice.invoice_id WHERE o_items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND folio_number='$folio' ORDER BY name ASC ";
-    } else if (!(empty($year)) and  !(empty($folio))) {
+    } else if (!(empty($year)) and !(empty($folio))) {
 
         $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year AND folio_number='$folio' ORDER BY name ASC  ";
-    } elseif (!(empty($year)) and  !(empty($SN))) {
+    } elseif (!(empty($year)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM o_invoice INNER JOIN o_items ON o_items.invoice_id = o_invoice.invoice_id WHERE o_items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year ORDER BY name ASC ";
-    } elseif (!(empty($folio)) and  !(empty($SN))) {
+    } elseif (!(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM o_invoice INNER JOIN o_items ON o_items.invoice_id = o_invoice.invoice_id WHERE o_items.serial_number='$SN' AND folio_number='$folio' ORDER BY name ASC ";
     } elseif (!(empty($year))) {
         $queryinvoice = "SELECT * FROM o_invoice WHERE EXTRACT(YEAR FROM date)=$year ORDER BY name ASC ";
@@ -54,7 +54,8 @@ if (isset($_POST['search'])) {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         ul .office a {
@@ -65,7 +66,7 @@ if (isset($_POST['search'])) {
 
 <body>
     <?php include("../header/header.php"); ?>
-    <hr>
+
 
 
 
@@ -75,11 +76,20 @@ if (isset($_POST['search'])) {
             <div>
                 <form action="office.php" method="post">
 
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {echo $_POST['year'];} ?>" />
+                    <input type="number" placeholder="Year" name="year"
+                        value="<?php if (isset($_POST['year'])) {
+                            echo $_POST['year'];
+                        } ?>" />
 
-                    <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {echo $_POST['folio'];} ?>" />
+                    <input type="text" placeholder="Folio number" name="folio"
+                        value="<?php if (isset($_POST['folio'])) {
+                            echo $_POST['folio'];
+                        } ?>" />
 
-                    <input type="text" placeholder="Serial numebr" name="SN" value="<?php if (isset($_POST['SN'])) {echo $_POST['SN'];} ?>" />
+                    <input type="text" placeholder="Serial numebr" name="SN"
+                        value="<?php if (isset($_POST['SN'])) {
+                            echo $_POST['SN'];
+                        } ?>" />
 
                     <input class="button" type="submit" name="search" value="Search" />
 
@@ -113,9 +123,11 @@ if (isset($_POST['search'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                    ?>
+                        ?>
                         <tr>
-                            <td class="name"><a href="officeItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a></td>
+                            <td class="name"><a
+                                    href="officeItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a>
+                            </td>
 
                             <td><?php echo $rowinvoice['date'] ?></td>
 
@@ -142,7 +154,7 @@ if (isset($_POST['search'])) {
 
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt'] 
-                                        ?></td>
+                                ?></td>
                             <td><?php //echo $rowinvoice['srn'] 
                                 ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -165,7 +177,7 @@ if (isset($_POST['search'])) {
                                     // Calculate the difference in days between the current date and the warranty end date
                                     $interval = $currentDate->diff($purchaseDateObj);
                                     echo
-                                    $interval->y . " years<br>"
+                                        $interval->y . " years<br>"
                                         . $interval->m . " months<br>"
                                         . $interval->d . " days<br>left";
                                 } else {
@@ -178,13 +190,16 @@ if (isset($_POST['search'])) {
                             <td>
                                 <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>">Edit</a>
                                 <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
-                                    <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')" style="margin:5px;background-color: #ff0000; color: #ffffff; border: none; padding: 5px 10px; cursor: pointer;">Remove</button>
+                                    <input type="hidden" name="<?php echo "remove"; ?>"
+                                        value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <button class="logout" type="submit"
+                                        onclick="return confirm('Are you sure to remove this record ?')"
+                                        style="margin:5px;background-color: #ff0000; color: #ffffff; border: none; padding: 5px 10px; cursor: pointer;">Remove</button>
                                 </form>
                             </td>
-                            
+
                         </tr>
-                    <?php
+                        <?php
                     }
                     ?>
                 </tbody>
