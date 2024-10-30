@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2024 at 08:15 AM
+-- Generation Time: Oct 30, 2024 at 06:45 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,6 +49,43 @@ INSERT INTO `admin` (`id`, `name`, `username`, `email`, `tp`, `role`, `password`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `forma_table`
+--
+
+CREATE TABLE `forma_table` (
+  `description` varchar(200) NOT NULL,
+  `purchase_year` year(4) NOT NULL,
+  `purchase_value` decimal(10,0) NOT NULL,
+  `master_inventory_no` varchar(50) NOT NULL,
+  `dept_inventory_no` varchar(50) NOT NULL,
+  `page_no` varchar(20) NOT NULL,
+  `fixed_asset_no` varchar(50) NOT NULL,
+  `book_balance` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `verified_balance` varchar(50) NOT NULL,
+  `surplus` varchar(50) NOT NULL,
+  `deficit` varchar(50) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `forma_table`
+--
+
+INSERT INTO `forma_table` (`description`, `purchase_year`, `purchase_value`, `master_inventory_no`, `dept_inventory_no`, `page_no`, `fixed_asset_no`, `book_balance`, `total`, `verified_balance`, `surplus`, `deficit`, `remarks`) VALUES
+('desktop test', '2024', 116000, '', 'uoj/csc/453/le/18-19', 'LE354', '', 3, 0, '', '', '', ''),
+('electronics test', '2024', 116000, '', 'uoj/csc/123/le/300-301', 'LE354', '', 1, 0, '', '', '', ''),
+('laptop test', '2024', 116000, '', 'uoj/csc/530/le/259-260', 'LE354', '', 2, 0, '', '', '', ''),
+('single desktop test', '2024', 58000, '', 'uoj/csc/242/le/12', 'LE354', '', 3, 0, '', '', '', ''),
+('single laptop test', '2024', 58000, '', 'uoj/csc/242/le/50', 'LE354', '', 2, 0, '', '', '', ''),
+('single electronic test', '2024', 58000, '', 'uoj/csc/20/le/50', 'LE354', '', 0, 0, '', '', '', ''),
+('electro', '2024', 26000, '', 'uoj/lms/123/le/12-13', 'le124', '', 2, 0, '', '', '', ''),
+('sahran', '2024', 9000, '', 'uoj/lms/421/le/14-16', 'le453', '', 2, 0, '', '', '', ''),
+('kdjhfkdhfkdfhd lhkdhfkdhf dhfdkfhdi hfdkfh dkfhdfhd fldhfdlhf iauhf kdhf idfhidh fdfhdkfh dfhdi fhdfkdf', '2024', 929130, '', 'uoj/lms/421/le/78-79', 'le4646', '', 6, 0, '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `formb_table`
 --
 
@@ -69,15 +106,17 @@ CREATE TABLE `formb_table` (
 INSERT INTO `formb_table` (`article`, `quantity`, `sdrt`, `master_inventory_no`, `dept_Inventory_no`, `fixed_asset_no`, `remarks`) VALUES
 ('System Unit', 0, 'no', '', 'uoj/csc/453/le/18A', '', ''),
 ('Keyboard', 0, 'no', '', 'uoj/csc/453/le/18C', '', ''),
-('Mouse', 0, 'S', '', 'uoj/csc/453/le/18D', '', ''),
+('Mouse', 0, 'S', 'jnknkljlj', 'uoj/csc/453/le/18D', 'lkjljlnl', 'ljljljljlj'),
 ('Monitor', 0, 'no', '', 'uoj/csc/453/le/19B', '', ''),
 ('Mouse', 0, 'no', '', 'uoj/csc/453/le/19D', '', ''),
 ('electronics test', 0, 'no', '', 'uoj/csc/123/le/300', '', ''),
 ('laptop test', 0, 'no', '', 'uoj/csc/530/le/259', '', ''),
 ('laptop test', 0, 'no', '', 'uoj/csc/530/le/259', '', ''),
 ('System Unit', 0, 'no', '', 'uoj/csc/242/le/12A', '', ''),
-('single electronic test', 0, 'S', '', 'uoj/csc/20/le/50', '', ''),
-('sahran', 0, 'no', '', 'uoj/lms/421/le/16', '', '');
+('single electronic test', 0, 'S', 'ljnkjklj', 'uoj/csc/20/le/50', 'ljljljp', 'ljljljo'),
+('sahran', 0, 'no', '', 'uoj/lms/421/le/16', '', ''),
+('System Unit', 0, 'D', '', 'uoj/lms/421/le/78A', '', ''),
+('System Unit', 0, 'T', '', 'uoj/lms/421/le/79A', '', '');
 
 -- --------------------------------------------------------
 
@@ -95,11 +134,19 @@ CREATE TABLE `f_forma_table` (
   `fixed_asset_no` varchar(50) NOT NULL,
   `book_balance` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `verified_balance` int(11) NOT NULL,
-  `surplus` int(11) NOT NULL,
-  `deficit` int(11) NOT NULL,
-  `remarks` varchar(100) NOT NULL
+  `verified_balance` varchar(50) NOT NULL,
+  `surplus` varchar(50) NOT NULL,
+  `deficit` varchar(50) NOT NULL,
+  `remarks` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `f_forma_table`
+--
+
+INSERT INTO `f_forma_table` (`description`, `purchase_year`, `purchase_value`, `master_inventory_no`, `dept_inventory_no`, `page_no`, `fixed_asset_no`, `book_balance`, `total`, `verified_balance`, `surplus`, `deficit`, `remarks`) VALUES
+('test furniture', '2012', 0, '', 'uoj/compsc/124/fe/10', 'FE102', 'jghg', 7, 7, '0', '0', '0', 'ljkljljj'),
+('test_1', '2023', 50000, '', 'uoj/csc/132/Fe/18', 'OE790', '', 0, 0, '0', '0', '0', '');
 
 -- --------------------------------------------------------
 
@@ -116,6 +163,14 @@ CREATE TABLE `f_formb_table` (
   `fixed_asset_no` varchar(50) NOT NULL,
   `remarks` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `f_formb_table`
+--
+
+INSERT INTO `f_formb_table` (`article`, `quantity`, `sdrt`, `master_inventory_no`, `dept_Inventory_no`, `fixed_asset_no`, `remarks`) VALUES
+('test furniture', 0, 'R', '', '1', '', ''),
+('test_1', 0, 'no', '', '1', '', '');
 
 -- --------------------------------------------------------
 
@@ -166,7 +221,7 @@ CREATE TABLE `f_items` (
 --
 
 INSERT INTO `f_items` (`invoice_id`, `f_set_id`, `location`, `working`) VALUES
-(10, '1', 'csl 3 & 4', 'yes'),
+(10, '1', 'csl 3 & 4', 'R'),
 (11, '1', 'DCS', 'no');
 
 -- --------------------------------------------------------
@@ -204,7 +259,8 @@ INSERT INTO `invoice` (`invoice_id`, `name`, `date`, `price`, `quantity`, `folio
 (179, 'single laptop test', '2024-10-11', 58000, 1, 'uoj/csc/242/le/50', 'jdljhdf dfhjdof hdifdniuhd idfjhdfndhfl ', 'fazil', 789456123, 665479, 'laptop', 'LE354', 'cscl 3 and 4', 24),
 (180, 'single electronic test', '2024-10-12', 58000, 1, 'uoj/csc/20/le/50', '', 'fazil', 789456123, 665479, 'electronic', 'LE354', 'cscl 3 and 4', 24),
 (181, 'electro', '2024-10-12', 13000, 2, 'uoj/lms/123/le/12-13', 'hel', 'faz', 243509, 3409341, 'electronic', 'le124', 'jaffna', 30),
-(182, 'sahran', '2024-10-19', 3000, 3, 'uoj/lms/421/le/14-16', 'test electro', 'fazil', 93434213, 3435358, 'electronic', 'le453', 'jaffna', 12);
+(182, 'sahran', '2024-10-19', 3000, 3, 'uoj/lms/421/le/14-16', 'test electro', 'fazil', 93434213, 3435358, 'electronic', 'le453', 'jaffna', 12),
+(183, 'kdjhfkdhfkdfhd lhkdhfkdhf dhfdkfhdi hfdkfh dkfhdfhd fldhfdlhf iauhf kdhf idfhidh fdfhdkfh dfhdi fhdfkdf', '2024-10-18', 464565, 2, 'uoj/lms/421/le/78-79', 'ljdlf dlkjfld andlfd lkdfd lkdf ldkndf ldlfjd lfdlj fldjfl dfdfjdfj dfdpfjdjf dfodf dfjodjfpdjf dfd', 'dfdjfldj flajojd fjd jdjfpa dfmdfpd fpdfdfdpfjd ', 654646, 5464346, 'desktop', 'le4646', 'jaff', 15);
 
 -- --------------------------------------------------------
 
@@ -253,43 +309,15 @@ INSERT INTO `items` (`invoice_id`, `set_id`, `category`, `item`, `serial_number`
 (181, 'uoj/lms/123/le/13', 'electronic', 'electro', 's123', '', 'jaffna', 'yes'),
 (182, 'uoj/lms/421/le/14', 'electronic', 'sahran', 's4520', '', 'jaffna', 'yes'),
 (182, 'uoj/lms/421/le/15', 'electronic', 'sahran', 's1230', '', 'jaffna', 'yes'),
-(182, 'uoj/lms/421/le/16', 'electronic', 'sahran', 's2340', '', 'jaffna', 'no');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `l_forma_table`
---
-
-CREATE TABLE `l_forma_table` (
-  `description` varchar(200) NOT NULL,
-  `purchase_year` year(4) NOT NULL,
-  `purchase_value` decimal(10,0) NOT NULL,
-  `master_inventory_no` varchar(50) NOT NULL,
-  `dept_inventory_no` varchar(50) NOT NULL,
-  `page_no` varchar(20) NOT NULL,
-  `fixed_asset_no` varchar(50) NOT NULL,
-  `book_balance` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
-  `verified_balance` varchar(50) NOT NULL,
-  `surplus` varchar(50) NOT NULL,
-  `deficit` varchar(50) NOT NULL,
-  `remarks` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `l_forma_table`
---
-
-INSERT INTO `l_forma_table` (`description`, `purchase_year`, `purchase_value`, `master_inventory_no`, `dept_inventory_no`, `page_no`, `fixed_asset_no`, `book_balance`, `total`, `verified_balance`, `surplus`, `deficit`, `remarks`) VALUES
-('desktop test', '2024', 116000, '', 'uoj/csc/453/le/18-19', 'LE354', '', 3, 0, '', '', '', ''),
-('electronics test', '2024', 116000, '', 'uoj/csc/123/le/300-301', 'LE354', '', 1, 0, '', '', '', ''),
-('laptop test', '2024', 116000, '', 'uoj/csc/530/le/259-260', 'LE354', '', 2, 0, '', '', '', ''),
-('single desktop test', '2024', 58000, '', 'uoj/csc/242/le/12', 'LE354', '', 3, 0, '', '', '', ''),
-('single laptop test', '2024', 58000, '', 'uoj/csc/242/le/50', 'LE354', '', 2, 0, '', '', '', ''),
-('single electronic test', '2024', 58000, '', 'uoj/csc/20/le/50', 'LE354', '', 0, 0, '', '', '', ''),
-('electro', '2024', 26000, '', 'uoj/lms/123/le/12-13', 'le124', '', 2, 0, '', '', '', ''),
-('sahran', '2024', 9000, '', 'uoj/lms/421/le/14-16', 'le453', '', 2, 0, '', '', '', '');
+(182, 'uoj/lms/421/le/16', 'electronic', 'sahran', 's2340', '', 'jaffna', 'no'),
+(183, 'uoj/lms/421/le/78A', 'desktop', 'System Unit', 'A464', '', 'jaff', 'D'),
+(183, 'uoj/lms/421/le/78B', 'desktop', 'Monitor', 'B6456', '', 'jaff', 'yes'),
+(183, 'uoj/lms/421/le/78C', 'desktop', 'Keyboard', 'V646', '', 'jaff', 'yes'),
+(183, 'uoj/lms/421/le/78D', 'desktop', 'Mouse', 'F6464', '', 'jaff', 'yes'),
+(183, 'uoj/lms/421/le/79A', 'desktop', 'System Unit', 'A646', '', 'jaff', 'T'),
+(183, 'uoj/lms/421/le/79B', 'desktop', 'Monitor', 'B646', '', 'jaff', 'yes'),
+(183, 'uoj/lms/421/le/79C', 'desktop', 'Keyboard', 'V66', '', 'jaff', 'yes'),
+(183, 'uoj/lms/421/le/79D', 'desktop', 'Mouse', 'G666', '', 'jaff', 'yes');
 
 -- --------------------------------------------------------
 
@@ -307,11 +335,20 @@ CREATE TABLE `o_forma_table` (
   `fixed_asset_no` varchar(50) NOT NULL,
   `book_balance` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `verified_balance` int(11) NOT NULL,
-  `surplus` int(11) NOT NULL,
-  `deficit` int(11) NOT NULL,
-  `remarks` varchar(100) NOT NULL
+  `verified_balance` varchar(50) NOT NULL,
+  `surplus` varchar(50) NOT NULL,
+  `deficit` varchar(50) NOT NULL,
+  `remarks` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `o_forma_table`
+--
+
+INSERT INTO `o_forma_table` (`description`, `purchase_year`, `purchase_value`, `master_inventory_no`, `dept_inventory_no`, `page_no`, `fixed_asset_no`, `book_balance`, `total`, `verified_balance`, `surplus`, `deficit`, `remarks`) VALUES
+('test_1', '2023', 54000, '', 'uoj/csc/132/oe/31-33', 'OE789', 'jhbk', 3, 65, '0', '0', '0', 'kbk'),
+('test_2', '2012', 54000, '', 'uoj/csc/132/oe/34-36', 'OE790', 'jnljlj', 7, 5, '0', '0', '0', 'lkjljj'),
+('ldlfjkddddddddddddd hkdfldddddddd sdkfhdf', '2024', 77804, '', 'uoj/csc/132/oe/37-38', 'OE790', '', 1, 0, '0', '0', '0', '');
 
 -- --------------------------------------------------------
 
@@ -328,6 +365,15 @@ CREATE TABLE `o_formb_table` (
   `fixed_asset_no` varchar(50) NOT NULL,
   `remarks` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `o_formb_table`
+--
+
+INSERT INTO `o_formb_table` (`article`, `quantity`, `sdrt`, `master_inventory_no`, `dept_Inventory_no`, `fixed_asset_no`, `remarks`) VALUES
+('test_2', 0, 'R', '', 'uoj/csc/132/oe/34', '', ''),
+('test_2', 0, 'S', '', 'uoj/csc/132/oe/35', '', ''),
+('ldlfjkddddddddddddd hkdfldddddddd sdkfhdf', 0, 'T', '', 'uoj/csc/132/oe/38', '', '');
 
 -- --------------------------------------------------------
 
@@ -384,10 +430,10 @@ INSERT INTO `o_items` (`invoice_id`, `set_id`, `serial_number`, `model_number`, 
 (17, '1', 'S234', '', 'csl 3 & 4', 'yes'),
 (17, '2', 'S234', '', 'csl 3 & 4', 'yes'),
 (18, 'uoj/csc/132/oe/34', 'S284', '', 'csl 3 & 4', 'R'),
-(18, 'uoj/csc/132/oe/35', 'S234', '', 'csl 3 & 4', 'yes'),
+(18, 'uoj/csc/132/oe/35', 'S234', '', 'csl 3 & 4', 'S'),
 (18, 'uoj/csc/132/oe/36', 'S234', '', 'csl 3 & 4', 'yes'),
 (19, 'uoj/csc/132/oe/37', 'Gei2', '', 'csl 3 & 4', 'yes'),
-(19, 'uoj/csc/132/oe/38', 'S234', '', 'csl 3 & 4', 'yes');
+(19, 'uoj/csc/132/oe/38', 'S234', '', 'csl 3 & 4', 'T');
 
 --
 -- Indexes for dumped tables
@@ -456,7 +502,7 @@ ALTER TABLE `f_invoice`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `o_invoice`
