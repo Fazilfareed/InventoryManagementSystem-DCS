@@ -2,7 +2,8 @@
     padding: 50px;
     min-height: 100vh;
     height: fit-content;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+    background: linear-gradient(-135deg, #01064a, #21acc2);
 
 }
 
@@ -72,7 +73,7 @@ input:focus {
 }
 
 .button {
-    background: #57b846;
+    background: #3ee3eb;
     color: white;
     cursor: pointer;
     height: 40px;
@@ -97,7 +98,7 @@ table {
     border-collapse: collapse;
     background: #fff;
     border-radius: 10px;
-    width: auto;
+    /* width: auto; */
     margin: auto;
     position: relative;
     font-family: 'Open Sans';
@@ -111,7 +112,7 @@ table {
 .table-con td.description {
     max-width: 300px;
     word-wrap: break-word;
-    min-width: 250px;
+    /* min-width: 250px; */
 }
 
 .table-con td.description.expandable {
@@ -123,7 +124,7 @@ table {
 .table-con td.name {
     max-width: 200px;
     word-wrap: break-word;
-    min-width: 200px;
+    /* min-width: 200px; */
 }
 
 .table-con td.name.expandable {
@@ -135,7 +136,7 @@ table {
 .table-con td.sname {
     max-width: 300px;
     word-wrap: break-word;
-    min-width: 200px;
+    /* min-width: 200px; */
 }
 
 .table-con td.sname.expandable {
@@ -158,7 +159,7 @@ table {
 
 
 th {
-    width: 100px;
+    width: 200px;
     font-size: 18px;
     background: #293036;
     color: white;

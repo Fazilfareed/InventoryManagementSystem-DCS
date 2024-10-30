@@ -9,7 +9,8 @@
 }
 
 :root {
-    --bg-gradient: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* --bg-gradient: linear-gradient(-135deg, #c850c0, #4158d0); */
+    background: linear-gradient(-135deg, #01064a, #21acc2);
     --bg-gray: #e6e6e6;
     --text-color: #666;
     --inp-color: #57b846;
@@ -25,10 +26,18 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 4rem;
-    background: var(--bg-gradient);
+    background: rgb(3, 14, 45);
     box-shadow: 0 5px 30px rgb(0, 0, 0);
 }
+.logo_link{
+    display: flex;
+    align-items: center;
+    gap: 5px;
 
+}
+.logo_link img{
+    width: 45px;
+}
 h1 {
     font-size: 1.2rem;
     font-weight: 500;
@@ -64,14 +73,17 @@ ul li ul.dropdown li {
 
 ul li ul.dropdown {
     width: 100%;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+    background: #021a39;
     position: absolute;
     z-index: 1;
     display: none;
+    border-radius: 15px;
 }
 
 ul li a:hover {
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+    background: rgb(1, 13, 45);
 
 }
 
@@ -100,6 +112,7 @@ button {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 20cqb;
 }
 
 
@@ -162,7 +175,8 @@ button {
 
     ul li ul.dropdown {
         width: 100%;
-        background: linear-gradient(-135deg, #c850c0, #4158d0);
+        /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+        background: linear-gradient(-135deg, #01064a, #21acc2);
         position: absolute;
         z-index: 1;
         display: none;
