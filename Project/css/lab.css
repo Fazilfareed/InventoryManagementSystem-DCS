@@ -3,7 +3,7 @@
     min-height: 100vh;
     height: fit-content;
     /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
-    background: linear-gradient(-135deg, #01064a, #21acc2);
+    background: rgb(195, 193, 193);
 
 }
 
@@ -104,6 +104,7 @@ table {
     font-family: 'Open Sans';
     text-align: center;
     background: #fff;
+    overflow: auto;
 }
 
 
@@ -112,7 +113,7 @@ table {
 .table-con td.description {
     max-width: 300px;
     word-wrap: break-word;
-    /* min-width: 250px; */
+    min-width: 250px;
 }
 
 .table-con td.description.expandable {
@@ -124,7 +125,7 @@ table {
 .table-con td.name {
     max-width: 200px;
     word-wrap: break-word;
-    /* min-width: 200px; */
+    min-width: 200px;
 }
 
 .table-con td.name.expandable {
@@ -136,7 +137,7 @@ table {
 .table-con td.sname {
     max-width: 300px;
     word-wrap: break-word;
-    /* min-width: 200px; */
+    min-width: 200px;
 }
 
 .table-con td.sname.expandable {
