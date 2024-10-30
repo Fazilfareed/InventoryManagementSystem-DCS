@@ -12,85 +12,84 @@ $rowsPerPage = 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $rowsPerPage;
 
-$queryinvoice = "SELECT * FROM f_formb_table";
 
 $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM f_invoice"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
-if (isset($_GET['search'])) {
-    
-    $sdrt = $_GET['sdrt'];
-    if (!(empty($sdrt))) {
-        $queryinvoice = "SELECT * FROM f_formb_table WHERE sdrt='$sdrt' ";
-    } 
-    else {
-        $queryinvoice = "SELECT * FROM f_formb_table";
-    }
-}
 
 
 if (isset($_GET['export'])) {
 
-    $queryinvoice = "SELECT * FROM f_formb_table";
+    if (isset($_GET['sdrt']) && !empty($_GET['sdrt'])) {
+        $sdrt =  mysqli_real_escape_string($con, $_GET['sdrt']);
+        $queryinvoice = "SELECT * FROM f_formb_table WHERE sdrt='$sdrt'";
+    } else {
+        $queryinvoice = "SELECT * FROM f_formb_table";
+    }
+    error_log("Export Query: " . $queryinvoice);
+
     $resultinvoice1 = mysqli_query($con, $queryinvoice);
 
-    class PDF extends FPDF {
+    class PDF extends FPDF
+    {
 
-        function Header() {
+        function Header()
+        {
             // Set font for the header
             $this->SetFont('Arial', 'B', 10);
-            
+
             // Document title and subtitle
             $this->SetFont('Arial', 'BU', 10);
             $this->Cell(0, 0, 'Form B', 0, 1, 'R');
             $this->SetFont('Arial', '', 10);
             $this->Cell(50, 2, 'To be completed and return in duplicate to the Deputy Registrar Administration with the Board of Survey Report', 0, 1);
             $this->Ln();
-    
+
             // University name and survey details
             $this->SetFont('Arial', 'B', 12);
             $this->Cell(0, 7, 'University of Jaffna', 0, 1, 'C');
             $this->Cell(0, 7, 'Board of Survey 2023', 0, 1, 'C');
             $this->Ln(1);
-    
+
             // List title
             $this->SetFont('Arial', 'BU', 12);
             $this->Cell(0, 5, 'LIST OF UNUSABLE / REPAIRABLE / TRANSFERRED', 0, 1, 'C');
-            $this->Ln(1); 
-    
+            $this->Ln(1);
+
             $this->SetFont('Arial', '', 12);
             $this->Cell(50, 5, 'Department: ..........................................................', 0, 1);
             $this->Ln(1);
-    
+
             // Table headers
             $this->SetFont('Arial', 'B', 10);
-            $this->Cell(10, 7, 'No', 1,0,'C');
-            $this->Cell(60, 7, 'Article', 1,0,'C');
-            $this->Cell(10, 7, 'Qty', 1,0,'C');
-            $this->Cell(15, 7, 'S/D/R/T', 1,0,'C');
-            $this->Cell(50, 7, 'Master Inventory Folio No.', 1,0,'C');
-            $this->Cell(50, 7, 'Department Inventory No.', 1,0,'C');
-            $this->Cell(50, 7, 'Fixed Assets No.', 1,0,'C');
-            $this->Cell(30, 7, 'Remarks', 1,0,'C');
+            $this->Cell(10, 7, 'No', 1, 0, 'C');
+            $this->Cell(60, 7, 'Article', 1, 0, 'C');
+            $this->Cell(10, 7, 'Qty', 1, 0, 'C');
+            $this->Cell(15, 7, 'S/D/R/T', 1, 0, 'C');
+            $this->Cell(50, 7, 'Master Inventory Folio No.', 1, 0, 'C');
+            $this->Cell(50, 7, 'Department Inventory No.', 1, 0, 'C');
+            $this->Cell(50, 7, 'Fixed Assets No.', 1, 0, 'C');
+            $this->Cell(30, 7, 'Remarks', 1, 0, 'C');
             $this->Ln();
         }
-    
-    
+
+
         // Page footer
-        function Footer() {
+        function Footer()
+        {
             // Adjust this value based on the height of your content
-            $this->SetY(-80); 
-            
+            $this->SetY(-80);
+
             // Set font for the footer
             $this->SetFont('Arial', 'BU', 12);
             $this->Cell(0, 5, 'REPORT OF THE BOARD OF SURVEY', 0, 1, 'C');
             $this->Ln(0);
-    
+
             // Report Details
             $this->SetFont('Arial', '', 12);
             $this->MultiCell(0, 5, 'The Members having inspected the Articles specified in the list that', 0, 'L');
             $this->Ln(0);
-    
+
             // Conditions list
             $this->SetFont('Arial', '', 10);
             $this->Cell(0, 5, 'i. Those marked "S" are unserviceable and Should be Sold.', 0, 1);
@@ -98,7 +97,7 @@ if (isset($_GET['export'])) {
             $this->Cell(0, 5, 'iii. Those marked "R" are repairable/Serviceable and should be utilized.', 0, 1);
             $this->Cell(0, 5, 'iv. Those marked "T" are Transferable.', 0, 1);
             $this->Ln(0);
-    
+
             // Signature area
             $this->SetFont('Arial', '', 12);
             $this->SetX(10);
@@ -109,60 +108,59 @@ if (isset($_GET['export'])) {
             $this->Cell(80, 7, '03. ........................................................', 0, 0);
             $this->SetX(100);
             $this->Cell(80, 7, '04. ........................................................', 0, 1);
-            
+
             // Other footer content, like signatures, custody, date, and VC section
             $this->Cell(0, 5, '(Signature of the Members of the Board of Survey)', 0, 1, 'L');
             $this->Ln(5);
-            
+
             $this->SetX(10);
             $this->Cell(80, 2, '........................................................', 0, 0);
             $this->Ln();
-    
+
             $this->SetX(10);
             $this->SetFont('Arial', 'B', 10);
-            $this->Cell(70, 5, 'Head of Department with seal', 0, 0,'C');
-    
+            $this->Cell(70, 5, 'Head of Department with seal', 0, 0, 'C');
+
             $this->SetFont('Arial', '', 10);
-    
+
             $this->SetX(160);
             $this->Cell(80, 2, ' ........................................................', 0, 0);
             $this->Ln();
-    
+
             $this->SetX(160);
-            $this->Cell(60, 5, 'Custody of subordinate staff', 0, 0,'C');
+            $this->Cell(60, 5, 'Custody of subordinate staff', 0, 0, 'C');
             $this->Ln(7);
             $this->SetX(10);
             $this->Cell(80, 2, '........................................................', 0, 0);
             $this->Ln();
-    
+
             $this->SetX(10);
-            $this->Cell(70, 5, 'Date', 0, 0,'C');
-    
+            $this->Cell(70, 5, 'Date', 0, 0, 'C');
+
             $this->SetX(160);
             $this->Cell(80, 2, '........................................................', 0, 0);
             $this->Ln();
-    
+
             $this->SetX(160);
             $this->SetFont('Arial', 'B', 10);
-            $this->Cell(60, 5, 'Vice Chancellor / Registrar', 0, 0,'C');
-    
-    
+            $this->Cell(60, 5, 'Vice Chancellor / Registrar', 0, 0, 'C');
         }
-    
-        function CheckPageBreak($h) {
+
+        function CheckPageBreak($h)
+        {
             $footerHeight = 80;
-            if($this->GetY() + $h > ($this->h - $footerHeight)) {
+            if ($this->GetY() + $h > ($this->h - $footerHeight)) {
                 $this->AddPage($this->CurOrientation);
             }
         }
     }
-    
+
     $pdf = new PDF("L", "mm", "A4");
     $pdf->AddPage();
-    
+
     $pdf->SetFont('Arial', '', 10);
-    $i = 1;       
-        
+    $i = 1;
+
     while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
         $pdf->CheckPageBreak(4);
         $pdf->Cell(10, 5, $i, 1);
@@ -176,10 +174,25 @@ if (isset($_GET['export'])) {
         $pdf->Ln();
         $i++;
     }
-    
+
     // Output the PDF
     $pdf->Output('Board_of_Survey_2023.pdf', 'I');
 }
+
+if (isset($_GET['search'])) {
+
+    $sdrt = $_GET['sdrt'];
+    if (!(empty($sdrt))) {
+        $queryinvoice = "SELECT * FROM f_formb_table WHERE sdrt='$sdrt' ";
+    } else {
+        $queryinvoice = "SELECT * FROM f_formb_table";
+    }
+} else {
+    // Default query if no search is performed
+    $queryinvoice = "SELECT * FROM f_formb_table";
+    $resultinvoice = mysqli_query($con, $queryinvoice);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -214,9 +227,17 @@ if (isset($_GET['export'])) {
             <div>
                 <form action="furnitureForm_B.php" method="get">
 
-                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {echo $_POST['sdrt']; } ?>" />
+                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {
+                                                                                    echo $_POST['sdrt'];
+                                                                                } ?>" />
                     <input class="button" type="submit" name="search" value="Search" />
-                    <input class="button" type="submit" name="export" value="Export to PDF" />
+                    <a href="furnitureForm_B.php?export=true&sdrt=<?php
+                                                                    if (isset($_GET['sdrt'])) {
+                                                                        echo urlencode($_GET['sdrt']);
+                                                                    }
+
+                                                                    ?>"><input class="button" value="Export to PDF" /></a>
+
 
                 </form>
                 <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
@@ -251,11 +272,11 @@ if (isset($_GET['export'])) {
 
                             <td><?php echo $rowinvoice['sdrt'] ?></td>
 
-                            <td><?php echo$rowinvoice['master_inventory_no']?></td>
+                            <td><?php echo $rowinvoice['master_inventory_no'] ?></td>
 
-                            <td><?php echo $rowinvoice['dept_Inventory_no']?></td>
+                            <td><?php echo $rowinvoice['dept_Inventory_no'] ?></td>
 
-                            <td><?php echo $rowinvoice['fixed_asset_no']?></td>
+                            <td><?php echo $rowinvoice['fixed_asset_no'] ?></td>
 
                             <td><?php echo $rowinvoice['remarks'] ?></td>
 

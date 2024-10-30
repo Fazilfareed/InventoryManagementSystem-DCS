@@ -12,71 +12,28 @@ $rowsPerPage = 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $rowsPerPage;
 
-$queryinvoice = "SELECT * FROM formb_table";
-
 $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM invoice"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
-if (isset($_GET['search'])) {
-    // $type = $_GET['type'];
-    // $year = $_GET['year'];
-    $sdrt = $_GET['sdrt'];
-
-    // if (!(empty($year)) and  !(empty($name)) and !(empty($type))) {
-    //     $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
-    // } else if (!(empty($year)) and  !(empty($type))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-    // } else if (!(empty($type)) and  !(empty($name))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-    // } else if (!(empty($year)) and  !(empty($name))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-    // } elseif (!(empty($year))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-    // } elseif (!(empty($name))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
-    // }
-    if (!(empty($sdrt))) {
-        $queryinvoice = "SELECT * FROM formb_table WHERE sdrt='$sdrt' ";
-    } else {
-        $queryinvoice = "SELECT * FROM formb_table ";
-    }
-}
 
 if (isset($_GET['export'])) {
-
-
-    // $type = $_GET['type'];
-    // $year = $_GET['year'];
-    // $name = $_GET['name'];
-
-    // if (!(empty($year)) and  !(empty($name)) and !(empty($type))) {
-    //     $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
-    // } else if (!(empty($year)) and  !(empty($type))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-    // } else if (!(empty($type)) and  !(empty($name))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-    // } else if (!(empty($year)) and  !(empty($name))) {
-
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-    // } elseif (!(empty($year))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-    // } elseif (!(empty($name))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
-    // } elseif (!(empty($type))) {
-    //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
-    // } else {
-    $queryinvoice = "SELECT * FROM formb_table ";
-    // }
+    if (isset($_GET['sdrt']) && !empty($_GET['sdrt'])) {
+        $sdrt =  mysqli_real_escape_string($con, $_GET['sdrt']);
+        $queryinvoice = "SELECT * FROM formb_table WHERE sdrt='$sdrt'";
+    } else {
+        $queryinvoice = "SELECT * FROM formb_table";
+    }
+    error_log("Export Query: " . $queryinvoice);
 
     $resultinvoice1 = mysqli_query($con, $queryinvoice);
 
-    // Extend the FPDF class to add header and footer
+    // Error handling for query execution
+    if (!$resultinvoice1) {
+        error_log("Query Error: " . mysqli_error($con));
+        die("Database query failed.");
+    }
 
+    // Extend the FPDF class to add header and footer
     class PDF extends FPDF
     {
 
@@ -224,6 +181,23 @@ if (isset($_GET['export'])) {
     // Output the PDF
     $pdf->Output('Board_of_Survey_2023.pdf', 'I');
 }
+
+// changed
+if (isset($_GET['search'])) {
+    $sdrt = $_GET['sdrt'];
+
+    if (!empty($sdrt)) {
+        $queryinvoice = "SELECT * FROM formb_table WHERE sdrt='$sdrt'";
+    } else {
+        $queryinvoice = "SELECT * FROM formb_table";
+    }
+
+    $resultinvoice = mysqli_query($con, $queryinvoice);
+} else {
+    // Default query if no search is performed
+    $queryinvoice = "SELECT * FROM formb_table";
+    $resultinvoice = mysqli_query($con, $queryinvoice);
+}
 ?>
 
 
@@ -267,13 +241,22 @@ if (isset($_GET['export'])) {
                     </select> -->
 
 
-                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {echo $_POST['sdrt'];} ?>" />
+                    <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {
+                                                                                    echo $_POST['sdrt'];
+                                                                                } ?>" />
 
                     <input class="button" type="submit" name="search" value="Search" />
 
-                    <input class="button" type="submit" name="export" value="Export to PDF" />
 
-                    
+                    <!-- Changed -->
+                    <a href="labForm_B.php?export=true&sdrt=<?php
+                                                            if (isset($_GET['sdrt'])) {
+                                                                echo urlencode($_GET['sdrt']);
+                                                            }
+
+                                                            ?>"><input class="button" value="Export to PDF" /></a>
+
+
                 </form>
                 <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
             </div>
@@ -317,7 +300,7 @@ if (isset($_GET['export'])) {
                             <td><?php echo $rowinvoice['remarks'] ?></td>
 
                             <td>
-                                <a href="addDataFormB.php?dept_Inventory_no=<?php echo $rowinvoice['dept_Inventory_no'] ?>" > Edit </a>
+                                <a href="addDataFormB.php?dept_Inventory_no=<?php echo $rowinvoice['dept_Inventory_no'] ?>"> Edit </a>
                                 <form method="post" action="actionItemFormB.php">
                                     <input type="hidden" name="<?php echo "remove"; ?>" value="<?php echo $rowinvoice['dept_Inventory_no']; ?>">
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
