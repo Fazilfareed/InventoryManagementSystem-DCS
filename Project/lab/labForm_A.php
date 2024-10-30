@@ -11,87 +11,69 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $offset = ($page - 1) * $rowsPerPage;
 
-    $queryinvoice = "SELECT * FROM invoice ORDER BY invoice_id DESC LIMIT $offset, $rowsPerPage";
+    $queryinvoice = "SELECT * FROM forma_table";
 
     $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM invoice"));
     $totalPages = ceil($totalRows / $rowsPerPage);
 
     if (isset($_GET['search'])) {
-        $type = $_GET['type'];
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+        $purchase_year = $_GET['year'];
+        $description = $_GET['name'];
 
-        if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
+        if(!(empty($purchase_year)) AND  !(empty($description))){
             
-        }
-
-        else if(!(empty($year)) AND  !(empty($type))){
-            
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-        }  
-        else if(!(empty($type)) AND  !(empty($name))){
-            
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-        } 
-        else if(!(empty($year)) AND  !(empty($name))){
-            
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
+            $queryinvoice = "SELECT * FROM forma_table WHERE purchase_year <= $purchase_year AND description='$description' ";
         }
         
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
+        elseif (!(empty($purchase_year))) {
+            $queryinvoice = "SELECT * FROM forma_table WHERE purchase_year <= $purchase_year ";
         }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
+        elseif (!(empty($description))) {
+            $queryinvoice = "SELECT * FROM forma_table WHERE description='$description' ";
         }
-        elseif(!(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
-        }
-
         else{
-            $queryinvoice = "SELECT * FROM invoice ";
+            $queryinvoice = "SELECT * FROM forma_table ";
         }
     }
 
     if (isset($_GET['export'])) {
-        $type = $_GET['type'];
-        $year = $_GET['year'];
-        $name = $_GET['name'];
+        // $type = $_GET['type'];
+        // $year = $_GET['year'];
+        // $name = $_GET['name'];
 
-        if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
+        // if(!(empty($year)) AND  !(empty($name)) AND !(empty($type))){
+        //     $queryinvoice = "SELECT * FROM invoice  WHERE name='$name' AND EXTRACT(YEAR FROM date)=$year AND type = '$type' ";
             
-        }
+        // }
 
-        else if(!(empty($year)) AND  !(empty($type))){
+        // else if(!(empty($year)) AND  !(empty($type))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
-        }  
-        else if(!(empty($type)) AND  !(empty($name))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND type='$type' ";
+        // }  
+        // else if(!(empty($type)) AND  !(empty($name))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
-        } 
-        else if(!(empty($year)) AND  !(empty($name))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' AND name= '$name'";
+        // } 
+        // else if(!(empty($year)) AND  !(empty($name))){
             
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
-        }
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year AND name='$name' ";
+        // }
         
-        elseif (!(empty($year))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
-        }
-        elseif (!(empty($name))) {
-            $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
-        }
-        elseif(!(empty($type))){
-            $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
-        }
+        // elseif (!(empty($year))) {
+        //     $queryinvoice = "SELECT * FROM invoice WHERE EXTRACT(YEAR FROM date)=$year ";
+        // }
+        // elseif (!(empty($name))) {
+        //     $queryinvoice = "SELECT * FROM invoice WHERE name='$name' ";
+        // }
+        // elseif(!(empty($type))){
+        //     $queryinvoice = "SELECT * FROM invoice WHERE type='$type' ";
+        // }
 
-        else{
-            $queryinvoice = "SELECT * FROM invoice ";
-        }
+        // else{
+        //     $queryinvoice = "SELECT * FROM invoice ";
+        // }
 
-
+        $queryinvoice = "SELECT * FROM forma_table";
         $resultinvoice1 = mysqli_query($con,$queryinvoice);
 
         // Extend the FPDF class to add header and footer
@@ -186,18 +168,18 @@
         while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
             $pdf->CheckPageBreak(4);
             $pdf->Cell(10, 5, $i, 1);
-            $pdf->Cell(50, 5, $rowinvoice1['name'], 1);
-            $pdf->Cell(17, 5, date('Y', strtotime($rowinvoice1['date'])), 1);
-            $pdf->Cell(25, 5, $rowinvoice1['price'], 1);
-            $pdf->Cell(40, 5, $rowinvoice1['folio_number'], 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(40, 5, '', 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(10, 5, '', 1);
-            $pdf->Cell(15, 5, '' , 1);
-            $pdf->Cell(15, 5, '' , 1);
-            $pdf->Cell(15, 5, '', 1);
-            $pdf->Cell(15, 5, '', 1);
+            $pdf->Cell(50, 5, $rowinvoice1['description'], 1);
+            $pdf->Cell(17, 5, $rowinvoice1['purchase_year'], 1);
+            $pdf->Cell(25, 5, $rowinvoice1['purchase_value'], 1);
+            $pdf->Cell(40, 5, $rowinvoice1['dept_inventory_no'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['page_no'], 1);
+            $pdf->Cell(40, 5, $rowinvoice1['fixed_asset_no'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['book_balance'], 1);
+            $pdf->Cell(10, 5, $rowinvoice1['total'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['verified_balance'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['surplus'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['deficit'], 1);
+            $pdf->Cell(15, 5, $rowinvoice1['remarks'], 1);
             $pdf->Ln();
             $i++;
         }
@@ -238,21 +220,15 @@
             <div>
                 <form action="labForm_A.php" method="get">
 
-                    <select name="type" >
-                        <option value="">Please Select</option>
-                        <option value="desktop"<?php if(isset($_POST['type']) && $_POST['type'] === 'desktop') echo ' selected'; ?>>Desktop</option>
-                        <option value="laptop"<?php if(isset($_POST['type']) && $_POST['type'] === 'laptop') echo ' selected'; ?>>Laptop</option>
-                        <option value="electronic"<?php if(isset($_POST['type']) && $_POST['type'] === 'electronic') echo ' selected'; ?>>Electronic</option>
-                    </select>
-
                     <input  type="number" placeholder="Year" name="year" value="<?php if(isset($_POST['year'])){echo $_POST['year'];}?>" />
 
-                    <input  type="text" placeholder="Artical Name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
+                    <input  type="text" placeholder="Article Name" name="name" value="<?php if(isset($_POST['name'])){echo $_POST['name'];}?>" />
 
                     <input class="button" type="submit"  name="search" value="Search" />
 
                     <input class="button" type="submit" name="export" value="Export to PDF" />
                 </form>
+                <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
             </div>
         </div>
     
@@ -263,12 +239,16 @@
                         <th>Article Name</th>
                         <th>Purchase Year</th>
                         <th>Purcahse Price</th>
-                        <th>Master Inventory No</th>
+                        <!-- <th>Master Inventory No</th> -->
                         <th>Department Inventory Number</th>
                         <th>Page No</th>
                         <th>Fixed Assest No</th>
                         <th>Book Balance</th>
                         <th>Total</th>
+                        <th>Verified Balance</th>
+                        <th>Surplus</th>
+                        <th>Deficit</th>
+                        <th>Remarks</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -281,19 +261,23 @@
                         while($rowinvoice = mysqli_fetch_assoc($resultinvoice)){
                         ?>
                             <tr>
-                                <td class="name"><a href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name']?></a></td>
-                                <td><?php echo $rowinvoice['date']?></td>
-                                <td><?php echo $rowinvoice['price']?></td>
-                                <td class="folio_number"><?php echo "J41140960970070-0072";?></td>
-                                <td class="folio_number"><?php echo $rowinvoice['folio_number']?></td>
-                                <td ><?php echo "PgNo";?></td>
-                                <td class="folio_number"><?php echo "";?></td>
-                                <td><?php echo "BookBalance";?></td>
-                                <td><?php echo "total";?></td>
+                                <td class="name"><?php echo $rowinvoice['description']?></td>
+                                <td><?php echo $rowinvoice['purchase_year']?></td>
+                                <td><?php echo $rowinvoice['purchase_value']?></td>
+                                <!-- <td class="folio_number"><?php echo $rowinvoice['master_inventory_no']?></td> -->
+                                <td class="folio_number"><?php echo $rowinvoice['dept_inventory_no']?></td>
+                                <td ><?php echo $rowinvoice['page_no']?></td>
+                                <td class="folio_number"><?php echo $rowinvoice['fixed_asset_no']?></td>
+                                <td><?php echo $rowinvoice['book_balance']?></td>
+                                <td><?php echo $rowinvoice['total']?></td>
+                                <td><?php echo $rowinvoice['verified_balance']?></td>
+                                <td><?php echo $rowinvoice['surplus']?></td>
+                                <td><?php echo $rowinvoice['deficit']?></td>
+                                <td><?php echo $rowinvoice['remarks']?></td>
                                 <td>
-                                    <a href="addData.php?id=<?php echo $rowinvoice['invoice_id'] ?>" >Edit</a>
-                                    <form method="post" action="actionItem.php">
-                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['invoice_id']; ?>">
+                                    <a href="addDataFormA.php?dept_inventory_no=<?php echo $rowinvoice['dept_inventory_no'] ?>" >Edit</a>
+                                    <form method="post" action="actionItemFormA.php">
+                                    <input type="hidden" name="<?php echo "remove";?>" value="<?php echo $rowinvoice['dept_inventory_no']; ?>">
                                     <button class="logout" type="submit" onclick="return confirm('Are you sure to remove this record ?')">Remove</button>
                                     </form>
                                 </td>
