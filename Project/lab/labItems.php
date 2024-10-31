@@ -41,8 +41,18 @@ if (!isset($_SESSION['uname'])) {
                 die("Database query failed.");
             }
 
-            if (mysqli_num_rows($result) > 0) {
+            // Check if any row has category 'laptop'
+            $hasLaptop = false;
+            while ($rowCheck = mysqli_fetch_assoc($result)) {
+                if ($rowCheck['category'] == 'laptop') {
+                    $hasLaptop = true;
+                    break;
+                }
+            }
+            // Reset the result pointer
+            mysqli_data_seek($result, 0);
 
+            if (mysqli_num_rows($result) > 0) {
         ?>
 
                 <div class="table-con" style="background-color:white;margin-bottom:10px;padding:2px;">
@@ -72,6 +82,9 @@ if (!isset($_SESSION['uname'])) {
                                 <th>Category</th>
                                 <th>Item</th>
                                 <th>serial_number</th>
+                                <?php if ($hasLaptop) { ?>
+                                    <th>Model Number</th>
+                                <?php } ?>
                                 <th>location</th>
                                 <th>working</th>
                                 <th>Action</th>
@@ -93,6 +106,9 @@ if (!isset($_SESSION['uname'])) {
                                     <td><?php echo $row['category'] ?></a></td>
                                     <td><?php echo $row['item'] ?></td>
                                     <td><?php echo $row['serial_number'] ?></td>
+                                    <?php if ($row['category'] == 'laptop') { ?>
+                                        <td><?php echo $row['model_number'] ?></td>
+                                    <?php } ?>
                                     <td><?php echo $row['location'] ?></td>
                                     <td><?php echo $row['working'] ?></td>
                                     <td>
