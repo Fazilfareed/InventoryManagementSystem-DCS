@@ -104,16 +104,17 @@ if (isset($_POST['padd'])) {
                 $updatedString = implode('/', $segments);
                 $folio = $updatedString;
 
-                foreach ($items as $item) {
-                    $itemData[$item] = $_POST[$item . $index]; // Store item data using the item as the key
-                }
+                //serial number and model number
+                $serial_number = $_POST[$items[1] . $index];
+                $model_number = $_POST[$items[0] . $index];
 
-                // Inside the loop where you're inserting item data
-                foreach ($items as $item) {
+                //item
+                $item = 'testlaps';
 
-                    $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id', '$folio', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
-                    $result3 = mysqli_query($con, $query3);
-                }
+                //inserting item data
+
+                $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,model_number,location,working) values ('$id', '$folio', '$type', '$item', '$serial_number', '$model_number', '$location', 'yes')";
+                $result3 = mysqli_query($con, $query3);
             }
         } elseif ($type === "electronic") {
             for ($i = 1; $i <= $quantity; $i++) {
@@ -184,10 +185,11 @@ if (isset($_POST['setupdate'])) {
     $category = $_POST['category'];
     $item = $_POST['item'];
     $serial_number = $_POST['serial_number'];
+    $model_number = $_POST['model_number'];
     $location = $_POST['location'];
     $working = $_POST['working'];
 
-    $query = "UPDATE items SET category='$category',item='$item',serial_number='$serial_number',location='$location',working='$working' where invoice_id='$id' AND set_id='$setid' AND  item='$item'";
+    $query = "UPDATE items SET category='$category',item='$item',serial_number='$serial_number',model_number='$model_number',location='$location',working='$working' where invoice_id='$id' AND set_id='$setid' AND  item='$item'";
 
     $result = mysqli_query($con, $query);
     if ($result) {

@@ -75,6 +75,11 @@ if (isset($_GET['id']) && isset($_GET['setid']) && isset($_GET['item'])) {
                                                             echo $row1['serial_number'];
                                                         } ?>" /><br>
 
+        <label for="model_number">Model number</label> <br>
+        <input type="text" name="model_number" value="<?php if (isset($_GET['setid']) && isset($_GET['id']) && isset($_GET['item'])) {
+                                                            echo $row1['model_number'];
+                                                        } ?>" /><br>
+
         <label for="location">Location</label> <br>
         <input type="text" name="location" value="<?php if (isset($_GET['setid']) && isset($_GET['id']) && isset($_GET['item'])) {
                                                         echo $row1['location'];
