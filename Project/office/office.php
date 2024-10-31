@@ -78,18 +78,18 @@ if (isset($_POST['search'])) {
 
                     <input type="number" placeholder="Year" name="year"
                         value="<?php if (isset($_POST['year'])) {
-                            echo $_POST['year'];
-                        } ?>" />
+                                    echo $_POST['year'];
+                                } ?>" />
 
                     <input type="text" placeholder="Folio number" name="folio"
                         value="<?php if (isset($_POST['folio'])) {
-                            echo $_POST['folio'];
-                        } ?>" />
+                                    echo $_POST['folio'];
+                                } ?>" />
 
                     <input type="text" placeholder="Serial numebr" name="SN"
                         value="<?php if (isset($_POST['SN'])) {
-                            echo $_POST['SN'];
-                        } ?>" />
+                                    echo $_POST['SN'];
+                                } ?>" />
 
                     <input class="button" type="submit" name="search" value="Search" />
 
@@ -123,7 +123,7 @@ if (isset($_POST['search'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                        ?>
+                    ?>
                         <tr>
                             <td class="name"><a
                                     href="officeItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a>
@@ -154,7 +154,7 @@ if (isset($_POST['search'])) {
 
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt'] 
-                                ?></td>
+                                        ?></td>
                             <td><?php //echo $rowinvoice['srn'] 
                                 ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -177,7 +177,7 @@ if (isset($_POST['search'])) {
                                     // Calculate the difference in days between the current date and the warranty end date
                                     $interval = $currentDate->diff($purchaseDateObj);
                                     echo
-                                        $interval->y . " years<br>"
+                                    $interval->y . " years<br>"
                                         . $interval->m . " months<br>"
                                         . $interval->d . " days<br>left";
                                 } else {
@@ -199,7 +199,7 @@ if (isset($_POST['search'])) {
                             </td>
 
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -235,8 +235,10 @@ if (isset($_POST['search'])) {
 
         <div class="pagination" style="margin:15px;">
             <?php
-            for ($i = 1; $i <= $totalPages; $i++) {
-                echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+            if (!isset($_GET['search'])) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+                }
             }
             ?>
         </div>

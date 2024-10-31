@@ -122,6 +122,10 @@ if (isset($_GET['id'])) {
         <select name="type" style="margin:20px ; padding: 10px; font-size:15px;" onchange="updateTableHeader()" hidden='hidden'>
             <option value="electronic">electronic</option>
         </select>
+        <div id="itemField" style="display: none;">
+            <label for="item">Item name</label>
+            <input type="text" name="item" value="item" required />
+        </div>
         <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: #303655; margin: 10px;" <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
 
         <div>
@@ -183,6 +187,15 @@ if (isset($_GET['id'])) {
             // }
 
             function addtable() {
+                if (addtable.executed) return;
+                addtable.executed = true;
+                //visibility of item field
+                var itemField = document.getElementById('itemField');
+                if (itemField.style.display === 'none' || itemField.style.display === '') {
+                    itemField.style.display = 'block';
+                } else {
+                    itemField.style.display = 'none';
+                }
 
                 let element = document.getElementById("dataTable");
                 element.removeAttribute("hidden");

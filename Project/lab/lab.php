@@ -105,27 +105,27 @@ if (isset($_GET['search'])) {
                     <select name="type">
                         <option value="">Please Select</option>
                         <option value="desktop" <?php if (isset($_POST['type']) && $_POST['type'] === 'desktop')
-                            echo ' selected'; ?>>Desktop</option>
+                                                    echo ' selected'; ?>>Desktop</option>
                         <option value="laptop" <?php if (isset($_POST['type']) && $_POST['type'] === 'laptop')
-                            echo ' selected'; ?>>Laptop</option>
+                                                    echo ' selected'; ?>>Laptop</option>
                         <option value="electronic" <?php if (isset($_POST['type']) && $_POST['type'] === 'electronic')
-                            echo ' selected'; ?>>Electronic</option>
+                                                        echo ' selected'; ?>>Electronic</option>
                     </select>
 
                     <input type="number" placeholder="Year" name="year"
                         value="<?php if (isset($_POST['year'])) {
-                            echo $_POST['year'];
-                        } ?>" />
+                                    echo $_POST['year'];
+                                } ?>" />
 
                     <input type="text" placeholder="Folio number" name="folio"
                         value="<?php if (isset($_POST['folio'])) {
-                            echo $_POS['folio'];
-                        } ?>" />
+                                    echo $_POS['folio'];
+                                } ?>" />
 
                     <input type="text" placeholder="Serial Number" name="SN"
                         value="<?php if (isset($_POST['SN'])) {
-                            echo $_POST['SN'];
-                        } ?>">
+                                    echo $_POST['SN'];
+                                } ?>">
 
                     <input class="button" type="submit" name="search" value="Search" />
 
@@ -161,7 +161,7 @@ if (isset($_GET['search'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                        ?>
+                    ?>
                         <tr>
                             <td class="name"><a
                                     href="labItems.php?searchItems=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['name'] ?></a>
@@ -185,7 +185,7 @@ if (isset($_GET['search'])) {
                             </td>
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['supplier_tt']
-                                ?></td>
+                                        ?></td>
                                 <td><?php //echo $rowinvoice['srn']
                                     ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -232,7 +232,7 @@ if (isset($_GET['search'])) {
                                 </form>
                             </td>
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
 
@@ -243,8 +243,8 @@ if (isset($_GET['search'])) {
             </table>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                $(document).ready(function () {
-                    $('.description').each(function () {
+                $(document).ready(function() {
+                    $('.description').each(function() {
                         if ($(this).width() > 300) {
                             $(this).removeClass('description').addClass('description expandable');
                             $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
@@ -252,24 +252,24 @@ if (isset($_GET['search'])) {
                     });
                 });
 
-                $(document).ready(function () {
-                    $('.name').each(function () {
+                $(document).ready(function() {
+                    $('.name').each(function() {
                         if ($(this).width() > 200) {
                             $(this).removeClass('name').addClass('name expandable');
                             $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                         }
                     });
                 });
-                $(document).ready(function () {
-                    $('.sname').each(function () {
+                $(document).ready(function() {
+                    $('.sname').each(function() {
                         if ($(this).width() > 300) {
                             $(this).removeClass('sname').addClass('sname expandable');
                             $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                         }
                     });
                 });
-                $(document).ready(function () {
-                    $('.folio_number').each(function () {
+                $(document).ready(function() {
+                    $('.folio_number').each(function() {
                         if ($(this).width() > 200) {
                             $(this).removeClass('folio_number').addClass('folio_number expandable');
                             $(this).closest('tr').after('<tr><td class="folio_number expandable">' + $(this).text() + '</td></tr>');
@@ -281,9 +281,12 @@ if (isset($_GET['search'])) {
 
         <div class="pagination" style="margin:15px;">
             <?php
-            for ($i = 1; $i <= $totalPages; $i++) {
-                echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+            if (!isset($_GET['search'])) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+                }
             }
+
             ?>
         </div>
     </div>
