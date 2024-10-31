@@ -32,7 +32,7 @@ if (!isset($_SESSION['uname'])) {
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-            height: 150vh;
+/*             height: 150vh; */
             padding: 20px;
             padding-bottom: 20px;
         }
