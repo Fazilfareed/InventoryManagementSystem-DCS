@@ -9,7 +9,6 @@
 }
 
 :root {
-    /* --bg-gradient: linear-gradient(-135deg, #c850c0, #4158d0); */
     background: linear-gradient(-135deg, #01064a, #21acc2);
     --bg-gray: #e6e6e6;
     --text-color: #666;
@@ -19,6 +18,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    margin-top: 30px;
 }
 
 .nav-bar {
@@ -27,7 +27,10 @@ body {
     align-items: center;
     padding: 0 4rem;
     background: rgb(3, 14, 45);
-    box-shadow: 0 5px 30px rgb(0, 0, 0);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 .logo_link{
     display: flex;
