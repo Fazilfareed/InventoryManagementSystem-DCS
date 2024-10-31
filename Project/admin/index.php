@@ -23,6 +23,7 @@ if (!isset($_SESSION['uname'])) {
             margin: 0;
             overflow: hidden;
             color: #333;
+            overflow-y: auto;
         }
 
         .animation-container {
@@ -31,8 +32,9 @@ if (!isset($_SESSION['uname'])) {
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-            height: 100vh;
+            height: 200vh;
             padding: 20px;
+            padding-bottom: 20px;
         }
 
         h1 {
@@ -132,36 +134,34 @@ if (!isset($_SESSION['uname'])) {
                     <th>Total Cost</th>
                 </tr>
                 <?php
-                // Calculate the total quantity and cost for Office Equipment
+                // Calculating total quantity and price for office equipments
                 $officeSummaryQuery = "SELECT SUM(quantity) AS total_quantity, SUM(price * quantity) AS total_cost FROM o_invoice";
                 $officeResult = mysqli_query($con, $officeSummaryQuery);
                 $officeData = mysqli_fetch_assoc($officeResult);
                 
-                // Query to calculate total quantity and cost for Lab Equipment by type
+                // Calculating total quantity and price for lab equipments
                 $labSummaryQuery = "
                     SELECT type, SUM(quantity) AS total_quantity, SUM(price * quantity) AS total_cost 
                     FROM invoice 
                     GROUP BY type";
                 $labResult = mysqli_query($con, $labSummaryQuery);
                 
-                // Query to calculate total quantity and cost for Furniture
+                // Calculating total quantity and price for furniture
                 $furnitureSummaryQuery = "SELECT SUM(f_quantity) AS total_quantity, SUM(f_price * f_quantity) AS total_cost FROM f_invoice";
                 $furnitureResult = mysqli_query($con, $furnitureSummaryQuery);
                 $furnitureData = mysqli_fetch_assoc($furnitureResult);
 
-                // Display Office Equipment Summary
-                echo "<tr><td>Office Equipment</td><td>{$officeData['total_quantity']}</td><td>\${$officeData['total_cost']}</td></tr>";
+                echo "<tr><td>Office Equipment</td><td>{$officeData['total_quantity']}</td><td>Rs.{$officeData['total_cost']}</td></tr>";
 
-                // Display Lab Equipment Summary
-                $labTotalQuantity = 0; // Initialize variable to calculate total lab equipment quantity
+                $labTotalQuantity = 0;
                 while ($labData = mysqli_fetch_assoc($labResult)) {
-                    echo "<tr><td>Lab Equipment - {$labData['type']}</td><td>{$labData['total_quantity']}</td><td>\${$labData['total_cost']}</td></tr>";
-                    $labTotalQuantity += $labData['total_quantity']; // Accumulate total quantity
+                    echo "<tr><td>Lab Equipment - {$labData['type']}</td><td>{$labData['total_quantity']}</td><td>Rs.{$labData['total_cost']}</td></tr>";
+                    $labTotalQuantity += $labData['total_quantity'];
                 }
 
-                // Display Furniture Summary
-                echo "<tr><td>Furniture</td><td>{$furnitureData['total_quantity']}</td><td>\${$furnitureData['total_cost']}</td></tr>";
+                echo "<tr><td>Furniture</td><td>{$furnitureData['total_quantity']}</td><td>Rs.{$furnitureData['total_cost']}</td></tr>";
                 ?>
+
             </table>
         </div>
         <div class="alerts-box">
@@ -174,12 +174,11 @@ if (!isset($_SESSION['uname'])) {
                     <th>Remaining Time (Months)</th>
                 </tr>
                 <?php
-                    // Check database connection
+
                     if (!$con) {
                         die("Database connection failed: " . mysqli_connect_error());
                     }
 
-                // Alerts query to retrieve items with warranty less than 6 months remaining and not expired
                 $alertsQuery = "
                     SELECT name, folio_number, DATE_ADD(date, INTERVAL warranty MONTH) AS warranty_end
                     FROM invoice 
@@ -198,22 +197,17 @@ if (!isset($_SESSION['uname'])) {
 
                 $alertsResult = mysqli_query($con, $alertsQuery);
 
-                // Check if query executed successfully
                 if (!$alertsResult) {
                     die("Query failed: " . mysqli_error($con));
                 }
 
-                // Check if there are any results and display them, or show a message if no items are close to expiry
                 if (mysqli_num_rows($alertsResult) > 0) {
                     while ($alertRow = mysqli_fetch_assoc($alertsResult)) {
-                        // Calculate the warranty end date
                         $warrantyEndDate = new DateTime($alertRow['warranty_end']);
                         $currentDate = new DateTime();
                         $remainingTime = $currentDate->diff($warrantyEndDate);
-
-                        // Check if the warranty has less than 6 months remaining
                         if ($remainingTime->y == 0 && $remainingTime->m < 6) {
-                            $remainingMonths = ($remainingTime->y * 12) + $remainingTime->m; // Total remaining months
+                            $remainingMonths = ($remainingTime->y * 12) + $remainingTime->m;
                             echo "<tr>
                                     <td>{$alertRow['name']}</td>
                                     <td>{$alertRow['folio_number']}</td>
@@ -221,28 +215,27 @@ if (!isset($_SESSION['uname'])) {
                                 </tr>";
                         }
                     }
-                } else {
+                } 
+                else {
                     echo "<tr><td colspan='3'>No items close to expiry.</td></tr>";
                 }
                 ?>
             </table>
         </div>
     <div class="pie-chart">
-        <canvas id="myPieChart"></canvas> <!-- Canvas for Pie Chart -->
+        <canvas id="myPieChart"></canvas>
     </div>
 </div>
     <script>
         const ctx = document.getElementById('myPieChart').getContext('2d');
-        // Pie chart data
         const data = {
             labels: ['Office Equipment', 'Lab Equipment', 'Furniture'],
             datasets: [{
                 label: 'Equipment Distribution',
                 data: [
                     <?php
-                    // Get total quantities for pie chart
                     echo $officeData['total_quantity'] . ", ";
-                    $labSummaryQueryCount = "SELECT SUM(quantity) AS total_quantity FROM invoice"; // Overall lab quantity
+                    $labSummaryQueryCount = "SELECT SUM(quantity) AS total_quantity FROM invoice";
                     $labSummaryResultCount = mysqli_query($con, $labSummaryQueryCount);
                     $labDataCount = mysqli_fetch_assoc($labSummaryResultCount);
                     echo $labDataCount['total_quantity'] . ", ";
@@ -250,16 +243,14 @@ if (!isset($_SESSION['uname'])) {
                     ?>
                 ],
                 backgroundColor: [
-                    '#0056b3', // Blue for Office Equipment
-                    '#007bff', // Light blue for Lab Equipment
-                    '#28a745'  // Green for Furniture
+                    '#0056b3',
+                    '#007bff',
+                    '#28a745' 
                 ],
                 borderColor: '#fff',
                 borderWidth: 2
             }]
         };
-
-        // Pie chart configuration
         const config = {
             type: 'pie',
             data: data,
@@ -276,10 +267,39 @@ if (!isset($_SESSION['uname'])) {
                 }
             }
         };
-
-        // Create pie chart
         const myPieChart = new Chart(ctx, config);
     </script>
+<div class="alerts-box">
+    <div class="alerts">
+        <h2>Items Not Working</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Set ID</th>
+                <th>Model Number / Item Name</th>
+                <th>Location</th>
+            </tr>
+            <?php
+            $officeNotWorkingQuery = "SELECT set_id, model_number, location FROM o_items WHERE working = 'no'";
+            $officeNotWorkingResult = mysqli_query($con, $officeNotWorkingQuery);
+            while ($officeRow = mysqli_fetch_assoc($officeNotWorkingResult)) {
+                echo "<tr><td>Office Equipment</td><td>{$officeRow['set_id']}</td><td>{$officeRow['model_number']}</td><td>{$officeRow['location']}</td></tr>";
+            }
+            $labNotWorkingQuery = "SELECT set_id, item, location FROM items WHERE working = 'no'";
+            $labNotWorkingResult = mysqli_query($con, $labNotWorkingQuery);
+            while ($labRow = mysqli_fetch_assoc($labNotWorkingResult)) {
+                echo "<tr><td>Lab Equipment</td><td>{$labRow['set_id']}</td><td>{$labRow['item']}</td><td>{$labRow['location']}</td></tr>";
+            }
+            $furnitureNotWorkingQuery = "SELECT f_set_id, location FROM f_items WHERE working = 'no'";
+            $furnitureNotWorkingResult = mysqli_query($con, $furnitureNotWorkingQuery);
+            while ($furnitureRow = mysqli_fetch_assoc($furnitureNotWorkingResult)) {
+                echo "<tr><td>Furniture</td><td>{$furnitureRow['f_set_id']}</td><td>N/A</td><td>{$furnitureRow['location']}</td></tr>";
+            }
+            ?>
+        </table>
+    </div>
+</div>
+
 </body>
 
 </html>
