@@ -23,6 +23,7 @@ if (isset($_POST['padd'])) {
     $warranty = $_POST['warranty'];
     $pageNumber = $_POST['pageNumber'];
 
+
     $query1 = "INSERT INTO invoice(name,date,price,quantity,folio_number,description,supplier_name,supplier_tt,srn,page_number,type,location,warranty) values ('$name','$date','$price','$quantity','$folio','$description','$sName','$s_tp','$srn','$pageNumber','$type','$location','$warranty') ";
     $result1 = mysqli_query($con, $query1);
 
@@ -109,7 +110,7 @@ if (isset($_POST['padd'])) {
                 $model_number = $_POST[$items[0] . $index];
 
                 //item
-                $item = 'testlaps';
+                $item = 'Laptop';
 
                 //inserting item data
 
@@ -118,7 +119,7 @@ if (isset($_POST['padd'])) {
             }
         } elseif ($type === "electronic") {
             for ($i = 1; $i <= $quantity; $i++) {
-                $items = array($name); // Array of item items
+                $items = array('Serial_number'); // Array of item items
                 $itemData = array(); // Initialize an array to store item data
                 $index = (string)$i; // Convert $i to string for concatenation
 
@@ -134,14 +135,15 @@ if (isset($_POST['padd'])) {
                 $updatedString = implode('/', $segments);
                 $folio = $updatedString;
 
-
+                //item
+                $itemName = $_POST['item'];
                 foreach ($items as $item) {
                     $itemData[$item] = $_POST[$item . $index]; // Store item data using the item as the key
                 }
 
                 // Inside the loop where you're inserting item data
                 foreach ($items as $item) {
-                    $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id', '$folio', '$type', '$item', '{$itemData[$item]}', '$location', 'yes')";
+                    $query3 = "INSERT INTO items(invoice_id,set_id,category,item,serial_number,location,working) values ('$id', '$folio', '$type', '$itemName', '{$itemData[$item]}', '$location', 'yes')";
                     $result3 = mysqli_query($con, $query3);
                 }
             }

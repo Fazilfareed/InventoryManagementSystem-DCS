@@ -250,6 +250,7 @@ if (isset($_GET['search'])) {
                     <tr>
                         <th>Article Name</th>
                         <th>Qty</th>
+                        <th>Mark as S/D/R/T</th>
                         <th>Master Inventory No</th>
                         <th>Department Inventory Number</th>
                         <th>Fixed Assest No</th>

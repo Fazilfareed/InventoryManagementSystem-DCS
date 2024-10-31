@@ -136,14 +136,14 @@ if (isset($_GET['export'])) {
             <div>
                 <form action="furniture.php" method="get">
                     <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
-                        echo $_POST['year'];
-                    } ?>" />
+                                                                                    echo $_POST['year'];
+                                                                                } ?>" />
                     <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {
-                        echo $_POST['folio'];
-                    } ?>" />
+                                                                                            echo $_POST['folio'];
+                                                                                        } ?>" />
                     <input type="text" placeholder="Location" name="location" value="<?php if (isset($_POST['location'])) {
-                        echo $_POST['location'];
-                    } ?>" />
+                                                                                            echo $_POST['location'];
+                                                                                        } ?>" />
                     <input class="button" type="submit" name="search" value="Search" />
                     <input class="button" type="submit" name="export" value="Export to Excel" />
 
@@ -178,7 +178,7 @@ if (isset($_GET['export'])) {
                     $resultinvoice = mysqli_query($con, $queryinvoice);
 
                     while ($rowinvoice = mysqli_fetch_assoc($resultinvoice)) {
-                        ?>
+                    ?>
                         <tr>
                             <td class="name"><a
                                     href="furnitureItems.php?search=true&id=<?php echo $rowinvoice['invoice_id'] ?>"><?php echo $rowinvoice['f_name'] ?></a>
@@ -202,7 +202,7 @@ if (isset($_GET['export'])) {
                             </td>
                             <td><?php echo $rowinvoice['page_number'] ?></td>
                             <!-- <td><?php //echo $rowinvoice['f_supplier_tt']
-                                ?></td>
+                                        ?></td>
                                 <td><?php //echo $rowinvoice['f_srn']
                                     ?></td> -->
                             <td><?php echo $rowinvoice['location'] ?></td>
@@ -224,7 +224,7 @@ if (isset($_GET['export'])) {
                                     // Calculate the difference in days between the current date and the warranty end date
                                     $interval = $currentDate->diff($purchaseDateObj);
                                     echo
-                                        $interval->y . " years<br>"
+                                    $interval->y . " years<br>"
                                         . $interval->m . " months<br>"
                                         . $interval->d . " days<br>left";
                                 } else {
@@ -244,7 +244,7 @@ if (isset($_GET['export'])) {
                                 </form>
                             </td>
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -280,8 +280,10 @@ if (isset($_GET['export'])) {
 
         <div class="pagination" style="margin:15px;">
             <?php
-            for ($i = 1; $i <= $totalPages; $i++) {
-                echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+            if (!isset($_GET['search'])) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+                }
             }
             ?>
         </div>

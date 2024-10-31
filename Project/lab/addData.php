@@ -138,6 +138,10 @@ if (isset($_GET['id'])) {
                                             echo 'selected';
                                         } ?>>Electronic</option>
         </select>
+        <div id="itemField" style="display: none;">
+            <label for="item">Item name</label>
+            <input type="text" name="item" value="item" required />
+        </div>
         <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: #303655; margin: 10px;" <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
 
         <div>
@@ -155,6 +159,8 @@ if (isset($_GET['id'])) {
 
         <script>
             function updateTableHeader() {
+
+
                 var selectedType = document.querySelector('select[name="type"]').value;
                 var tableHeader = document.getElementById("tableHeader");
 
@@ -189,15 +195,26 @@ if (isset($_GET['id'])) {
                         tableHeader.appendChild(th);
                     }
                 } else if (selectedType === "electronic") {
+
+
                     var th = document.createElement("th");
                     th.innerHTML = "Serial_number";
                     tableHeader.appendChild(th);
+                    //visibility of item field
+                    var itemField = document.getElementById('itemField');
+                    if (itemField.style.display === 'none' || itemField.style.display === '') {
+                        itemField.style.display = 'block';
+                    } else {
+                        itemField.style.display = 'none';
+                    }
                 }
 
 
             }
 
             function addtable() {
+                if (addtable.executed) return;
+                addtable.executed = true;
 
                 let element = document.getElementById("dataTable");
                 element.removeAttribute("hidden");
@@ -263,7 +280,7 @@ if (isset($_GET['id'])) {
                         var cell = newRow.insertCell();
                         var input = document.createElement("input");
                         input.type = "text";
-                        input.name = articleName + i;
+                        input.name = 'Serial_number' + i;
                         cell.appendChild(input);
                     }
                 }
