@@ -56,14 +56,14 @@ if (isset($_POST['padd'])) {
             $updatedString = implode('/', $segments);
             $folio = $updatedString;
 
-
+            $itemName = $_POST['item'];
             foreach ($items as $item) {
                 $itemData[$item] = $_POST[$item . $index]; // Store item data using the item as the key
             }
 
             // Inside the loop where you're inserting item data
             foreach ($items as $item) {
-                $query3 = "INSERT INTO o_items(invoice_id,set_id,serial_number,location,working) values ('$id', '$folio', '{$itemData[$item]}', '$location', 'yes')";
+                $query3 = "INSERT INTO o_items(invoice_id,set_id,serial_number,item,location,working) values ('$id', '$folio', '{$itemData[$item]}', '$itemName','$location', 'yes')";
                 $result3 = mysqli_query($con, $query3);
             }
         }
@@ -104,11 +104,12 @@ if (isset($_POST['setupdate'])) {
 
     $id = (int)$_POST['id'];
     $setid = $_POST['setid'];
+    $item = $_POST['item'];
     $serial_number = $_POST['serial_number'];
     $location = $_POST['location'];
     $working = $_POST['working'];
 
-    $query = "UPDATE o_items SET set_id='$setid',serial_number='$serial_number',location='$location',working='$working' where set_id='$setid' AND invoice_id='$id'";
+    $query = "UPDATE o_items SET set_id='$setid',item='$item',serial_number='$serial_number',location='$location',working='$working' where set_id='$setid' AND invoice_id='$id'";
 
     $result = mysqli_query($con, $query);
     if ($result) {

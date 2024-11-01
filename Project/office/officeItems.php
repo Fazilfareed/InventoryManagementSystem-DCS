@@ -66,6 +66,7 @@ if (!isset($_SESSION['uname'])) {
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Item</th>
                                 <th>serial_number</th>
                                 <th>location</th>
                                 <th>working</th>
@@ -80,6 +81,7 @@ if (!isset($_SESSION['uname'])) {
                                 <tr>
                                     <td hidden="hidden"><?php echo $row['invoice_id'] ?></a></td>
                                     <td><?php echo $row['set_id'] ?></a></td>
+                                    <td><?php echo $row['item'] ?></td>
                                     <td><?php echo $row['serial_number'] ?></td>
                                     <td><?php echo $row['location'] ?></td>
                                     <td><?php echo $row['working'] ?></td>

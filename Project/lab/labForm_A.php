@@ -19,9 +19,9 @@ if (isset($_GET['export'])) {
 
     if (isset($_GET['year']) && !empty($_GET['year'])) {
         $purchase_year = mysqli_real_escape_string($con, $_GET['year']);
-        $queryinvoice = "SELECT * FROM forma_table where purchase_year <= $purchase_year ";
+        $queryinvoice = "SELECT * FROM forma_table where purchase_year <= $purchase_year  ORDER BY description ASC";
     } else {
-        $queryinvoice = "SELECT * FROM forma_table";
+        $queryinvoice = "SELECT * FROM forma_table ORDER BY description ASC";
     }
 
     error_log("Export Query: " . $queryinvoice);
