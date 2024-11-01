@@ -57,6 +57,12 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
                                                     echo $row1['set_id'];
                                                 } ?>" required /> <br>
 
+        <label for="item">Item</label> <br>
+        <input type="text" name="item" value="<?php if (isset($_GET['setid']) && isset($_GET['id'])) {
+                                                    echo $row1['item'];
+                                                } ?>" /><br>
+
+
         <label for="serial_number">Serial number</label> <br>
         <input type="text" name="serial_number" value="<?php if (isset($_GET['setid']) && isset($_GET['id'])) {
                                                             echo $row1['serial_number'];

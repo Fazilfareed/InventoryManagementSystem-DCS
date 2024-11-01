@@ -4,8 +4,14 @@ include("../config/connection.php");
 $query = "DELETE FROM o_forma_table";
 $result = mysqli_query($con, $query);
 
-$result1 = mysqli_query($con, "SELECT * FROM o_invoice");
+$result1 = mysqli_query($con, "SELECT * FROM o_invoice ORDER BY name ASC");
 
+function insertIntoFormaTable($con, $description, $year, $value, $dept_inventory_no, $pg_no, $book_balanced)
+{
+    $query = "INSERT INTO o_forma_table (description, purchase_year, purchase_value, master_inventory_no, dept_inventory_no, page_no, fixed_asset_no, book_balance, total, verified_balance, surplus, deficit, remarks) 
+                  VALUES ('$description', '$year', '$value', '', '$dept_inventory_no', '$pg_no', '', '$book_balanced', '', '', '', '', '')";
+    mysqli_query($con, $query);
+}
 while ($row1 = mysqli_fetch_assoc($result1)) {
     $id = $row1['invoice_id'];
     $description = $row1['name'];
@@ -13,16 +19,18 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     $value = $row1['price'] * $row1['quantity'];
     $dept_inventory_no = $row1['folio_number'];
     $pg_no = $row1['page_number'];
+    // $type = $row1['f_type'];
 
-    //need to check the items is it working or not if it is add
-    $result2 = mysqli_query($con, "SELECT * FROM o_items where invoice_id='$id' and working='yes'");
-    $rowCount2 = mysqli_num_rows($result2);
 
-    $book_balanced = $rowCount2;
 
-    // Insert into formb_table
-    $query2 = "INSERT INTO o_forma_table (description, purchase_year, purchase_value, master_inventory_no, dept_inventory_no, page_no, fixed_asset_no, book_balance, total, verified_balance, surplus, deficit, remarks) VALUES ('$description', '$year', '$value', '', '$dept_inventory_no', '$pg_no', '', '$book_balanced','','','','','')";
-    mysqli_query($con, $query2);
+    // Insert into forma_table
+    $result = mysqli_query($con, "SELECT item, COUNT(*) as count FROM o_items WHERE invoice_id='$id' AND working='yes'");
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $description = $row['item'];
+        $book_balanced = $row['count'];
+        insertIntoFormaTable($con, $description, $year, $value, $dept_inventory_no, $pg_no, $book_balanced);
+    }
 }
 
 if (mysqli_error($con)) {
