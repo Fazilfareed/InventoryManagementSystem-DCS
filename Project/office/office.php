@@ -204,11 +204,11 @@ if (isset($_POST['search'])) {
                     ?>
                 </tbody>
             </table>
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 $(document).ready(function() {
                     $('.description').each(function() {
-                        if ($(this).width() > 200) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('description').addClass('description expandable');
                             $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
                         }
@@ -216,7 +216,7 @@ if (isset($_POST['search'])) {
                 });
                 $(document).ready(function() {
                     $('.name').each(function() {
-                        if ($(this).width() > 150) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('name').addClass('name expandable');
                             $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                         }
@@ -224,13 +224,13 @@ if (isset($_POST['search'])) {
                 });
                 $(document).ready(function() {
                     $('.sname').each(function() {
-                        if ($(this).width() > 150) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('sname').addClass('sname expandable');
                             $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                         }
                     });
                 });
-            </script> -->
+            </script>
         </div>
 
         <div class="pagination" style="margin:15px;">

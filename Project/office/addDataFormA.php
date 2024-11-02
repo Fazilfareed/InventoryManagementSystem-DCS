@@ -54,32 +54,32 @@ if (isset($_GET['dept_inventory_no'])) {
         <input type="text" name="description" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['description'];
                                                         }
-                                                        ?>" required /> <br>
+                                                        ?>" readonly /> <br>
 
 
 
         <label for="purchase_year">Purchase Year</label> <br>
         <input type="number" name="purchase_year" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['purchase_year'];
-                                                            } ?>" required /><br>
+                                                            } ?>" readonly /><br>
 
 
         <label for="purchase_value">Purchase Price</label> <br>
         <input type="number" name="purchase_value" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['purchase_value'];
-                                                            } ?>" required /><br>
+                                                            } ?>" readonly /><br>
 
 
 
         <label for="dept_inventory_no">Department Inventory No</label> <br>
         <input type="text" name="dept_inventory_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['dept_inventory_no'];
-                                                            } ?>" required /> <br>
+                                                            } ?>" readonly /> <br>
 
         <label for="page_no">Page No</label> <br>
         <input type="text" name="page_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['page_no'];
-                                                    } ?>" required /> <br>
+                                                    } ?>" readonly /> <br>
 
         <label for="fixed_asset_no">Fixed Asset No</label> <br>
         <input type="text" name="fixed_asset_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
@@ -89,7 +89,7 @@ if (isset($_GET['dept_inventory_no'])) {
         <label for="book_balance">Book Balance</label> <br>
         <input type="number" name="book_balance" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['book_balance'];
-                                                        } ?>" required /> <br>
+                                                        } ?>" readonly /> <br>
 
 
         <label for="total">Total</label> <br>

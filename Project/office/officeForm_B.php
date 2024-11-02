@@ -12,9 +12,9 @@ $rowsPerPage = 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $rowsPerPage;
 
+$queryinvoice = "SELECT * FROM o_formb_table  LIMIT $offset, $rowsPerPage";
 
-
-$totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_invoice"));
+$totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_formb_table"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
 if (isset($_GET['export'])) {
@@ -193,10 +193,6 @@ if (isset($_GET['search'])) {
     } else {
         $queryinvoice = "SELECT * FROM o_formb_table  ";
     }
-} else {
-    // Default query if no search is performed
-    $queryinvoice = "SELECT * FROM o_formb_table";
-    $resultinvoice = mysqli_query($con, $queryinvoice);
 }
 ?>
 
@@ -314,7 +310,7 @@ if (isset($_GET['search'])) {
                 });
                 $(document).ready(function() {
                     $('.name').each(function() {
-                        if ($(this).width() > 400) {
+                        if ($(this).width() > 200) {
                             $(this).removeClass('name').addClass('name expandable');
                             $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                         }
@@ -333,8 +329,10 @@ if (isset($_GET['search'])) {
 
         <div class="pagination" style="margin:15px;">
             <?php
-            for ($i = 1; $i <= $totalPages; $i++) {
-                echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+            if (!isset($_GET['search'])) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo '<a href="?page=' . $i . '" style="margin:1px;background-color: #fff; color: #1690A7; border: none; padding: 5px 10px; cursor: pointer; width:5px;">' . $i . '</a>';
+                }
             }
             ?>
         </div>
