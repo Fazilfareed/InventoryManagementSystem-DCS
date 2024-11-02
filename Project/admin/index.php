@@ -37,11 +37,6 @@ if (!isset($_SESSION['uname'])) {
             padding-bottom: 20px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         .dashboard-summary {
             width: 80%;
             background-color: rgba(255, 255, 255, 0.9); 
