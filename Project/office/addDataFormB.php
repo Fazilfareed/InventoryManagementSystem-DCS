@@ -60,7 +60,7 @@ if (isset($_GET['dept_Inventory_no'])) {
                                                         echo $row1['article'];
                                                     } else {
                                                         echo "ssss";
-                                                    } ?>" required /> <br>
+                                                    } ?>" readonly /> <br>
 
 
 
@@ -73,7 +73,7 @@ if (isset($_GET['dept_Inventory_no'])) {
         <label for="sdrt">S/D/R/T</label> <br>
         <input type="text" name="sdrt" value="<?php if (isset($_GET['dept_Inventory_no'])) {
                                                     echo $row1['sdrt'];
-                                                } ?>" required /><br>
+                                                } ?>" readonly /><br>
 
 
 
@@ -85,7 +85,7 @@ if (isset($_GET['dept_Inventory_no'])) {
         <label for="dept_Inventory_no">Department Inventory No</label> <br>
         <input type="text" name="dept_Inventory_no" value="<?php if (isset($_GET['dept_Inventory_no'])) {
                                                                 echo $row1['dept_Inventory_no'];
-                                                            } ?>" required /> <br>
+                                                            } ?>" readonly /> <br>
 
         <label for="fixed_asset_no">Fixed Asset No</label> <br>
         <input type="text" name="fixed_asset_no" value="<?php if (isset($_GET['dept_Inventory_no'])) {

@@ -254,7 +254,7 @@ if (isset($_GET['search'])) {
 
                 $(document).ready(function() {
                     $('.name').each(function() {
-                        if ($(this).width() > 200) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('name').addClass('name expandable');
                             $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
                         }
@@ -262,7 +262,7 @@ if (isset($_GET['search'])) {
                 });
                 $(document).ready(function() {
                     $('.sname').each(function() {
-                        if ($(this).width() > 300) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('sname').addClass('sname expandable');
                             $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
                         }
@@ -270,7 +270,7 @@ if (isset($_GET['search'])) {
                 });
                 $(document).ready(function() {
                     $('.folio_number').each(function() {
-                        if ($(this).width() > 200) {
+                        if ($(this).width() > 250) {
                             $(this).removeClass('folio_number').addClass('folio_number expandable');
                             $(this).closest('tr').after('<tr><td class="folio_number expandable">' + $(this).text() + '</td></tr>');
                         }
