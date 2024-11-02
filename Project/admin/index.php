@@ -233,17 +233,17 @@ if (!isset($_SESSION['uname'])) {
                 <tr>
                     <th>Category</th>
                     <th>Set ID</th>
-                    <th>Model Number / Item Name</th>
+                    <th>Item</th>
                     <th>Location</th>
                 </tr>
             </table>
             <div class="scrollable-table">
                 <table>
                     <?php
-                    $officeNotWorking = "SELECT set_id, model_number, location FROM o_items WHERE working = 'no'";
+                    $officeNotWorking = "SELECT set_id, item, location FROM o_items WHERE working = 'no'";
                     $officeNotWorkingResult = mysqli_query($con, $officeNotWorking);
                     while ($officeRow = mysqli_fetch_assoc($officeNotWorkingResult)) {
-                        echo "<tr><td>Office Equipment</td><td>{$officeRow['set_id']}</td><td>{$officeRow['model_number']}</td><td>{$officeRow['location']}</td></tr>";
+                        echo "<tr><td>Office Equipment</td><td>{$officeRow['set_id']}</td><td>{$officeRow['item']}</td><td>{$officeRow['location']}</td></tr>";
                     }
                     $labNotWorking = "SELECT set_id, item, location FROM items WHERE working = 'no'";
                     $labNotWorkingResult = mysqli_query($con, $labNotWorking);
