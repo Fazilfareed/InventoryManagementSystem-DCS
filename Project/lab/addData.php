@@ -33,9 +33,16 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../css/adddata.css">
 
     <style>
+        body{
+            background: #ececec;
+        }
         form {
             margin: auto;
             width: 800px;
+            box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.5);
+            background-color: #d4d4d4;
+            padding: 30px;
+            padding-bottom: 50px;
         }
 
         h2 {
@@ -59,59 +66,59 @@ if (isset($_GET['id'])) {
                                                     echo $row1['invoice_id'];
                                                 } ?> " /> <br>
 
-        <label for="aName">Article Name</label> <br>
+        <label for="aName">Article Name</label>
         <input type="text" name="aname" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['name'];
                                                 } ?>" required /> <br>
 
-        <label for="date">Date</label> <br>
+        <label for="date">Date</label>
         <input type="date" name="date" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['date'];
                                                 } ?>" required /><br>
 
-        <label for="price">Price(Per Unit)</label> <br>
+        <label for="price">Price(Per Unit)</label>
         <input type="number" name="price" value="<?php if (isset($_GET['id'])) {
                                                         echo $row1['price'];
                                                     } ?>" required /><br>
 
-        <label for="quantity">Quantity</label> <br>
+        <label for="quantity">Quantity</label>
         <input type="number" name="quantity" value="<?php if (isset($_GET['id'])) {
                                                         echo $row1['quantity'];
                                                     } ?>" required /><br>
 
-        <label for="warranty">Warranty Period</label> <br>
+        <label for="warranty">Warranty Period</label>
         <input type="number" name="warranty" value="<?php if (isset($_GET['id'])) {
                                                         echo $row1['warranty'];
                                                     } ?>" placeholder="In months" required /><br>
 
 
-        <label for="folio">Folio Number</label> <br>
+        <label for="folio">Folio Number</label>
         <input type="text" name="folio" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['folio_number'];
                                                 } ?>" required /><br>
 
         <label for="description">Description</label>
-        <textarea name="description" cols="20" rows="10"><?php if (isset($_GET['id'])) {
+        <textarea name="description" cols="100%" rows="10"><?php if (isset($_GET['id'])) {
                                                                 echo $row1['description'];
                                                             } ?></textarea> <br><br><br>
 
-        <label for="sName">Supplier Details</label> <br>
+        <label for="sName">Supplier Details</label>
         <input type="text" name="sName" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['supplier_name'];
                                                 } ?>" required /> <br>
 
-        <label for="s_tp">Supplier Telephone number</label> <br>
+        <label for="s_tp">Supplier Telephone number</label>
         <input type="number" name="s_tp" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['supplier_tt'];
                                                 } ?>" /> <br>
 
-        <label for="srn">SRN Number</label> <br>
+        <label for="srn">SRN Number</label>
         <input type="number" name="srn" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['srn'];
                                                 } ?>" /> <br>
 
 
-        <label for="pageNumber">Page Number</label> <br>
+        <label for="pageNumber">Page Number</label>
         <input type="text" name="pageNumber" value="<?php if (isset($_GET['id'])) {
                                                         echo $row1['page_number'];
                                                     } ?>" /> <br>
@@ -142,7 +149,7 @@ if (isset($_GET['id'])) {
             <label for="item">Item name</label>
             <input type="text" name="item" value="item" required />
         </div>
-        <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: #303655; margin: 10px;" <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
+        <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: black; margin: 10px; padding:8px;"  <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
 
         <div>
             <table id="dataTable" hidden="hidden">
@@ -329,8 +336,6 @@ if (isset($_GET['id'])) {
             }
         </script>
 
-
-        <br><br>
         <input class="button" type="submit" name="<?php if (isset($_GET['id'])) {
                                                         echo "update";
                                                     } else {
@@ -339,7 +344,7 @@ if (isset($_GET['id'])) {
                                                                         echo "Update";
                                                                     } else {
                                                                         echo "Add";
-                                                                    } ?>" style="width: 75%;" /> <br>
+                                                                    } ?>" style="width: 25%;" /> <br>
     </form>
 </body>
 
