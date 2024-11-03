@@ -74,7 +74,7 @@ if (isset($_GET['search'])) {
             <h2>Search Furniture Equipments...</h2>
             <div>
                 <form action="furniture.php" method="get">
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
+                    <input type="date" placeholder="year" name="year" value="<?php if (isset($_POST['year'])) {
                                                                                     echo $_POST['year'];
                                                                                 } ?>" />
                     <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {

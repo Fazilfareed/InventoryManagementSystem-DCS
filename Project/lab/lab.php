@@ -112,7 +112,7 @@ if (isset($_GET['search'])) {
                                                         echo ' selected'; ?>>Electronic</option>
                     </select>
 
-                    <input type="number" placeholder="Year" name="year"
+                    <input type="date" placeholder="Year" name="year"
                         value="<?php if (isset($_POST['year'])) {
                                     echo $_POST['year'];
                                 } ?>" />
