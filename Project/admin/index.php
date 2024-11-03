@@ -178,7 +178,7 @@ if (!isset($_SESSION['uname'])) {
                     <tr>
                         <th>Name</th>
                         <th>Folio Number</th>
-                        <th>Remaining Time (Months)</th>
+                        <th>Remaining (Months)</th>
                     </tr>
                 </table>
                 <div class="scrollable-table">
