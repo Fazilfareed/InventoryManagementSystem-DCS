@@ -33,9 +33,10 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../css/adddata.css">
 
     <style>
-        body{
+        body {
             background: #ececec;
         }
+
         form {
             margin: auto;
             width: 800px;
@@ -149,7 +150,9 @@ if (isset($_GET['id'])) {
             <label for="item">Item name</label>
             <input type="text" name="item" value="item" required />
         </div>
-        <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: black; margin: 10px; padding:8px;"  <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
+        <div id="addSerialButton" style="display: none;">
+            <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: black; margin: 10px; padding:8px;" <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
+        </div>
 
         <div>
             <table id="dataTable" hidden="hidden">
@@ -208,101 +211,106 @@ if (isset($_GET['id'])) {
                     th.innerHTML = "Serial_number";
                     tableHeader.appendChild(th);
                     //visibility of item field
-                    var itemField = document.getElementById('itemField');
+                }
+
+
+                var itemField = document.getElementById('itemField');
+                if (selectedType === "desktop" || selectedType === "laptop") {
+                    itemField.style.display = 'none';
+                    addSerialButton.style.display = 'inline-block';
+                } else if (selectedType === "electronic") {
                     if (itemField.style.display === 'none' || itemField.style.display === '') {
                         itemField.style.display = 'block';
                     } else {
                         itemField.style.display = 'none';
                     }
+                    addSerialButton.style.display = 'inline-block';
+                } else {
+                    addSerialButton.style.display = 'none';
                 }
-
 
             }
 
             function addtable() {
+                // Reset executed flag at the start
+                addtable.executed = false;
                 if (addtable.executed) return;
                 addtable.executed = true;
+
+                // Check for valid quantity and folio number
+                var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
+                var folio = document.querySelector('input[name="folio"]').value;
+
+                if (!quantity || !folio) {
+                    alert("Please enter a valid quantity and folio number.");
+                    return;
+                }
 
                 let element = document.getElementById("dataTable");
                 element.removeAttribute("hidden");
 
-                var selectedType = document.querySelector('select[name="type"]').value;
-                var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
-                var articleName = document.querySelector('input[name="aname"]').value;
-
-                var tableHeader = document.getElementById("dataTable").getElementsByTagName('thead')[0].insertRow();
-                var rowNumberHeader = document.createElement("th");
+                // Clear existing rows in table body
                 var tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML = '';
+
+                var selectedType = document.querySelector('select[name="type"]').value;
+
+                // Adding new rows based on quantity and selected type
                 for (var i = 1; i <= quantity; i++) {
                     var newRow = tableBody.insertRow();
 
-                    var cell = newRow.insertCell();
-
-                    //for get folio number
-                    let string = document.querySelector('input[name="folio"]').value;
-                    let parts = string.split('-');
+                    // For generating the folio number
+                    let parts = folio.split('-');
                     let result = parts[0];
-
                     let lastPart = result.split('/').pop();
                     let incrementedNumber = parseInt(lastPart) + i - 1;
                     let updatedString = result.replace(lastPart, incrementedNumber);
 
+                    var cell = newRow.insertCell();
                     cell.textContent = updatedString;
 
                     if (selectedType == "desktop") {
-                        for (var j = 0; j < 4; j++) {
+                        // Add four cells with inputs for desktop components
+                        var components = ["SystemUnit", "Monitor", "Keyboard", "Mouse"];
+                        components.forEach((component, index) => {
                             var cell = newRow.insertCell();
                             var input = document.createElement("input");
                             input.type = "text";
-                            if (j == 0) {
-                                input.name = "SystemUnit" + i;
-                                input.placeholder = "serial Number";
-                            } else if (j == 1) {
-                                input.name = "Monitor" + i;
-                                input.placeholder = "serial Number";
-                            } else if (j == 2) {
-                                input.name = "Keyboard" + i;
-                                input.placeholder = "serial Number";
-                            } else if (j == 3) {
-                                input.name = "Mouse" + i;
-                                input.placeholder = "serial Number";
-                            }
-
+                            input.name = component + i;
+                            input.placeholder = "Serial Number";
                             cell.appendChild(input);
-                        }
+                        });
                     } else if (selectedType == "laptop") {
-                        for (var j = 0; j < 2; j++) {
+                        // Add two cells for laptop
+                        var fields = ["Model_number", "Serial_number"];
+                        fields.forEach((field, index) => {
                             var cell = newRow.insertCell();
                             var input = document.createElement("input");
                             input.type = "text";
-                            if (j == 0) {
-                                input.name = "Model_number" + i;
-                            } else if (j == 1) {
-                                input.name = "Serial_number" + i;
-                            }
-
+                            input.name = field + i;
                             cell.appendChild(input);
-                        }
+                        });
                     } else if (selectedType == "electronic") {
+                        // Add one cell for electronic items
                         var cell = newRow.insertCell();
                         var input = document.createElement("input");
                         input.type = "text";
-                        input.name = 'Serial_number' + i;
+                        input.name = "Serial_number" + i;
                         cell.appendChild(input);
                     }
                 }
 
+                // Clear and hide the input container and button
                 var inputContainer = document.getElementById("input-container");
                 inputContainer.innerHTML = '';
-
                 var typeInputContainer = document.getElementById("input-row");
                 typeInputContainer.style.visibility = "hidden";
 
                 var addTypeButton = document.getElementById("addTypeButton");
                 addTypeButton.style.display = "none";
-
                 addTypeButton.removeAttribute("disabled");
             }
+
 
             function addtype() {
 

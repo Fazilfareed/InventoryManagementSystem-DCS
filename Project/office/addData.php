@@ -32,9 +32,10 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/adddata.css">
     <style>
-        body{
+        body {
             background: #ececec;
         }
+
         form {
             margin: auto;
             width: 800px;
@@ -70,7 +71,7 @@ if (isset($_GET['id'])) {
                                                     echo $row1['name'];
                                                 } ?>" required /> <br>
 
-        <label for="date">Date</label> 
+        <label for="date">Date</label>
         <input type="date" name="date" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['date'];
                                                 } ?>" required /><br>
@@ -101,17 +102,17 @@ if (isset($_GET['id'])) {
                                                                 echo $row1['description'];
                                                             } ?></textarea> <br><br><br>
 
-        <label for="sName">Supplier Name</label> 
+        <label for="sName">Supplier Name</label>
         <input type="text" name="sName" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['supplier_name'];
                                                 } ?>" required /> <br>
 
-        <label for="s_tp">Supplier T.P.</label> 
+        <label for="s_tp">Supplier T.P.</label>
         <input type="number" name="s_tp" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['supplier_tt'];
                                                 } ?>" /> <br>
 
-        <label for="srn">SRN Number</label> 
+        <label for="srn">SRN Number</label>
         <input type="number" name="srn" value="<?php if (isset($_GET['id'])) {
                                                     echo $row1['srn'];
                                                 } ?>" /> <br>
@@ -151,64 +152,34 @@ if (isset($_GET['id'])) {
 
 
         <script>
-            // function updateTableHeader1(){
-            //     var selectedType = document.querySelector('select[name="type"]').value;
-            //     var tableHeader = document.getElementById("tableHeader");
-
-            //     tableHeader.innerHTML = "";
-            //     var rowNumberHeader = document.createElement("th");
-            //     rowNumberHeader.innerHTML = "No";
-            //     tableHeader.appendChild(rowNumberHeader);
-
-            //     // Add type-specific headers
-            //     if (selectedType === "desktop") {
-            //         for (var i = 0; i < 4; i++) {
-            //             var th = document.createElement("th");
-            //             if(i==0){
-            //                 th.innerHTML = "CPU";
-            //             }else if(i==1){
-            //                 th.innerHTML = "Monitor";
-            //             }else if(i==2){
-            //                 th.innerHTML = "Keyboard";
-            //             }else if(i==3){
-            //                 th.innerHTML = "Mouse";
-            //             }
-            //             tableHeader.appendChild(th);
-            //         }
-            //     } else if (selectedType === "laptop") {
-            //         for (var i = 0; i < 2; i++) {
-            //             var th = document.createElement("th");
-            //             if(i==0){
-            //                 th.innerHTML = "Model_number";
-            //             }else if(i==1){
-            //                 th.innerHTML = "Serial_number";
-            //             }tableHeader.appendChild(th);
-            //         }
-            //     } else if (selectedType === "electronic") {
-            //         var th = document.createElement("th");
-            //         th.innerHTML = "Serial_number";
-            //         tableHeader.appendChild(th);
-            //     }
-
-
-            // }
-
             function addtable() {
+                addtable.executed = false;
                 if (addtable.executed) return;
                 addtable.executed = true;
+
+
+                var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
+                var folio = document.querySelector('input[name="folio"]').value;
+
+                if (!quantity || !folio) {
+                    alert("Please enter a valid quantity and folio number.");
+                    return;
+                }
                 //visibility of item field
                 var itemField = document.getElementById('itemField');
                 if (itemField.style.display === 'none' || itemField.style.display === '') {
                     itemField.style.display = 'block';
-                } else {
-                    itemField.style.display = 'none';
                 }
 
                 let element = document.getElementById("dataTable");
                 element.removeAttribute("hidden");
 
+
+                // Clear existing rows in table body
+                var tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML = '';
+
                 var selectedType = document.querySelector('select[name="type"]').value;
-                var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
 
                 var tableHeader = document.getElementById("dataTable").getElementsByTagName('thead')[0].insertRow();
                 var rowNumberHeader = document.createElement("th");
@@ -217,17 +188,17 @@ if (isset($_GET['id'])) {
                 for (var i = 1; i <= quantity; i++) {
                     var newRow = tableBody.insertRow();
 
-                    var cell = newRow.insertCell();
+
 
                     //for get folio number
-                    let string = document.querySelector('input[name="folio"]').value;
-                    let parts = string.split('-');
+                    let parts = folio.split('-');
                     let result = parts[0];
 
                     let lastPart = result.split('/').pop();
                     let incrementedNumber = parseInt(lastPart) + i - 1;
                     let updatedString = result.replace(lastPart, incrementedNumber);
 
+                    var cell = newRow.insertCell();
                     cell.textContent = updatedString;
 
                     if (selectedType == "electronic") {
