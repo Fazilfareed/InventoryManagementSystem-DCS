@@ -15,15 +15,17 @@ if (!isset($_SESSION['uname'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/lab.css">
     <title>Inventory Management System</title>
     <style>
-        body {
-            background-size: cover;
-            background-repeat: no-repeat;
-            margin: 0;
-            overflow: hidden;
-            color: #333;
-            overflow-y: auto;
+        .main-container{
+            padding: 20px;
+            min-height: 100vh;
+            height: fit-content;
+            background: rgb(195, 193, 193);
+            margin: auto;
         }
 
         .animation-container {
@@ -32,14 +34,9 @@ if (!isset($_SESSION['uname'])) {
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-/*             height: 150vh; */
+            height: 150vh;
             padding: 20px;
             padding-bottom: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
         }
 
         .dashboard-summary {
@@ -104,7 +101,7 @@ if (!isset($_SESSION['uname'])) {
         }
 
         .scrollable-table {
-            max-height: 250px;
+            max-height: 200px;
             overflow-y: auto;
         }
 
@@ -137,6 +134,7 @@ if (!isset($_SESSION['uname'])) {
 
 <body>
 <?php include "../header/header.php"; ?>
+        <div class="main-container">
     <div class="animation-container">
         <div class="dashboard-summary">
             <h2>Total Summary</h2>
@@ -233,7 +231,7 @@ if (!isset($_SESSION['uname'])) {
                 <tr>
                     <th>Category</th>
                     <th>Set ID</th>
-                    <th>Item</th>
+                    <th>Item Name</th>
                     <th>Location</th>
                 </tr>
             </table>
@@ -290,5 +288,6 @@ if (!isset($_SESSION['uname'])) {
             }
         });
     </script>
+    </div>
 </body>
 </html>
