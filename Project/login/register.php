@@ -32,7 +32,11 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/register.css">
-
+    <style>
+        .container{
+            background: rgb(195, 193, 193);
+        }
+    </style>
 </head>
 
 <body>
