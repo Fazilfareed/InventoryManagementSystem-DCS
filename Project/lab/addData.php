@@ -149,7 +149,7 @@ if (isset($_GET['id'])) {
             <label for="item">Item name</label>
             <input type="text" name="item" value="item" required />
         </div>
-        <button type="button-2" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: black; margin: 10px; padding:8px;"  <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
+        <button type="button" onclick="addtable()" onclick="addtype()" style="background-color:#55C2C3; color: black; margin: 10px; padding:8px;"  <?php if (isset($_GET['id'])) { ?> disabled="disabled" <?php } ?>>Add Serial Number</button>
 
         <div>
             <table id="dataTable" hidden="hidden">
