@@ -15,16 +15,16 @@ if (!isset($_SESSION['uname'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/lab.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/lab.css">
     <title>Inventory Management System</title>
     <style>
         .main-container {
             padding: 20px;
             min-height: 100vh;
             height: fit-content;
-            background: rgb(195, 193, 193);
+            background: #f0f0f0;
             margin: auto;
         }
 
@@ -133,7 +133,7 @@ if (!isset($_SESSION['uname'])) {
 </head>
 
 <body>
-    <?php include "header/header.php"; ?>
+    <?php include "header.php"; ?>
     <div class="main-container">
         <div class="animation-container">
             <div class="dashboard-summary">
