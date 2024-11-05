@@ -24,7 +24,7 @@ if (!isset($_SESSION['uname'])) {
             padding: 20px;
             min-height: 100vh;
             height: fit-content;
-            background: #f0f0f0;
+            background: rgb(195, 193, 193);
             margin: auto;
         }
 
@@ -34,6 +34,7 @@ if (!isset($_SESSION['uname'])) {
             align-items: center;
             justify-content: flex-start;
             width: 100%;
+            /* height: 150vh; */
             padding: 20px;
             padding-bottom: 20px;
         }
@@ -178,7 +179,7 @@ if (!isset($_SESSION['uname'])) {
                         <tr>
                             <th>Name</th>
                             <th>Folio Number</th>
-                            <th>Remaining Time (Months)</th>
+                            <th>Remaining (Months)</th>
                         </tr>
                     </table>
                     <div class="scrollable-table">
