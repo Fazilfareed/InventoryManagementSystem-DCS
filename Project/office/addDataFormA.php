@@ -29,9 +29,18 @@ if (isset($_GET['dept_inventory_no'])) {
     <link rel="stylesheet" href="../css/adddata.css">
 
     <style>
+        body{
+            background: #ececec;
+            padding-top: 50px;
+            padding-bottom: 230px;
+        }
         form {
             margin: auto;
             width: 800px;
+            box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.5);
+            background-color: #d4d4d4;
+            padding: 30px;
+            padding-bottom: 50px;
         }
 
         h2 {
@@ -50,7 +59,7 @@ if (isset($_GET['dept_inventory_no'])) {
     <form action="actionItemFormA.php" method="POST">
 
 
-        <label for="description">Article Name</label> <br>
+        <label for="description">Article Name</label>
         <input type="text" name="description" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['description'];
                                                         }
@@ -58,75 +67,74 @@ if (isset($_GET['dept_inventory_no'])) {
 
 
 
-        <label for="purchase_year">Purchase Year</label> <br>
+        <label for="purchase_year">Purchase Year</label>
         <input type="number" name="purchase_year" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['purchase_year'];
                                                             } ?>" readonly /><br>
 
 
-        <label for="purchase_value">Purchase Price</label> <br>
+        <label for="purchase_value">Purchase Price</label>
         <input type="number" name="purchase_value" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['purchase_value'];
                                                             } ?>" readonly /><br>
 
 
 
-        <label for="dept_inventory_no">Department Inventory No</label> <br>
+        <label for="dept_inventory_no">Department Inventory No</label>
         <input type="text" name="dept_inventory_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['dept_inventory_no'];
                                                             } ?>" readonly /> <br>
 
-        <label for="page_no">Page No</label> <br>
+        <label for="page_no">Page No</label> 
         <input type="text" name="page_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['page_no'];
                                                     } ?>" readonly /> <br>
 
-        <label for="fixed_asset_no">Fixed Asset No</label> <br>
+        <label for="fixed_asset_no">Fixed Asset No</label> 
         <input type="text" name="fixed_asset_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['fixed_asset_no'];
                                                         } ?>" /> <br>
 
-        <label for="book_balance">Book Balance</label> <br>
+        <label for="book_balance">Book Balance</label> 
         <input type="number" name="book_balance" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['book_balance'];
                                                         } ?>" readonly /> <br>
 
 
-        <label for="total">Total</label> <br>
+        <label for="total">Total</label>
         <input type="number" name="total" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['total'];
                                                     } ?>" /> <br>
 
 
-        <label for="verified_balance">Verified Balance</label> <br>
+        <label for="verified_balance">Verified Balance</label> 
         <input type="text" name="verified_balance" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['verified_balance'];
                                                             } ?>" /> <br>
 
 
-        <label for="surplus">Surplus</label> <br>
+        <label for="surplus">Surplus</label>
         <input type="text" name="surplus" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['surplus'];
                                                     } ?>" /> <br>
 
 
-        <label for="deficit">Deficit</label> <br>
+        <label for="deficit">Deficit</label>
         <input type="text" name="deficit" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['deficit'];
                                                     } ?>" /> <br>
 
 
-        <label for="remarks">Remarks</label> <br>
+        <label for="remarks">Remarks</label> 
         <input type="text" name="remarks" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['remarks'];
                                                     } ?>" /> <br>
 
-        <br><br>
         <input class="button" type="submit" name="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo "update";
                                                     }  ?>" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                         echo "Update";
-                                                                    } ?>" style="width: 75%;" /> <br>
+                                                                    } ?>" style="width: 25%;" /> <br>
     </form>
 </body>
 
