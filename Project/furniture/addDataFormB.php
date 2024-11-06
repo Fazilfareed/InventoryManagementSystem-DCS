@@ -112,7 +112,7 @@ if (isset($_GET['dept_Inventory_no'])) {
                                                         echo "update";
                                                     }  ?>" value="<?php if (isset($_GET['dept_Inventory_no'])) {
                                                                         echo "Update";
-                                                                    } ?>" style="width: 75%;" /> <br>
+                                                                    } ?>" style="width: 25%;" /> <br>
     </form>
 </body>
 
