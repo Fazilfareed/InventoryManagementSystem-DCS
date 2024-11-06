@@ -83,7 +83,7 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
             <div><input type="radio" name="working" value="T" <?php if (isset($row1['working']) && $row1['working'] == 'T') echo 'checked'; ?> /> T</div>
         </div>
         <br>
-        <input class="button" type="submit" name="setupdate" value="Update" style="width: 75%;" /> <br>
+        <input class="button" type="submit" name="setupdate" value="Update" style="width: 25%;" /> <br>
     </form>
 </body>
 
