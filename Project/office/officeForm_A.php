@@ -18,6 +18,61 @@ $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_forma_table"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
 
+if (isset($_GET['exportXL'])) {
+    // Set appropriate headers for downloading
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment;filename="office_form_A.csv"');
+    header('Cache-Control: max-age=0');
+    // header('Cache-Control: no-store, no-cache, must-revalidate');
+
+    // Open output stream for writing
+    $output = fopen('php://output', 'I');
+
+    // Write column headers to the CSV
+    $columnHeaders = ['Description of Item', 'Purchase Year', 'Purchase Value', 'Dept. Inventory No','Page No','Fixed Assets No' , 'Book Balance','Total','Verified Balance','Surplus','Dificit','Remarks'];
+    fputcsv($output, $columnHeaders);
+
+
+    if (isset($_GET['year']) && !empty($_GET['year'])) {
+        $purchase_year = mysqli_real_escape_string($con, $_GET['year']);
+        $queryinvoice = "SELECT * FROM o_forma_table where purchase_year <= $purchase_year  ORDER BY description ASC";
+    } else {
+        $queryinvoice = "SELECT * FROM o_forma_table ORDER BY description ASC";
+    }
+
+
+    $resultinvoice1 = mysqli_query($con,$queryinvoice);
+
+    // Fetch data and write to the CSV
+    while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
+        if($rowinvoice1['total']==0){
+            $total = '';
+        }
+        else{
+            $total = $rowinvoice1['total'];
+        }
+        $rowData = [
+            $rowinvoice1['description'],
+            $rowinvoice1['purchase_year'],
+            $rowinvoice1['purchase_value'],
+            $rowinvoice1['dept_inventory_no'],
+            $rowinvoice1['page_no'],
+            $rowinvoice1['fixed_asset_no'],
+            $rowinvoice1['book_balance'],
+            $total,
+            $rowinvoice1['verified_balance'],
+            $rowinvoice1['surplus'],
+            $rowinvoice1['deficit'],
+            $rowinvoice1['remarks']
+        ];
+        fputcsv($output, $rowData);
+    }
+
+    // Close the output stream
+    fclose($output);
+    exit();
+}
+
 if (isset($_GET['export'])) {
 
     if (isset($_GET['year']) && !empty($_GET['year'])) {
@@ -134,7 +189,12 @@ if (isset($_GET['export'])) {
         $pdf->Cell(15, 5, $rowinvoice1['page_no'], 1);
         $pdf->Cell(40, 5, $rowinvoice1['fixed_asset_no'], 1);
         $pdf->Cell(15, 5, $rowinvoice1['book_balance'], 1);
-        $pdf->Cell(10, 5, $rowinvoice1['total'], 1);
+        if($rowinvoice1['total'] == 0){
+            $pdf->Cell(10, 5, '', 1);
+        }
+        else{
+            $pdf->Cell(10, 5, $rowinvoice1['total'], 1);
+        }
         $pdf->Cell(15, 5, $rowinvoice1['verified_balance'], 1);
         $pdf->Cell(15, 5, $rowinvoice1['surplus'], 1);
         $pdf->Cell(15, 5, $rowinvoice1['deficit'], 1);
@@ -149,16 +209,12 @@ if (isset($_GET['export'])) {
 
 if (isset($_GET['search'])) {
     $purchase_year = $_GET['year'];
-    $description = $_GET['name'];
+    
 
-    if (!(empty($purchase_year)) and  !(empty($description))) {
-
-        $queryinvoice = "SELECT * FROM o_forma_table WHERE purchase_year<=$purchase_year AND description='$description' ORDER BY description ASC";
-    } elseif (!(empty($purchase_year))) {
-        $queryinvoice = "SELECT * FROM o_forma_table WHERE purchase_year<=$purchase_year ORDER BY description ASC";
-    } elseif (!(empty($description))) {
-        $queryinvoice = "SELECT * FROM o_forma_table WHERE description='$description' ORDER BY description ASC";
-    } else {
+    if (!(empty($purchase_year))) {
+        $queryinvoice = "SELECT * FROM o_forma_table WHERE purchase_year <= $purchase_year ORDER BY description ASC";
+    }
+    else {
         $queryinvoice = "SELECT * FROM o_forma_table ORDER BY description ASC";
     }
 } 
@@ -195,28 +251,33 @@ if (isset($_GET['search'])) {
         <div class="container">
             <h2>FORM A</h2>
             <div>
+            <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
                 <form action="officeForm_A.php" method="get">
 
                     <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
                                                                                     echo $_POST['year'];
                                                                                 } ?>" />
 
-                    <input type="text" placeholder="name" name="name" value="<?php if (isset($_POST['name'])) {
-                                                                                    echo $_POST['name'];
-                                                                                } ?>" />
 
                     <input class="button" type="submit" name="search" value="Search" />
 
                     <!-- <input class="button" type="submit" name="export" value="Export to PDF" /> -->
-                    <a href="officeForm_A.php?export=true&year=<?php
+                    
+
+                </form>
+                <a href="officeForm_A.php?exportXL=true&year=<?php
                                                                 if (isset($_GET['year'])) {
                                                                     echo urlencode($_GET['year']);
                                                                 }
 
-                                                                ?>"><input class="button" value="Export to PDF" /></a>
+                                                                ?>"><input class="button" type="submit" value="Export to Excel" /></a>
+            
+            <a href="officeForm_A.php?export=true&year=<?php
+                                                                if (isset($_GET['year'])) {
+                                                                    echo urlencode($_GET['year']);
+                                                                }
 
-                </form>
-                <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
+                                                                ?>"><input class="button" type="submit" value="Export to PDF" /></a>
             </div>
         </div>
 
@@ -257,7 +318,12 @@ if (isset($_GET['search'])) {
                             <td><?php echo $rowinvoice['page_no'] ?></td>
                             <td class="folio_number"><?php echo $rowinvoice['fixed_asset_no'] ?></td>
                             <td><?php echo $rowinvoice['book_balance'] ?></td>
-                            <td><?php echo $rowinvoice['total'] ?></td>
+                            <td><?php if($rowinvoice['total'] == 0){
+                                            echo '';
+                                        }
+                                        else{
+                                            echo $rowinvoice['total'];
+                                        } ?></td>
                             <td><?php echo $rowinvoice['verified_balance'] ?></td>
                             <td><?php echo $rowinvoice['surplus'] ?></td>
                             <td><?php echo $rowinvoice['deficit'] ?></td>

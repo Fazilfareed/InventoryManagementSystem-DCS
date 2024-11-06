@@ -17,6 +17,50 @@ $queryinvoice = "SELECT * FROM o_formb_table  LIMIT $offset, $rowsPerPage";
 $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_formb_table"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
+if (isset($_GET['exportXL'])) {
+    // Set appropriate headers for downloading
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment;filename="office_form_B.csv"');
+    header('Cache-Control: max-age=0');
+    // header('Cache-Control: no-store, no-cache, must-revalidate');
+
+    // Open output stream for writing
+    $output = fopen('php://output', 'I');
+
+    // Write column headers to the CSV
+    $columnHeaders = ['Article', 'Quantity', 'S/D/R/T', 'Master Inventory Folio No','Department Inventory No','Fixed Assets No' ,'Remarks'];
+    fputcsv($output, $columnHeaders);
+
+
+    if (isset($_GET['sdrt']) && !empty($_GET['sdrt'])) {
+        $sdrt =  mysqli_real_escape_string($con, $_GET['sdrt']);
+        $queryinvoice = "SELECT * FROM o_formb_table WHERE sdrt='$sdrt'";
+    } else {
+        $queryinvoice = "SELECT * FROM o_formb_table";
+    }
+
+
+    $resultinvoice1 = mysqli_query($con,$queryinvoice);
+
+    // Fetch data and write to the CSV
+    while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
+        $rowData = [
+            $rowinvoice1['article'],
+            $rowinvoice1['quantity'],
+            $rowinvoice1['sdrt'],
+            $rowinvoice1['master_inventory_no'],
+            $rowinvoice1['dept_Inventory_no'],
+            $rowinvoice1['fixed_asset_no'],
+            $rowinvoice1['remarks']
+        ];
+        fputcsv($output, $rowData);
+    }
+
+    // Close the output stream
+    fclose($output);
+    exit();
+}
+
 if (isset($_GET['export'])) {
     if (isset($_GET['sdrt']) && !empty($_GET['sdrt'])) {
         $sdrt =  mysqli_real_escape_string($con, $_GET['sdrt']);
@@ -227,22 +271,26 @@ if (isset($_GET['search'])) {
         <div class="container">
             <h2>FORM B</h2>
             <div>
+            <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
                 <form action="officeForm_B.php" method="get">
 
                     <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {
                                                                                     echo $_POST['sdrt'];
                                                                                 } ?>" />
                     <input class="button" type="submit" name="search" value="Search" />
-                    <a href="officeForm_B.php?export=true&sdrt=<?php
+                </form>
+                <a href="officeForm_B.php?exportXL=true&sdrt=<?php
                                                                 if (isset($_GET['sdrt'])) {
                                                                     echo urlencode($_GET['sdrt']);
                                                                 }
 
-                                                                ?>"><input class="button" value="Export to PDF" /></a>
+                                                                ?>"><input class="button" type="submit" value="Export to Excel" /></a>
+                <a href="officeForm_B.php?export=true&sdrt=<?php
+                                                                if (isset($_GET['sdrt'])) {
+                                                                    echo urlencode($_GET['sdrt']);
+                                                                }
 
-
-                </form>
-                <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
+                                                                ?>"><input class="button" type="submit" value="Export to PDF" /></a>
             </div>
         </div>
 

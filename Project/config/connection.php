@@ -1,8 +1,8 @@
 <?php
 $hostname = "localhost";
-$username = "csc210user";
-$password = "CSC210!";
-$dbname = "group16";
+$username = "root";
+$password = "";
+$dbname = "project_1";
 
 $con = mysqli_connect($hostname, $username, $password, $dbname);
 
