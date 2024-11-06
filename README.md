@@ -1,21 +1,11 @@
 # Inventory Management System
 
-Then run the apache server and mysql. And then create a database called `project_1` and import the `project_1.sql` file.
-then go to the `http://localhost/Project/` to access the ERS website</br></br>
-
-
-Then open the project file in composer teminal. (open the composer terminal and then `cd C:/xampp/htdocs/ERS-Project` and then enter).</br>
-
-Then enable these extensions in your `php.ini` file (`C:\xampp\php`).</br>
-
-<ol><li>extension=gd</li><li>extension=fileinfo</li><li>extension=zip</li></ol></br>
-
-To enable this, you have to do the following:</br>
-
+## Local Hosting
+Then run the apache server and mysql. And then create a database called `group16` and import the `group16.sql` file.
+then go to the `http://localhost/InventoryManagementSystem-DCS/Project/` to access the IMS website</br></br>
 
 
 ## Login
- http://imsdcs.free.nf 
 - **Username:** masteradmin
 - **Password:** 123456789
 
