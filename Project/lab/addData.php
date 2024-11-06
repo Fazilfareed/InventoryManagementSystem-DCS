@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
                                                 } ?>" required /><br>
 
         <label for="description">Description</label>
-        <textarea name="description" cols="100%" rows="10"><?php if (isset($_GET['id'])) {
+        <textarea name="description" rows="10"><?php if (isset($_GET['id'])) {
                                                                 echo $row1['description'];
                                                             } ?></textarea> <br><br><br>
 
