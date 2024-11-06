@@ -35,7 +35,7 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
         body{
             background: #ececec;
             padding-top: 50px;
-            padding-bottom: 130px;
+            padding-bottom: 400px;
         }
         form {
             margin: auto;
