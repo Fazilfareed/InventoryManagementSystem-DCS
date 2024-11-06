@@ -33,9 +33,18 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/adddata.css">
     <style>
+        body{
+            background: #ececec;
+            padding-top: 50px;
+            padding-bottom: 350px;
+        }
         form {
             margin: auto;
             width: 800px;
+            box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.5);
+            background-color: #d4d4d4;
+            padding: 30px;
+            padding-bottom: 50px;
         }
 
         h2 {
@@ -47,7 +56,7 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
 
 <body>
     <?php include("../header/header.php"); ?>
-    <h2>Update Items</h2>
+    <h2>Update Furniture Items</h2>
 
     <form action="actionItem.php" method="POST">
 
@@ -55,12 +64,12 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
                                                     echo (int)$row1['invoice_id'];
                                                 } ?> " /> <br>
 
-        <label for="setid">Set Id</label> <br>
+        <label for="setid">Set Id</label>
         <input type="text" name="setid" value="<?php if (isset($_GET['setid']) && isset($_GET['id'])) {
                                                     echo $row1['f_set_id'];
                                                 } ?>" required /> <br>
 
-        <label for="location">Location</label> <br>
+        <label for="location">Location</label>
         <input type="text" name="location" value="<?php if (isset($_GET['setid']) && isset($_GET['id'])) {
                                                         echo $row1['location'];
                                                     } ?>" required /><br>
@@ -73,7 +82,7 @@ if (isset($_GET['id']) && isset($_GET['setid'])) {
             <div><input type="radio" name="working" value="D" <?php if (isset($row1['working']) && $row1['working'] == 'D') echo 'checked'; ?> /> D</div>
             <div><input type="radio" name="working" value="T" <?php if (isset($row1['working']) && $row1['working'] == 'T') echo 'checked'; ?> /> T</div>
         </div>
-        <br><br>
+        <br>
         <input class="button" type="submit" name="setupdate" value="Update" style="width: 75%;" /> <br>
     </form>
 </body>
