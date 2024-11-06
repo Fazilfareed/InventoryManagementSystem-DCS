@@ -28,7 +28,7 @@ if (isset($_GET['exportXL'])) {
     $output = fopen('php://output', 'I');
 
     // Write column headers to the CSV
-    $columnHeaders = ['Article', 'Quantity', 'S/D/R/T', 'Master Inventory Folio No','Department Inventory No','Fixed Assets No' ,'Remarks'];
+    $columnHeaders = ['Article', 'Quantity', 'S/D/R/T', 'Master Inventory Folio No', 'Department Inventory No', 'Fixed Assets No', 'Remarks'];
     fputcsv($output, $columnHeaders);
 
 
@@ -40,7 +40,7 @@ if (isset($_GET['exportXL'])) {
     }
 
 
-    $resultinvoice1 = mysqli_query($con,$queryinvoice);
+    $resultinvoice1 = mysqli_query($con, $queryinvoice);
 
     // Fetch data and write to the CSV
     while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
@@ -271,26 +271,25 @@ if (isset($_GET['search'])) {
         <div class="container">
             <h2>FORM B</h2>
             <div>
-            <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
+                <a href="formBTable.php"><input class="button" type="submit" name="create" value="create table" /></a>
                 <form action="officeForm_B.php" method="get">
 
                     <input type="text" placeholder="S/D/R/T" name="sdrt" value="<?php if (isset($_POST['sdrt'])) {
                                                                                     echo $_POST['sdrt'];
                                                                                 } ?>" />
                     <input class="button" type="submit" name="search" value="Search" />
+
+
+                    <?php if (isset($_GET['sdrt'])) { ?>
+                        <a href="officeForm_B.php?exportXL=true&sdrt=<?php echo urlencode($_GET['sdrt']); ?>"><input class="button" value="Export to Excel" /></a>
+                        <a href="officeForm_B.php?export=true&sdrt=<?php echo urlencode($_GET['sdrt']); ?>"><input class="button" value="Export to PDF" /></a>
+
+                    <?php } else { ?>
+                        <input class="button" type="submit" name="exportXL" value="Export to Excel" />
+
+                        <input class="button" type="submit" name="export" value="Export to PDF" />
+                    <?php } ?>
                 </form>
-                <a href="officeForm_B.php?exportXL=true&sdrt=<?php
-                                                                if (isset($_GET['sdrt'])) {
-                                                                    echo urlencode($_GET['sdrt']);
-                                                                }
-
-                                                                ?>"><input class="button" type="submit" value="Export to Excel" /></a>
-                <a href="officeForm_B.php?export=true&sdrt=<?php
-                                                                if (isset($_GET['sdrt'])) {
-                                                                    echo urlencode($_GET['sdrt']);
-                                                                }
-
-                                                                ?>"><input class="button" type="submit" value="Export to PDF" /></a>
             </div>
         </div>
 

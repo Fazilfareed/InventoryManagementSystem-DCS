@@ -28,7 +28,7 @@ if (isset($_GET['exportXL'])) {
     $output = fopen('php://output', 'I');
 
     // Write column headers to the CSV
-    $columnHeaders = ['Description of Item', 'Purchase Year', 'Purchase Value', 'Dept. Inventory No','Page No','Fixed Assets No' , 'Book Balance','Total','Verified Balance','Surplus','Dificit','Remarks'];
+    $columnHeaders = ['Description of Item', 'Purchase Year', 'Purchase Value', 'Dept. Inventory No', 'Page No', 'Fixed Assets No', 'Book Balance', 'Total', 'Verified Balance', 'Surplus', 'Dificit', 'Remarks'];
     fputcsv($output, $columnHeaders);
 
 
@@ -40,14 +40,13 @@ if (isset($_GET['exportXL'])) {
     }
 
 
-    $resultinvoice1 = mysqli_query($con,$queryinvoice);
+    $resultinvoice1 = mysqli_query($con, $queryinvoice);
 
     // Fetch data and write to the CSV
     while ($rowinvoice1 = mysqli_fetch_assoc($resultinvoice1)) {
-        if($rowinvoice1['total']==0){
+        if ($rowinvoice1['total'] == 0) {
             $total = '';
-        }
-        else{
+        } else {
             $total = $rowinvoice1['total'];
         }
         $rowData = [
@@ -191,10 +190,9 @@ if (isset($_GET['export'])) {
         $pdf->Cell(15, 5, $rowinvoice1['page_no'], 1);
         $pdf->Cell(40, 5, $rowinvoice1['fixed_asset_no'], 1);
         $pdf->Cell(15, 5, $rowinvoice1['book_balance'], 1);
-        if($rowinvoice1['total'] == 0){
+        if ($rowinvoice1['total'] == 0) {
             $pdf->Cell(10, 5, '', 1);
-        }
-        else{
+        } else {
             $pdf->Cell(10, 5, $rowinvoice1['total'], 1);
         }
         $pdf->Cell(15, 5, $rowinvoice1['verified_balance'], 1);
@@ -211,16 +209,14 @@ if (isset($_GET['export'])) {
 
 if (isset($_GET['search'])) {
     $purchase_year = $_GET['year'];
-    
+
 
     if (!(empty($purchase_year))) {
         $queryinvoice = "SELECT * FROM forma_table WHERE purchase_year <= $purchase_year ORDER BY description ASC";
-    }
-    else {
+    } else {
         $queryinvoice = "SELECT * FROM forma_table ORDER BY description ASC";
     }
-
-} 
+}
 ?>
 
 
@@ -254,7 +250,7 @@ if (isset($_GET['search'])) {
 
             <h2>FORM A</h2>
             <div>
-            <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
+                <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
                 <form action="labForm_A.php" method="get">
 
                     <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
@@ -262,30 +258,28 @@ if (isset($_GET['search'])) {
                                                                                 } ?>" />
 
                     <!-- <input type="text" placeholder="Article Name" name="name" value="<?php if (isset($_POST['name'])) {
-                                                                                            echo $_POST['name'];
-                                                                                        } ?>" /> -->
+                                                                                                echo $_POST['name'];
+                                                                                            } ?>" /> -->
 
                     <input class="button" type="submit" name="search" value="Search" />
                     <!-- <input class="button" type="submit" name="exportXL" value="Export to Excel" /> -->
                     <!-- <input class="button" type="submit" name="export" value="Export to PDF" /> -->
-                    
-                    
+
+                    <?php if (isset($_GET['year'])) { ?>
+                        <a href="labForm_A.php?exportXL=true&year=<?php echo urlencode($_GET['year']); ?>"><input class="button" value="Export to Excel" /></a>
+                        <a href="labForm_A.php?export=true&year=<?php echo urlencode($_GET['year']); ?>"><input class="button" value="Export to PDF" /></a>
+
+                    <?php } else { ?>
+                        <input class="button" type="submit" name="exportXL" value="Export to Excel" />
+
+                        <input class="button" type="submit" name="export" value="Export to PDF" />
+                    <?php } ?>
+
 
 
                 </form>
-                <a href="labForm_A.php?exportXL=true&year=<?php
-                                                            if (isset($_GET['year'])) {
-                                                                echo urlencode($_GET['year']);
-                                                            }
 
-                                                            ?>"><input class="button" type="submit" value="Export to Excel" /></a>
-                <a href="labForm_A.php?export=true&year=<?php
-                                                            if (isset($_GET['year'])) {
-                                                                echo urlencode($_GET['year']);
-                                                            }
 
-                                                            ?>"><input class="button" type="submit" value="Export to PDF" /></a>
-                
             </div>
         </div>
 
@@ -326,12 +320,11 @@ if (isset($_GET['search'])) {
                             <td><?php echo $rowinvoice['page_no'] ?></td>
                             <td class="folio_number"><?php echo $rowinvoice['fixed_asset_no'] ?></td>
                             <td><?php echo $rowinvoice['book_balance'] ?></td>
-                            <td><?php if($rowinvoice['total'] == 0){
-                                            echo '';
-                                        }
-                                        else{
-                                            echo $rowinvoice['total'];
-                                        }?></td>
+                            <td><?php if ($rowinvoice['total'] == 0) {
+                                    echo '';
+                                } else {
+                                    echo $rowinvoice['total'];
+                                } ?></td>
                             <td><?php echo $rowinvoice['verified_balance'] ?></td>
                             <td><?php echo $rowinvoice['surplus'] ?></td>
                             <td><?php echo $rowinvoice['deficit'] ?></td>
