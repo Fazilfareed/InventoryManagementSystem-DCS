@@ -34,6 +34,8 @@ if (isset($_GET['id'])) {
     <style>
         body {
             background: #ececec;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
 
         form {
