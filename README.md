@@ -11,7 +11,7 @@ then go to the `http://localhost/InventoryManagementSystem-DCS/Project/` to acce
 
 **-New Modifications-**
 
-##DashBoard
+## DashBoard
 Modified dashboard to show filtered data for easy handling
 - Total Summery (Total Quantity and Total Cost of items in each Lab, office and furniture sections)
 - Alerts: Warrenty Remaining (Items tha has warrenty remaining less than 6 months)
