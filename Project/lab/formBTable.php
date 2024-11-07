@@ -25,10 +25,9 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     }
     // Insert into formb_table
     $query2 = "INSERT INTO formb_table (article, quantity, sdrt, master_inventory_no, dept_inventory_no, fixed_asset_no, remarks) 
-               VALUES ('$article', '', '$sdrt', '', '$dept_inventory_no', '', '')";
+               VALUES ('$article', 1, '$sdrt', '', '$dept_inventory_no', '', '')";
     mysqli_query($con, $query2);
 }
 
 
-echo "<script>window.location.href='labForm_B.php';</script>"
-?>
+echo "<script>window.location.href='labForm_B.php';</script>";

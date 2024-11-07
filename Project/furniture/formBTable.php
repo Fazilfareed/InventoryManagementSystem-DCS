@@ -16,7 +16,7 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     $dept_Inventory_no = $row1['f_set_id'];
     // if ($article == "Serial_number" || $article == "Model_number") {
     //     // Get the corresponding name from the invoice table
-        
+
     // }
 
     $invoice_id = $row1['invoice_id'];
@@ -29,10 +29,8 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
 
     // Insert into formb_table
     $query2 = "INSERT INTO f_formb_table (article, quantity, sdrt, master_inventory_no, dept_Inventory_no, fixed_asset_no, remarks) 
-               VALUES ('$article', '', '$sdrt', '', '$dept_Inventory_no', '', '')";
+               VALUES ('$article', 1, '$sdrt', '', '$dept_Inventory_no', '', '')";
     mysqli_query($con, $query2);
 }
 
-echo "<script>window.location.href='furnitureForm_B.php';</script>"
-
-?>
+echo "<script>window.location.href='furnitureForm_B.php';</script>";

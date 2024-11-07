@@ -8,7 +8,7 @@ $result1 = mysqli_query($con, "SELECT * FROM f_invoice ORDER BY f_name ASC");
 function insertIntoFormaTable($con, $description, $year, $value, $dept_inventory_no, $pg_no, $book_balanced)
 {
     $query = "INSERT INTO f_forma_table (description, purchase_year, purchase_value, master_inventory_no, dept_inventory_no, page_no, fixed_asset_no, book_balance, total, verified_balance, surplus, deficit, remarks) 
-                  VALUES ('$description', '$year', '$value', '', '$dept_inventory_no', '$pg_no', '', '$book_balanced', '', '', '', '', '')";
+                  VALUES ('$description', '$year', '$value', '', '$dept_inventory_no', '$pg_no', '', '$book_balanced', 0, '', '', '', '')";
     mysqli_query($con, $query);
 }
 while ($row1 = mysqli_fetch_assoc($result1)) {

@@ -7,7 +7,7 @@ if (!isset($_SESSION['uname'])) {
     exit();
 }
 
-$rowsPerPage = 10;
+$rowsPerPage = 15;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $rowsPerPage;
 
