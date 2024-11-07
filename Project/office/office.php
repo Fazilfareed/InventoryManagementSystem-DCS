@@ -16,10 +16,10 @@ $queryinvoice = "SELECT * FROM o_invoice ORDER BY invoice_id DESC LIMIT $offset,
 $totalRows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM o_invoice"));
 $totalPages = ceil($totalRows / $rowsPerPage);
 
-if (isset($_POST['search'])) {
-    $year = $_POST['year'];
-    $folio = $_POST['folio'];
-    $SN = $_POST['SN'];
+if (isset($_GET['search'])) {
+    $year = $_GET['year'];
+    $folio = $_GET['folio'];
+    $SN = $_GET['SN'];
 
     if (!(empty($year)) and !(empty($folio)) and !(empty($SN))) {
         $queryinvoice = "SELECT * FROM o_invoice INNER JOIN o_items ON o_items.invoice_id = o_invoice.invoice_id WHERE o_items.serial_number='$SN' AND EXTRACT(YEAR FROM date)=$year AND folio_number='$folio' ORDER BY name ASC ";
@@ -74,7 +74,7 @@ if (isset($_POST['search'])) {
         <div class="container">
             <h2>Search Office Equipments...</h2>
             <div>
-                <form action="office.php" method="post">
+                <form action="office.php" method="get">
 
                     <input type="number" placeholder="Year" name="year" min="0000" max="<?php echo date("Y"); ?>"
                         value="<?php if (isset($_POST['year'])) {
