@@ -230,7 +230,7 @@ if (!isset($_SESSION['uname'])) {
                 <table>
                     <tr>
                         <th>Category</th>
-                        <th>Set ID</th>
+                        <th>Folio Number</th>
                         <th>Item Name</th>
                         <th>Location</th>
                     </tr>
