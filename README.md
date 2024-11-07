@@ -6,7 +6,7 @@ then go to the `http://localhost/InventoryManagementSystem-DCS/Project/` to acce
 
 
 ## Login
-Through server 10.10.10.157/InventoryManagementSystem-DCS/Project
+Through server 10.10.10.157/group16/InventoryManagementSystem-DCS/Project
 - **Username:** masteradmin
 - **Password:** 123456789
 
