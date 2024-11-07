@@ -74,9 +74,9 @@ if (isset($_GET['search'])) {
             <h2>Search Furniture Equipments...</h2>
             <div>
                 <form action="furniture.php" method="get">
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
-                                                                                    echo $_POST['year'];
-                                                                                } ?>" />
+                    <input type="number" placeholder="Year" name="year" min="0000" max="<?php echo date("Y"); ?>" value="<?php if (isset($_POST['year'])) {
+                                                                                                                                echo $_POST['year'];
+                                                                                                                            } ?>" />
                     <input type="text" placeholder="Folio number" name="folio" value="<?php if (isset($_POST['folio'])) {
                                                                                             echo $_POST['folio'];
                                                                                         } ?>" />
@@ -188,30 +188,30 @@ if (isset($_GET['search'])) {
             </table>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-            $(document).ready(function() {
-                $('.description').each(function() {
-                    if ($(this).width() > 250) {
-                        $(this).removeClass('description').addClass('description expandable');
-                        $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
-                    }
+                $(document).ready(function() {
+                    $('.description').each(function() {
+                        if ($(this).width() > 250) {
+                            $(this).removeClass('description').addClass('description expandable');
+                            $(this).closest('tr').after('<tr><td class="description expandable">' + $(this).text() + '</td></tr>');
+                        }
+                    });
                 });
-            });
-            $(document).ready(function() {
-                $('.name').each(function() {
-                    if ($(this).width() > 250) {
-                        $(this).removeClass('name').addClass('name expandable');
-                        $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
-                    }
+                $(document).ready(function() {
+                    $('.name').each(function() {
+                        if ($(this).width() > 250) {
+                            $(this).removeClass('name').addClass('name expandable');
+                            $(this).closest('tr').after('<tr><td class="name expandable">' + $(this).text() + '</td></tr>');
+                        }
+                    });
                 });
-            });
-            $(document).ready(function() {
-                $('.sname').each(function() {
-                    if ($(this).width() > 250) {
-                        $(this).removeClass('sname').addClass('sname expandable');
-                        $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
-                    }
+                $(document).ready(function() {
+                    $('.sname').each(function() {
+                        if ($(this).width() > 250) {
+                            $(this).removeClass('sname').addClass('sname expandable');
+                            $(this).closest('tr').after('<tr><td class="sname expandable">' + $(this).text() + '</td></tr>');
+                        }
+                    });
                 });
-            });
             </script>
         </div>
 

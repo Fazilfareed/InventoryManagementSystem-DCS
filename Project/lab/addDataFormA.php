@@ -54,7 +54,7 @@ if (isset($_GET['dept_inventory_no'])) {
 <body>
     <?php include("../header/header.php"); ?>
     <h2><?php if (isset($_GET['dept_inventory_no'])) {
-            echo "Update Form B";
+            echo "Update Form A";
         }  ?></h2>
 
     <form action="actionItemFormA.php" method="POST">
@@ -74,47 +74,47 @@ if (isset($_GET['dept_inventory_no'])) {
                                                             } ?>" readonly /><br>
 
 
-        <label for="purchase_value">Purchase Price</label> 
+        <label for="purchase_value">Purchase Price</label>
         <input type="number" name="purchase_value" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['purchase_value'];
                                                             } ?>" readonly /><br>
 
 
 
-        <label for="dept_inventory_no">Department Inventory No</label> 
+        <label for="dept_inventory_no">Department Inventory No</label>
         <input type="text" name="dept_inventory_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['dept_inventory_no'];
                                                             } ?>" readonly /> <br>
 
-        <label for="page_no">Page No</label> 
+        <label for="page_no">Page No</label>
         <input type="text" name="page_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['page_no'];
                                                     } ?>" readonly /> <br>
 
-        <label for="fixed_asset_no">Fixed Asset No</label> 
+        <label for="fixed_asset_no">Fixed Asset No</label>
         <input type="text" name="fixed_asset_no" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['fixed_asset_no'];
                                                         } ?>" /> <br>
 
-        <label for="book_balance">Book Balance</label> 
+        <label for="book_balance">Book Balance</label>
         <input type="number" name="book_balance" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                             echo $row1['book_balance'];
                                                         } ?>" readonly /> <br>
 
 
-        <label for="total">Total</label> 
+        <label for="total">Total</label>
         <input type="number" name="total" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['total'];
                                                     } ?>" /> <br>
 
 
-        <label for="verified_balance">Verified Balance</label> 
+        <label for="verified_balance">Verified Balance</label>
         <input type="text" name="verified_balance" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                                 echo $row1['verified_balance'];
                                                             } ?>" /> <br>
 
 
-        <label for="surplus">Surplus</label> 
+        <label for="surplus">Surplus</label>
         <input type="text" name="surplus" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['surplus'];
                                                     } ?>" /> <br>
@@ -126,7 +126,7 @@ if (isset($_GET['dept_inventory_no'])) {
                                                     } ?>" /> <br>
 
 
-        <label for="remarks">Remarks</label> 
+        <label for="remarks">Remarks</label>
         <input type="text" name="remarks" value="<?php if (isset($_GET['dept_inventory_no'])) {
                                                         echo $row1['remarks'];
                                                     } ?>" /> <br>

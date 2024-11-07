@@ -253,9 +253,9 @@ if (isset($_GET['search'])) {
                 <a href="formATable.php"><input class="button" type="submit" name="create" value="create table" /></a>
                 <form action="labForm_A.php" method="get">
 
-                    <input type="number" placeholder="Year" name="year" value="<?php if (isset($_POST['year'])) {
-                                                                                    echo $_POST['year'];
-                                                                                } ?>" />
+                    <input type="number" placeholder="Year" name="year" min="0000" max="<?php echo date("Y"); ?>" value="<?php if (isset($_POST['year'])) {
+                                                                                                                                echo $_POST['year'];
+                                                                                                                            } ?>" />
 
                     <!-- <input type="text" placeholder="Article Name" name="name" value="<?php if (isset($_POST['name'])) {
                                                                                                 echo $_POST['name'];
